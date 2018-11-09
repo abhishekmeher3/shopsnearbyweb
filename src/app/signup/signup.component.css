@@ -1,0 +1,9 @@
+.overlap {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.left {
+    background-image: linear-gradient(red, maroon);
+}
