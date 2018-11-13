@@ -8,9 +8,11 @@ import { LoginService } from './login.service';
   providers: [LoginService]
 })
 export class loginComponent implements OnInit {
-  email: string = '';
-  password: string = '';
+  email: string = ''
+  password: string = ''
 
+  abhishek = ""
+  name = ""
   constructor(public loginService: LoginService) { }
 
   ngOnInit() {
@@ -18,10 +20,14 @@ export class loginComponent implements OnInit {
 
   login(){
     if(this.email && this.password){
-      this.loginService.doLogIn({
-        emailId: this.email,
-        password: this.password,
-      });
+      this.loginService.doLogIn(this.email,this.password).subscribe((response) => {
+         JSON.stringify(response)
+         console.log(JSON.stringify(response));
+
+       },
+      (error) => {
+        console.log(JSON.stringify(error));
+       });
     }
   }
 
