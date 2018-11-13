@@ -16,7 +16,7 @@
             <div style="position:absolute;display:flex; justify-content: flex-end; flex-direction: column;height: 100%;width: 100%">
                 <h3 style="font-size:14px;color: white; margin-bottom: 40px; text-align: center">Copyright &copy; Shops
                     Nearby Me. All
-                    Rights reserved.</h3>
+                    Rights reserved. {{name}}</h3>
 
             </div>
 
@@ -29,15 +29,15 @@
         <div>
             <h4 style="color:#676767; margin-top: 15%;font-size: 30px">Welcome Back !</h4>
             <h6 style="color: #676767; font-size: 14px">It is a long established fact that a reader will be <br>
-                distracted by the readable content of a page when</h6>
+                distracted by the readable content of a page when {{abhishek}}</h6>
             <form>
                 <div class="form-group">
                     <label style="color:#676767;margin-top:40px; font-size: 14px" for="exampleInputEmail1">Email address</label>
-                    <input type="email" [(ngModel)]="email" class="form-control textbox" id="exampleInputEmail1" placeholder="Email">
+                    <input type="email" [(ngModel)]="email" name="email" class="form-control textbox" id="exampleInputEmail1" placeholder="Email">
                 </div>
                 <div class="form-group">
                     <label style="color:#676767;font-size: 14px" for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control textbox" id="exampleInputPassword1" [(ngModel)]="password"
+                    <input type="password" name="password" class="form-control textbox" id="exampleInputPassword1" [(ngModel)]="password"
                         placeholder="Password">
                 </div>
                 <div class="form-group" style="text-align: right; width: 50%">
