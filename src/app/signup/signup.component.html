@@ -1,3 +1,4 @@
+<mat-progress-bar mode="indeterminate" color="accent" [hidden]="!loading"></mat-progress-bar>
 <div class="row">
     <div class="col-md-6" style="height:100vh;padding-right: 0px">
 
@@ -32,25 +33,35 @@
                 distracted by the readable content of a page when</h6>
             <form>
                 <div class="form-group">
-                    <label style="color:#676767;margin-top:40px; font-size: 14px" >Email address</label>
+                    <label style="color:#676767;margin-top:20px; font-size: 14px">Name</label>
+                    <input [(ngModel)]="firstName" name="firstName" class="form-control textbox" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="lastName" name="lastName" class="form-control textbox" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label style="color:#676767; font-size: 14px">Email address</label>
                     <input type="email" [(ngModel)]="email" name="email" class="form-control textbox" placeholder="Email">
                 </div>
                 <div class="form-group">
                     <label style="color:#676767;font-size: 14px">Phone Number</label>
                     <input type="number" name="phonenum" class="form-control textbox" [(ngModel)]="phonenum"
-                        placeholder="Password">
+                        placeholder="Phone Number">
                 </div>
 
                 <div class="form-group">
                     <label style="color:#676767;font-size: 14px" for="iam">I Am</label>
                     <br/>
-                    <select id="iam" name="userType" [(ngModel)]="userType" ng-options="let x of names">
-                        <option *ngFor="let x of names" value={{x}}>{{x}}</option>
-                    </select>
+                    <!-- <select id="iam" [compareWith]="compareUserType" name="userType" [(ngModel)]="selectedUserType" >
+                        <option *ngFor="let x of userTypes" >{{x.display}}</option>
+                    </select> -->
+                    <select name="selectedUserType" [(ngModel)]="selectedUserType">
+                            <option *ngFor="let c of userTypes" value={{c.data}}>{{c.display}}</option>
+                      </select>
                 </div>
 
                 <div class="form-group">
-                    <button type="button" class="btn btn-default loginbtn" (click)="signup()">Signup</button>
+                    <button type="button" [disabled] = "loading" class="btn btn-default loginbtn" (click)="signup()">Signup</button>
                 </div>
 
                 <div style="margin-top:50px">
