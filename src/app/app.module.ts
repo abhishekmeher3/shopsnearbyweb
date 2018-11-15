@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
 import { loginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AddShop } from './AddShop/add-shop.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
     loginComponent,
+    AddShop,
   ],
   imports: [
     BrowserModule,
