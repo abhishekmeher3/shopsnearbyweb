@@ -4,6 +4,7 @@ import { User } from '../../core/models/user.model'
 import { MatDialog } from '@angular/material';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 import { ResolvedAddress, LatLng } from 'src/core/models/Models';
+import { GeocodeService } from 'src/core/services/geocode.service';
 
 @Component({
   selector: 'app-signup',
@@ -26,7 +27,11 @@ export class SignupComponent implements OnInit {
 
   loading = false
 
-  constructor(private userService: UserService, public dialog: MatDialog) {
+  constructor(
+    private userService: UserService,
+    public dialog: MatDialog,
+    private geocodeService: GeocodeService) {
+      
   }
 
   ngOnInit() {
@@ -35,7 +40,7 @@ export class SignupComponent implements OnInit {
   getLocation() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        this.userService.resolveAddress({
+        this.geocodeService.resolveAddress({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         }).subscribe(
