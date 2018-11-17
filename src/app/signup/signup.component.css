@@ -1,9 +1,15 @@
-.overlap {
-    position: absolute;
-    top: 0;
-    left: 0;
+.loginbtn{
+    background: #F4B11B;
+    padding-left: 60px;
+    padding-right: 60px;
+    font-size: 20px;
+    border-radius: 30px;
+    margin-top: 40px;
 }
 
-.left {
-    background-image: linear-gradient(red, maroon);
+.textbox{
+    border: blue;
+    border-radius: 5px;
+    height: 50px;
+    width:50%;
 }
