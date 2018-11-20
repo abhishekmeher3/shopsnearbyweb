@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
 import { loginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AddShop } from './AddShop/add-shop.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule, MatButtonModule, MatProgressBarModule} from '@angular/material';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component'
@@ -16,6 +17,7 @@ import { InfoDialogComponent } from './info-dialog/info-dialog.component'
     AppComponent,
     SignupComponent,
     loginComponent,
+    AddShop,
     InfoDialogComponent,
   ],
   imports: [
