@@ -1,67 +1,68 @@
 .bg {
-    background: blue;
-    color: white;
-    height: 200px
-  }
-  
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 30px;
-    background-color: #5b5b5b;
-    color: white;
-    padding-top: 7px;
-    text-align: center;
+  background: blue;
+  color: white;
+  height: 200px;
+  background-image: url('../../assets/img/map-bg.png'),linear-gradient( #39278b,#15184d);;
 }
-  
-  .container {
-    background: #fff;
-  }
-  
-  .shop_name {
-    font-size: 18pt;
-    height: 420px;
-    width: 200px;
-  }
-  
-  .border {
-    width: 250px;
-    height: 300px;
-    margin: 6px;
-    background-color: #cacaca;
-    border-color: #1d2463;
-  }
-  
-  label {
-    color: #676767;
-  }
-  
-  .form-control {
-    border-width: 1px;
-    border-color: #1d2463;
-    box-sizing: border-box;
-  }
-  
-  .loginbtn {
-    background: #F4B11B;
-    padding-left: 60px;
-    padding-right: 60px;
-    font-size: 20px;
-    border-radius: 30px;
-  }
-  
-  .login_click {
-    color: #676767;
-    font-family: Arial;
-    margin-left: 30px;
-    size: 17px;
-  }
-  
-  .login {
-    color: black;
-    font-family: Arial;
-    margin-left: 20px;
-    size: 17px;
-  }
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  background-color: #5b5b5b;
+  color: white;
+  padding-top: 7px;
+  text-align: center;
+}
+
+.container {
+  background: #fff;
+}
+
+.shop_name {
+  font-size: 18pt;
+  height: 420px;
+  width: 200px;
+}
+
+.border {
+  width: 250px;
+  height: 300px;
+  margin: 6px;
+  background-color: #cacaca;
+  border-color: #1d2463;
+}
+
+label {
+  color: #676767;
+}
+
+.form-control {
+  border-width: 1px;
+  border-color: #1d2463;
+  box-sizing: border-box;
+}
+
+.loginbtn {
+  background: #F4B11B;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: 15px;
+  border-radius: 20px;
+}
+
+.login_click {
+  color: #676767;
+  font-family: Arial;
+  margin-left: 30px;
+  size: 17px;
+}
+
+.login {
+  color: black;
+  font-family: Arial;
+  margin-left: 20px;
+  size: 17px;
+}
