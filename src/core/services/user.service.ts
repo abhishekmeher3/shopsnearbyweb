@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { } from 'googlemaps';
-import { LatLng, ResolvedAddress } from '../models/Models';
+import { config } from '../../configs/baseconfig'
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class UserService {
     let options = {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     };  
-    return this.http.post<User>("http://122.175.60.20:8104/users/login", body.toString(), options)
+    return this.http.post<User>(`${config.API_URL}/users/login`, body.toString(), options)
   }
 
   signup(user: User): Observable<any>{
@@ -32,32 +32,9 @@ export class UserService {
     body.append('latitude', user.latitude.toString())
     body.append('longitude', user.longitude.toString())
     body.append('type', user.type)
-    return this.http.post<any>("http://122.175.60.20:8104/users/signup", body)
+    return this.http.post<any>(`${config.API_URL}/users/signup`, body)
   }
 
-  resolveAddress(latlng: LatLng): Observable<ResolvedAddress>{
-    return Observable.create(observer=>{
-      let geocoder = new google.maps.Geocoder();
-      geocoder.geocode({
-        location: {
-          lat: latlng.latitude,
-          lng: latlng.longitude
-        }
-      }, (results, status) => {
-        if (status == google.maps.GeocoderStatus.OK) {
-          let resolvedAddress: ResolvedAddress = {
-            latlng : latlng,
-            formattedAddress: results[0].formatted_address
-          }
-          observer.next(resolvedAddress)
-          observer.complete()
-        }else{
-          observer.error({message: "Geocoder Failed"})
-          observer.complete()
-        }
-      })
-    })
-    
-  }
+  
 
 }

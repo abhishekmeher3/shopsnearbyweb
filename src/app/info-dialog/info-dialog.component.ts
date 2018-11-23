@@ -14,6 +14,9 @@ export class InfoDialogComponent implements OnInit {
   ngOnInit() {
   }
 
+  onClose(){
+    
+  }
 }
 
 export interface InfoDialogData{
