@@ -16,6 +16,7 @@ import {
 } from '@angular/material';
 import {InfoDialogComponent} from './info-dialog/info-dialog.component';
 import {FiltersPageComponent} from './filters-page/filters-page.component';
+import {HomeModule} from './home-page/home-page.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {FiltersPageComponent} from './filters-page/filters-page.component';
     MatDialogModule,
     MatButtonModule,
     MatProgressBarModule,
+    HomeModule,
     AppRoutingModule,
   ],
   providers: [],
