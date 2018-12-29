@@ -1,11 +1,15 @@
 import {HomePageComponent} from './home-page.component';
 import {NgModule} from '@angular/core';
+import {
+  MatDialogModule,
+  MatButtonModule,
+  MatProgressBarModule,
+} from '@angular/material';
 
 @NgModule({
   declarations: [HomePageComponent],
-  imports: [],
+  imports: [MatDialogModule, MatButtonModule, MatProgressBarModule],
   providers: [],
   bootstrap: [HomePageComponent],
-  entryComponents: [HomePageComponent],
 })
 export class HomeModule {}

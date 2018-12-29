@@ -1,1 +1,224 @@
-<h1>{{ test }}</h1>
+<mat-progress-bar
+  mode="indeterminate"
+  color="accent"
+  [hidden]="!loading"
+  class="loadingBar"
+></mat-progress-bar>
+
+<div class="top" style="position:relative;width: 100%">
+  <div class="padded header">
+    <div style="display: flex;justify-content: space-between;">
+      <img
+        src="../../assets/img/logo.svg"
+        style="width: 24%;height: 10%; margin-top: 4%"
+      />
+      <div style="display:inline-block;margin-top: 4%;">
+        <a class="textBtn" href="#">Register Your shop</a>
+        <a class="textBtn" href="login">Login</a>
+        <a class="signupBtn">Signup</a>
+      </div>
+    </div>
+
+    <div style="margin-top:6px;">
+      <a class="navLinks" href="#">Home</a>
+      <p class="navLinks">></p>
+      <a class="navLinks" href="#">Category</a>
+      <p class="navLinks">></p>
+      <a class="navLinks" href="#">Restaurants Nearby You</a>
+    </div>
+
+    <p
+      style="font-size:18px; color: goldenrod;margin-bottom: 10px;margin-top: 20px"
+    >
+      Showing Restaurants Nearby You
+    </p>
+
+    <div class="searchBar">
+      <img
+        style="margin-left: 10px;"
+        src="../../assets/img/ic_my_location.svg"
+      />
+      <p class="current-location">{{ currentLocation }}</p>
+      <div
+        style="width:1px;height:100%;background-color: black; margin-left: 5px;margin-right: 5px"
+      ></div>
+      <input
+        style="border:0; width:46%;margin-left: 10px;"
+        placeholder="Search Nearby Restaurants by Name"
+        type="text"
+        name="search"
+      />
+      <button
+        class="signupBtn"
+        style="padding-left:10px; height:100%; width:18%; border-radius:40px;padding-right:10px;font-size:16px;"
+      >
+        Find Nearby
+      </button>
+    </div>
+  </div>
+  <!-- <div class="padded" style="margin-top:60px;">
+    <div style="display:flex; justify-content:space-between">
+      <p style="font-size:18px;">
+        <b>{{ shops.length }} Shops Nearby</b>
+      </p>
+      <p>Sort By</p>
+    </div>
+    <div class="scrolling-wrapper">
+      <div class="chip" *ngFor="let i of selectedCategories">
+        <p class="chip-content">{{ i }}</p>
+        <button class="btn-light chip-content" (click)="onChipRemoveClicked(i)">
+          <b>x</b>
+        </button>
+      </div>
+    </div>
+
+    <div class="one-third-parent" style="margin-top:20px;">
+      <div class="one-third-child">
+        <div class="category-panel">
+          <p
+            style="color:#15184d;font-size: 18px;font-weight: 500;margin-bottom: 4px;"
+          >
+            Categories
+          </p>
+          <div
+            style="background-color:#15184d; height:1px;margin-bottom: 15px;"
+          ></div>
+          <div>
+            <label *ngFor="let category of categories" style="display:block">
+              <input
+                type="checkbox"
+                name="categories"
+                [checked]="selectedCategories.indexOf(category) >= 0"
+                (change)="updateCategorySelection(category, $event)"
+              />
+
+              {{ category }}
+            </label>
+          </div>
+
+          <p
+            style="color:#15184d;font-size: 18px;font-weight: 500;margin-bottom: 4px;margin-top: 20px;"
+          >
+            Distance
+          </p>
+          <div
+            style="background-color:#15184d; height:1px;margin-bottom: 15px;"
+          ></div>
+          <div class="custom-control custom-checkbox">
+            <label *ngFor="let distance of distances" style="display:block">
+              <input
+                type="radio"
+                [checked]="distance == selectedDistance"
+                name="distanceradio"
+                value="{{ distance }}"
+                (change)="onDistanceSelectionChanged(distance)"
+              />
+              {{ distance }} Kms
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="cardList" style="width:65%">
+        <ng-container *ngFor="let shop of shops">
+          <div
+            class="cardListItem"
+            style="display: block; position: relative; border-radius: 8px;padding: 0;overflow: hidden;"
+          >
+            <img
+              [src]="shop.imageUrl || '../../assets/img/shopimg.png'"
+              style="border-radius:8px;margin:0;height: 200px; width: 100%; object-fit: cover; position: absolute"
+            />
+            <div
+              style="background-image: linear-gradient( #00000000,#00000038, #000000);position: absolute;height: 100%; width: 100%"
+            ></div>
+            <p
+              style="bottom:25px;left:12px;position:absolute;color:white;font-weight:500;font-size:14px;margin: 0;"
+            >
+              {{ shop.name }}
+            </p>
+            <p
+              style="bottom:10px;left:12px;position:absolute;color:rgba(255, 255, 255, 0.726);font-weight:300;font-size:12px;margin: 0;"
+            >
+              {{ shop.description }}
+            </p>
+            <button
+              style="position:absolute;right:10px;top:10px; width:28px;height:28px;background-color:white;padding: 0;border-radius: 4px;"
+            >
+              <img
+                style="margin:auto;height:24px;width: 24px;"
+                src="../../assets/img/ic_bookmark.svg"
+              />
+            </button>
+            <button
+              style="position:absolute;right:48px;top:10px; width:28px;height:28px;background-color:white;padding: 0;border-radius: 4px"
+            >
+              <img
+                style="margin:auto;height:22px;width: 22px;"
+                src="../../assets/img/ic_share.svg"
+              />
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="joinnow">
+    <div>
+      <p style="margin:0;display: inline-block;">
+        Are you a shop owner looking to grow your bussiness online?
+      </p>
+      <button class="btn joinnow-btn">Join now</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <p style="font-weight:500; font-size:16px">About Shops Nearby Me</p>
+    <p>
+      Shops Nearby you helps you discover the Nearby things to do, eat, buy or
+      explore - whatever you are, who ever you are! We have more than 10k
+      listings which include Restaurants, gym, spa, shopping malls other unique
+      places located around you. Don't stop yet! Take it whenever you go with
+      the shops nearby you mobile app. Based on your location and preference,
+      our smart search engine will suggest new things to explore every time you
+      open the app. What's more, with offers on everything around you.. you are
+      sure to try something new everytime.
+    </p>
+
+    <p>Product of Himaja Infotech, Developed by Abhishek Meher</p>
+  </div>
+
+  <div style="margin-left:20px; margin-right:20px; width: 40%">
+    <p style="font-weight:500; font-size:16px">Useful Links</p>
+    <a href="#" class="footer-links">About us</a>
+    <a href="#" class="footer-links">Privacy Policy</a>
+    <a href="#" class="footer-links">Terms and conditions</a>
+
+    <p style="font-weight:500; font-size:16px; margin-top: 20px;">Follow Us</p>
+    <div style="display:flex;align-items:center;">
+      <img style="height:30px;width:30px;" src="../../assets/img/fb.svg" />
+      <img
+        style="height:30px;width:30px;margin:4px"
+        src="../../assets/img/insta.svg"
+      />
+      <img style="height:30px;width:30px;" src="../../assets/img/twitter.svg" />
+    </div>
+  </div>
+
+  <div style="width:40%;margin-top:40px;">
+    <a href="#" class="footer-links">Contact us</a>
+    <a href="#" class="footer-links">Blogs</a>
+    <a href="#" class="footer-links">Carreers</a>
+  </div>
+</div>
+
+<div
+  style="background-color:grey;height:30px; display: flex; flex-direction: row;align-items: center"
+>
+  <p style="margin:auto; font-size:14px;">
+    Copyright Shops Nearby Me. All Right Reserved.
+  </p>
+</div>
