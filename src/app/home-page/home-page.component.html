@@ -56,114 +56,22 @@
       </button>
     </div>
   </div>
-  <!-- <div class="padded" style="margin-top:60px;">
-    <div style="display:flex; justify-content:space-between">
-      <p style="font-size:18px;">
-        <b>{{ shops.length }} Shops Nearby</b>
-      </p>
-      <p>Sort By</p>
-    </div>
-    <div class="scrolling-wrapper">
-      <div class="chip" *ngFor="let i of selectedCategories">
-        <p class="chip-content">{{ i }}</p>
-        <button class="btn-light chip-content" (click)="onChipRemoveClicked(i)">
-          <b>x</b>
-        </button>
+  <div class="padded" style="margin-top: 34px;">
+    <p style="margin-left: 14px;">Trending Search: {{ trendingSearches }}</p>
+    <div class="row">
+      <div class="col-md-7">
+        <h3>Popular Categories</h3>
+        <p>Explore Nearby Restaurants, Hospitals, Gyms etc by Category</p>
+
+        <!-- For testing purposes only -->
+        <i class="fa fa-car" style="font-size:60px;color:red;"></i>
+      </div>
+      <div class="col-md-5">
+        <h3>Our Recommendations</h3>
+        <p>Our team always curate the best for you</p>
       </div>
     </div>
-
-    <div class="one-third-parent" style="margin-top:20px;">
-      <div class="one-third-child">
-        <div class="category-panel">
-          <p
-            style="color:#15184d;font-size: 18px;font-weight: 500;margin-bottom: 4px;"
-          >
-            Categories
-          </p>
-          <div
-            style="background-color:#15184d; height:1px;margin-bottom: 15px;"
-          ></div>
-          <div>
-            <label *ngFor="let category of categories" style="display:block">
-              <input
-                type="checkbox"
-                name="categories"
-                [checked]="selectedCategories.indexOf(category) >= 0"
-                (change)="updateCategorySelection(category, $event)"
-              />
-
-              {{ category }}
-            </label>
-          </div>
-
-          <p
-            style="color:#15184d;font-size: 18px;font-weight: 500;margin-bottom: 4px;margin-top: 20px;"
-          >
-            Distance
-          </p>
-          <div
-            style="background-color:#15184d; height:1px;margin-bottom: 15px;"
-          ></div>
-          <div class="custom-control custom-checkbox">
-            <label *ngFor="let distance of distances" style="display:block">
-              <input
-                type="radio"
-                [checked]="distance == selectedDistance"
-                name="distanceradio"
-                value="{{ distance }}"
-                (change)="onDistanceSelectionChanged(distance)"
-              />
-              {{ distance }} Kms
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="cardList" style="width:65%">
-        <ng-container *ngFor="let shop of shops">
-          <div
-            class="cardListItem"
-            style="display: block; position: relative; border-radius: 8px;padding: 0;overflow: hidden;"
-          >
-            <img
-              [src]="shop.imageUrl || '../../assets/img/shopimg.png'"
-              style="border-radius:8px;margin:0;height: 200px; width: 100%; object-fit: cover; position: absolute"
-            />
-            <div
-              style="background-image: linear-gradient( #00000000,#00000038, #000000);position: absolute;height: 100%; width: 100%"
-            ></div>
-            <p
-              style="bottom:25px;left:12px;position:absolute;color:white;font-weight:500;font-size:14px;margin: 0;"
-            >
-              {{ shop.name }}
-            </p>
-            <p
-              style="bottom:10px;left:12px;position:absolute;color:rgba(255, 255, 255, 0.726);font-weight:300;font-size:12px;margin: 0;"
-            >
-              {{ shop.description }}
-            </p>
-            <button
-              style="position:absolute;right:10px;top:10px; width:28px;height:28px;background-color:white;padding: 0;border-radius: 4px;"
-            >
-              <img
-                style="margin:auto;height:24px;width: 24px;"
-                src="../../assets/img/ic_bookmark.svg"
-              />
-            </button>
-            <button
-              style="position:absolute;right:48px;top:10px; width:28px;height:28px;background-color:white;padding: 0;border-radius: 4px"
-            >
-              <img
-                style="margin:auto;height:22px;width: 22px;"
-                src="../../assets/img/ic_share.svg"
-              />
-            </button>
-          </div>
-        </ng-container>
-      </div>
-    </div>
-  </div> -->
-
+  </div>
   <div class="joinnow">
     <div>
       <p style="margin:0;display: inline-block;">
