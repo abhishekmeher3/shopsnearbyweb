@@ -1,0 +1,213 @@
+<div class="bg container-fluid">
+  <div
+    class="row"
+    style="padding-left: 10%;padding-right: 10%;padding-top: 40px;padding-bottom: 20px;"
+  >
+    <div class="col-md-6">
+      <img
+        style="width: 200px; height: 50px;"
+        src="../../assets/img/logo.svg"
+      />
+      <div style="margin-top: 60px;">
+        <div style="color:#f6b118;font-size: 20px"><b>Add Your Shop</b></div>
+        <div style="color:white;font-size: 20px;">
+          Enter your shop details to get listed
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6" style="text-align: right;">
+      <span id="login" style="margin-right: 20px;"> Login </span>
+      <button type="button" class="btn btn-default loginbtn">Sign Up</button>
+    </div>
+  </div>
+</div>
+<br />
+<!-- <div class="container"> -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <form>
+        <div class="form-group">
+          <label for="shop-name">Shop Name</label>
+          <input class="form-control" id="shop-name" type="text" />
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-md-6">
+          <form>
+            <div class="form-group">
+              <label for="shop-category">Shop Category</label>
+              <select
+                [(ngModel)]="selectedValue"
+                class="form-control"
+                id="inputdefault"
+                name="shop-category"
+              >
+                <option
+                  *ngFor="let category of categories"
+                  [ngValue]="category"
+                >
+                  {{ category.name }}</option
+                >
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <form>
+            <div class="form-group">
+              <label for="shop-website">Shop Website (if any)</label>
+              <input class="form-control" id="shop-website" type="text" />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-12" style="padding: 0px;">
+        <form>
+          <div class="form-group">
+            <label for="shop-description">Shop Description</label>
+            <textarea
+              class="form-control"
+              id="shop-description"
+              type="text"
+              placeholder="Toys"
+              style="height:150px;"
+            ></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <form>
+            <div class="form-group">
+              <label for="start-timing">Timings</label>
+              <input
+                class="form-control"
+                id="start-timing"
+                type="text"
+                [owlDateTime]="dt1"
+                [owlDateTimeTrigger]="dt1"
+              />
+              <owl-date-time #dt1 [pickerType]="'timer'"></owl-date-time>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-2" style="text-align:center;margin: auto;">to</div>
+        <div class="col-md-5">
+          <form>
+            <div class="form-group">
+              <label for="end-timing">&nbsp;</label>
+              <input
+                class="form-control"
+                id="end-timing"
+                type="text"
+                [owlDateTime]="dt2"
+                [owlDateTimeTrigger]="dt2"
+              />
+              <owl-date-time #dt2 [pickerType]="'timer'"></owl-date-time>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <form>
+            <div class="form-group">
+              <label for="shop-address-line-1">Address</label>
+              <input
+                class="form-control"
+                id="shop-address-line-1"
+                type="text"
+                placeholder="House / Flat / Apt No."
+              />
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <form>
+            <div class="form-group">
+              <label for="shop-address-line-2">&nbsp;</label>
+              <input
+                class="form-control"
+                id="shop-address-line-2"
+                type="text"
+                placeholder="Building Name"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <form>
+            <div class="form-group">
+              <input
+                class="form-control"
+                id="shop-address-line-3"
+                type="text"
+                placeholder="Locality"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <form>
+            <div class="form-group">
+              <input
+                class="form-control"
+                id="shop-address-line-4"
+                type="text"
+                placeholder="City"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <form>
+            <div class="form-group">
+              <input
+                class="form-control"
+                id="shop-address-line-5"
+                type="text"
+                placeholder="State"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <form>
+            <div class="form-group">
+              <input
+                class="form-control"
+                id="shop-address-line-6"
+                type="text"
+                placeholder="Pincode"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" style="margin: 20px 0px 70px 0px">
+          <div class="form-group">
+            <button type="button" class="btn btn-default loginbtn">
+              Submit
+            </button>
+            <label style="margin-left:20px" id="login_click">Cancel</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div style="margin-left: 6px;">Shop Logo</div>
+      <div class="border" style="text-align:left">
+        <img src="../../assets/img/logo.svg" height="100%" width="100%" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- </div> -->
+<div class="footer">Copyright © Shops Nearby Me. All Rights Reserved</div>

@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ShopsService} from 'src/core/services/shops.service';
 
 @Component({
   selector: 'home-page',
@@ -6,22 +7,24 @@ import {Component} from '@angular/core';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent {
+  othersShops: any = [];
+  recommendedShops: any = [];
   test: string;
   currentSlideOffers = 0;
   currentLocation: string = 'Banjara hills';
   loading: boolean = false;
   trendingSearches: String[] = ['Gyms, Car Repair, Medical Hall'];
   popularCategories = [
-    {label: 'Restaurants', icon: 'fa fa-car'},
-    {label: 'Parks', icon: 'fa fa-car'},
-    {label: 'Pharmacy', icon: 'fa fa-car'},
-    {label: 'Hotels', icon: 'fa fa-car'},
-    {label: 'Petrol Bunks', icon: 'fa fa-car'},
-    {label: 'Schools', icon: 'fa fa-car'},
-    {label: 'Gyms', icon: 'fa fa-car'},
-    {label: 'Shopping', icon: 'fa fa-car'},
-    {label: 'Furniture', icon: 'fa fa-car'},
-    {label: 'Bus Stop', icon: 'fa fa-car'},
+    {display: 'Restaurants', value: 'restaurants', icon: 'fa fa-car'},
+    {display: 'Parks', value: 'parks', icon: 'fa fa-car'},
+    {display: 'Pharmacy', value: 'pharmacy', icon: 'fa fa-car'},
+    {display: 'Hotels', value: 'hotels', icon: 'fa fa-car'},
+    {display: 'Petrol Bunks', value: 'petrolBunks', icon: 'fa fa-car'},
+    {display: 'Schools', value: 'schools', icon: 'fa fa-car'},
+    {display: 'Gyms', value: 'gyms', icon: 'fa fa-car'},
+    {display: 'Shopping', value: 'shopping', icon: 'fa fa-car'},
+    {display: 'Furniture', value: 'furniture', icon: 'fa fa-car'},
+    {display: 'Bus Stop', value: 'busStop', icon: 'fa fa-car'},
   ];
   slides = [
     {
@@ -132,6 +135,7 @@ export class HomePageComponent {
     slidesToShow: 3,
     infinite: false,
   };
+  constructor(private shopService: ShopsService) {}
 
   afterChange(e) {
     this.currentSlideOffers = e.currentSlide;
@@ -150,5 +154,41 @@ export class HomePageComponent {
     //     "<img class='next slick-next' src='../../assets/img/right-icon.png'>";
     // }
     // $('.slick-slider').slick('refresh');
+  }
+  ngOnInit() {
+    //hardcoding for now. To be checked on later
+    const categories = [
+      {
+        display: 'Automobile',
+        value: 'Automobile',
+      },
+      {
+        display: 'Electronics',
+        value: 'Electronics',
+      },
+      {
+        display: 'Education',
+        value: 'Education',
+      },
+      {
+        display: 'Internet',
+        value: 'Internet',
+      },
+    ];
+    const range = 20000;
+    this.shopService.getNearByDiscountsAndCoupons().subscribe(response => {
+      console.log(response);
+    });
+    this.shopService
+      .getRecommendedAndOtherShops(categories, range)
+      .subscribe(response => {
+        this.othersShops = response.filter(
+          (shop: any) => shop.shopType === 'others'
+        );
+        this.recommendedShops = response.filter(
+          (shop: any) => shop.shopType !== 'others'
+        );
+        console.log(this.recommendedShops.concat(this.othersShops));
+      });
   }
 }

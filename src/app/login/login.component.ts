@@ -22,20 +22,10 @@ export class loginComponent implements OnInit {
     if (this.email && this.password) {
       this.loginService.doLogIn(this.email, this.password).subscribe(
         (response: any) => {
-          console.log(response.id);
           console.log(JSON.stringify(response));
-          this.router.navigate(['/filters']);
-
-          //  if (
-          //     localStorage.getItem('userId') &&
-          //     response.id === localStorage.getItem('userId')
-          //   ) {
-          //     // routes to a different page.
-          //     console.log('User already present :' + JSON.stringify(response));
-          //   } else {
-          //     localStorage.setItem('userId', response.id);
-          //     console.log('New User alert :' + JSON.stringify(response));
-          //   }
+          response['password'] = this.password; // added for use when fetching from localStorage, as there password doesn't get returned from the response
+          localStorage.setItem('shopsnearbyme', JSON.stringify(response));
+          this.router.navigate(['/home']);
         },
         error => {
           console.log(JSON.stringify(error));

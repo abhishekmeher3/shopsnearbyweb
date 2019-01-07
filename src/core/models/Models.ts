@@ -1,20 +1,19 @@
-export interface LatLng{
-    latitude: number,
-    longitude: number
+export interface LatLng {
+  latitude: number;
+  longitude: number;
 }
 
-export interface ResolvedAddress{
-    latlng: LatLng,
-    formattedAddress: string
+export interface ResolvedAddress {
+  latlng: LatLng;
+  formattedAddress: string;
 }
 
-
-export interface UserLogin{
-    email: string,
-    password: string
+export interface UserLogin {
+  email: string;
+  password: string;
 }
 
-export interface Category{
-    display: string,
-    value: string
+export interface Category {
+  display: string;
+  value: string;
 }
