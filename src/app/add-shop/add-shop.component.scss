@@ -67,3 +67,10 @@ label {
   margin-left: 20px;
   size: 17px;
 }
+.owl-dt-container-buttons {
+  height: 40px;
+  color: #000;
+  .owl-dt-control-button:first-child {
+    border-right: 1px solid #000;
+  }
+}
