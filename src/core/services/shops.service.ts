@@ -16,6 +16,30 @@ export class ShopsService {
 
   constructor(private http: HttpClient) {}
 
+  addShop(shopObject): Observable<any> {
+    const userDetails: any = JSON.parse(localStorage.getItem('shopsnearbyme'));
+    let body = new FormData();
+    body.set('name', shopObject.shopName);
+    body.set('category', shopObject.shopCategory);
+    body.set('description', shopObject.shopDescription);
+    body.set('phoneNumber', userDetails.phoneNumber);
+    body.set('timeFrom', shopObject.startTime);
+    body.set('timeTo', shopObject.endTime);
+    body.set('address', shopObject.shopAddress);
+    body.set('latitude', userDetails.latitude);
+    body.set('longitude', userDetails.longitude);
+    if (shopObject.imageFile) {
+      body.set('image', shopObject.imageFile);
+    }
+    let options = {
+      headers: this.setBasicAuthHeader({
+        email: userDetails.email,
+        password: userDetails.password,
+      }),
+    };
+    return this.http.post<any>(`${config.API_URL}/shops/others`, body, options);
+  }
+
   getNearByDiscountsAndCoupons() {
     const userDetails: any = JSON.parse(localStorage.getItem('shopsnearbyme'));
     const latlng = this.sanitizeLatLng({

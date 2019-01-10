@@ -6,6 +6,7 @@ import {AddShop} from './add-shop/add-shop.component';
 import {FiltersPageComponent} from './filters-page/filters-page.component';
 import {HomePageComponent} from './home-page/home-page.component';
 import {AuthenticationGuard} from './service/authentication-guard.service';
+import {ShopDetailsComponent} from './shop-details/shop-details.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -18,6 +19,11 @@ const routes: Routes = [
     component: SignupComponent,
   },
   {path: 'addshop', component: AddShop, canActivate: [AuthenticationGuard]},
+  {
+    path: 'details',
+    component: ShopDetailsComponent,
+    canActivate: [AuthenticationGuard],
+  },
   {
     path: 'filters',
     component: FiltersPageComponent,

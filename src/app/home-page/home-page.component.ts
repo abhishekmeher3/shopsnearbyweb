@@ -7,7 +7,8 @@ import {ShopsService} from 'src/core/services/shops.service';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent {
-  othersShops: any = [];
+  discountsAndCoupons: any = [];
+  recommendedAndOthersShops: any = [];
   recommendedShops: any = [];
   test: string;
   currentSlideOffers = 0;
@@ -177,18 +178,24 @@ export class HomePageComponent {
     ];
     const range = 20000;
     this.shopService.getNearByDiscountsAndCoupons().subscribe(response => {
-      console.log(response);
+      if (response.discounts && response.coupons) {
+        this.discountsAndCoupons = response.discounts.concat(response.coupons);
+      }
     });
     this.shopService
       .getRecommendedAndOtherShops(categories, range)
       .subscribe(response => {
-        this.othersShops = response.filter(
+        let othersShops = response.filter(
           (shop: any) => shop.shopType === 'others'
         );
         this.recommendedShops = response.filter(
           (shop: any) => shop.shopType !== 'others'
         );
-        console.log(this.recommendedShops.concat(this.othersShops));
+        this.recommendedAndOthersShops = this.recommendedShops.concat(
+          othersShops
+        );
+        console.log(this.recommendedShops);
+        console.log(this.recommendedAndOthersShops);
       });
   }
 }

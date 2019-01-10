@@ -383,8 +383,34 @@
     </div>
     <div class="col-md-2">
       <div style="margin-left: 6px;">Shop Logo</div>
-      <div class="border" style="text-align:left">
-        <img src="../../assets/img/logo.svg" height="100%" width="100%" />
+      <div
+        class="border"
+        style="text-align:left"
+        style="background: lightgrey;text-align:center;"
+        fileUpload
+        [imgUpload]="'imgupload'"
+      >
+        <input
+          type="file"
+          id="imgupload"
+          style="display:none"
+          accept="image/*"
+          (change)="onImageSelected($event)"
+        />
+        <div style="position: relative; top: 85px;" *ngIf="!imageUpload">
+          <i
+            class="fa fa-camera"
+            aria-hidden="true"
+            style="font-size: 54px;"
+          ></i>
+          <p>250 * 250</p>
+        </div>
+        <img
+          [src]="selectedImageUrl"
+          height="100%"
+          width="100%"
+          *ngIf="imageUpload"
+        />
       </div>
     </div>
   </div>

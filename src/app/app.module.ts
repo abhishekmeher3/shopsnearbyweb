@@ -18,7 +18,9 @@ import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {InfoDialogComponent} from './info-dialog/info-dialog.component';
 import {FiltersPageComponent} from './filters-page/filters-page.component';
 import {HomeModule} from './home-page/home-page.module';
+import {ShopDetailsModule} from './shop-details/shop-details.module';
 import {SharedServiceModule} from './service/shared-service.module';
+import {FileUploadTriggerDirective} from './add-shop/file-upload.directive';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import {SharedServiceModule} from './service/shared-service.module';
     AddShop,
     InfoDialogComponent,
     FiltersPageComponent,
+    FileUploadTriggerDirective,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import {SharedServiceModule} from './service/shared-service.module';
     MatButtonModule,
     MatProgressBarModule,
     HomeModule,
+    ShopDetailsModule,
     SharedServiceModule,
     AppRoutingModule,
   ],
