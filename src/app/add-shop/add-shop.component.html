@@ -152,11 +152,14 @@
                   form.submitted &&
                   form.controls.startTime.valid &&
                   form.controls.endTime.valid &&
-                  form.controls.startTime.value > form.controls.endTime.value
+                  !compareTime(
+                    form.controls.startTime.value,
+                    form.controls.endTime.value
+                  )
                 "
                 style="color: red;"
               >
-                Start time can't be greater than end time
+                Start time can't be greater than or equal to end time
               </div>
               <owl-date-time #dt1 [pickerType]="'timer'"></owl-date-time>
             </div>
@@ -197,9 +200,10 @@
                   id="shop-address-line-1"
                   type="text"
                   placeholder="House / Flat / Apt No."
-                  ngModel
+                  [(ngModel)]="address.flatNum"
                   name="flatNum"
                   required
+                  [readonly]="loaderForReadOnly"
                 />
                 <div
                   *ngIf="
@@ -226,9 +230,10 @@
                   id="shop-address-line-2"
                   type="text"
                   placeholder="Building Name"
-                  ngModel
+                  [(ngModel)]="address.buildingName"
                   name="buildingName"
                   required
+                  [readonly]="loaderForReadOnly"
                 />
                 <div
                   *ngIf="
@@ -257,9 +262,10 @@
                   id="shop-address-line-3"
                   type="text"
                   placeholder="Locality"
-                  ngModel
+                  [(ngModel)]="address.locality"
                   name="locality"
                   required
+                  [readonly]="loaderForReadOnly"
                 />
                 <div
                   *ngIf="
@@ -285,9 +291,10 @@
                   id="shop-address-line-4"
                   type="text"
                   placeholder="City"
-                  ngModel
+                  [(ngModel)]="address.city"
                   name="city"
                   required
+                  [readonly]="loaderForReadOnly"
                 />
                 <div
                   *ngIf="
@@ -313,9 +320,10 @@
                   id="shop-address-line-5"
                   type="text"
                   placeholder="State"
-                  ngModel
+                  [(ngModel)]="address.state"
                   name="state"
                   required
+                  [readonly]="loaderForReadOnly"
                 />
                 <div
                   *ngIf="
@@ -339,9 +347,10 @@
                   id="shop-address-line-6"
                   type="number"
                   placeholder="Pincode"
-                  ngModel
+                  [(ngModel)]="address.pincode"
                   name="pincode"
                   required
+                  [readonly]="loaderForReadOnly"
                 />
                 <div
                   *ngIf="
@@ -361,22 +370,40 @@
               </div>
             </div>
           </div>
+          <div class="row" *ngIf="inValidAddress">
+            <div class="col-md-12 form-group">
+              <div style="color: red">This is an invalid address</div>
+            </div>
+          </div>
         </div>
         <div class="row">
-          <div class="col-md-12" style="margin: 20px 0px 70px 0px">
-            <div class="form-group">
-              <button type="submit" class="btn btn-default loginbtn">
-                Submit
-              </button>
-              <button
-                style="margin-left:20px;background: transparent; border: none;"
-                id="login_click"
-                type="button"
-                (click)="form.resetForm()"
-              >
-                Cancel
-              </button>
-            </div>
+          <div class="form-group col-md-12">
+            <agm-map
+              style="height: 400px; width: 100%;background-color: grey;"
+              [latitude]="latitude"
+              [longitude]="longitude"
+              (mapClick)="onMapClick($event)"
+            >
+              <agm-marker
+                [latitude]="latitude"
+                [longitude]="longitude"
+              ></agm-marker>
+            </agm-map>
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 100px;">
+          <div class="form-group col-md-12">
+            <button type="submit" class="btn btn-default loginbtn">
+              Submit
+            </button>
+            <button
+              style="margin-left:20px;background: transparent; border: none;"
+              id="login_click"
+              type="button"
+              (click)="resetForm(form)"
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </form>

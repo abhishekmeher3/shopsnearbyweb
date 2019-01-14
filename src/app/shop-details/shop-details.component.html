@@ -5,37 +5,108 @@
   class="loadingBar"
 ></mat-progress-bar>
 
-<div class="top" style="position:relative;width: 100%">
-  <div class="padded header">
-    <div style="display: flex;justify-content: space-between;">
+<div class="header container-fluid">
+  <div class="row padded" style="padding-top: 40px;padding-bottom: 10px;">
+    <div class="col-md-6">
       <img
+        style="width: 200px; height: 50px;"
         src="../../assets/img/logo.svg"
-        style="width: 24%;height: 10%; margin-top: 4%"
       />
-      <div style="display:inline-block;margin-top: 4%;">
-        <a class="textBtn" href="#">Register Your shop</a>
-        <a class="textBtn" href="login">Login</a>
-        <a class="signupBtn">Signup</a>
+      <div>
+        <a class="navLinks" href="#">Home</a>
+        <p class="navLinks">></p>
+        <a class="navLinks" href="#">Category</a>
+        <p class="navLinks">></p>
+        <a class="navLinks" href="#">Restaurants Nearby You</a>
+      </div>
+      <div class="row" style="margin-top: 14px;">
+        <div class="col-md-2" style="color:orange;font-size: 23px">
+          <i class="fa fa-arrow-left"></i>
+        </div>
+        <div class="col-md-10" style="margin-left: -23px;">
+          <div style="color:orange;font-size: 23px;">Bikanervala</div>
+          <div style="color: #fff;font-size: 19px;">
+            North Indian, Chat, Sweet Shop
+          </div>
+        </div>
       </div>
     </div>
+    <div class="col-md-6" style="text-align: right;">
+      <div style="position: relative;">
+        <button type="button" class="btn btn-default textBtn" href="login">
+          Register Your shop
+        </button>
+        <button type="button" class="btn btn-default textBtn" href="login">
+          Login
+        </button>
+        <button type="button" class="btn btn-default signupBtn">Sign Up</button>
+      </div>
 
-    <div style="margin-top:6px;">
-      <a class="navLinks" href="#">Home</a>
-      <p class="navLinks">></p>
-      <a class="navLinks" href="#">Category</a>
-      <p class="navLinks">></p>
-      <a class="navLinks" href="#">Restaurants Nearby You</a>
+      <div
+        style="position: absolute;bottom: 0px;color: #fff;right: 0px;
+      margin-right: 15px;"
+      >
+        <div
+          class="chip"
+          style="background: orange;
+        border-radius: 6px;
+        padding: 4px 0px;
+        color: #000;
+        text-align: center;"
+        >
+          4.1/5
+        </div>
+        <div style="font-size: 12px;">2124 votes</div>
+      </div>
     </div>
   </div>
-  <h1>Hello World !!</h1>
-
-  <div class="joinnow">
-    <div>
-      <p style="margin:0;display: inline-block;">
-        Are you a shop owner looking to grow your bussiness online?
-      </p>
-      <button class="btn joinnow-btn">Join now</button>
+</div>
+<div class="container-fluid">
+  <div class="row padded" style="margin-top: 18px;">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-primary" style="margin-right: 15px;">
+        <i class="fa fa-bookmark" style="margin-right: 10px;"></i>Bookmark
+      </button>
+      <button type="button" class="btn btn-primary" style="margin-right: 15px;">
+        <i class="fa fa-star" style="margin-right: 10px;"></i>Rate
+      </button>
+      <button type="button" class="btn btn-primary" style="margin-right: 15px;">
+        <i class="fa fa-share-alt" style="margin-right: 10px;"></i>Share
+      </button>
     </div>
+  </div>
+  <div class="row padded" style="margin-top: 18px;">
+    <div class="col-md-4">
+      <div style="font-size: 20px;">Phone Numbers</div>
+      <div class="phone-numbers" style="margin-top: 10px;font-size: 14px;">
+        <div>+91 9160016801</div>
+        <div>+91 9160016801</div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div style="font-size: 20px;">Address</div>
+      <div class="address" style="margin-top: 10px;font-size: 14px;">
+        <div style="color: red;">4 Kms Away</div>
+        <div>6-3-190/2, Road Number 1,</div>
+        <div>Prem nagar, Banjaara hills</div>
+        <div>Hyderabad, Telangana 500034</div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div style="font-size: 20px;">Map</div>
+      <div
+        class="map"
+        style="margin-top: 10px;font-size: 14px;border: 1px solid #000;height: 135px;border-radius: 8px;"
+      ></div>
+    </div>
+  </div>
+</div>
+<div class="joinnow">
+  <div>
+    <p style="margin:0;display: inline-block;">
+      Are you a shop owner looking to grow your bussiness online?
+    </p>
+    <button class="btn joinnow-btn">Join now</button>
   </div>
 </div>
 

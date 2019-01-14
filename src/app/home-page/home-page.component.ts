@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {ShopsService} from 'src/core/services/shops.service';
+import {UserService} from 'src/core/services/user.service';
+import {GeocodeService} from 'src/core/services/geocode.service';
 
 @Component({
   selector: 'home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
   discountsAndCoupons: any = [];
   recommendedAndOthersShops: any = [];
   recommendedShops: any = [];
@@ -136,25 +138,14 @@ export class HomePageComponent {
     slidesToShow: 3,
     infinite: false,
   };
-  constructor(private shopService: ShopsService) {}
+  constructor(
+    private shopService: ShopsService,
+    private userService: UserService,
+    private geoCodeService: GeocodeService
+  ) {}
 
   afterChange(e) {
     this.currentSlideOffers = e.currentSlide;
-    // if (this.currentSlideOffers === 0) {
-    //   this.slideConfig.prevArrow = '';
-    //   this.slideConfig.nextArrow =
-    //     "<img class='next slick-next' src='../../assets/img/right-icon.png'>";
-    // } else if (this.currentSlideOffers === this.slides.length - 3) {
-    //   this.slideConfig.prevArrow =
-    //     "<img class='prev slick-prev' src='../../assets/img/left-icon.png'>";
-    //   this.slideConfig.nextArrow = '';
-    // } else {
-    //   this.slideConfig.prevArrow =
-    //     "<img class='prev slick-prev' src='../../assets/img/left-icon.png'>";
-    //   this.slideConfig.nextArrow =
-    //     "<img class='next slick-next' src='../../assets/img/right-icon.png'>";
-    // }
-    // $('.slick-slider').slick('refresh');
   }
   ngOnInit() {
     //hardcoding for now. To be checked on later
@@ -176,26 +167,35 @@ export class HomePageComponent {
         value: 'Internet',
       },
     ];
+
     const range = 20000;
-    this.shopService.getNearByDiscountsAndCoupons().subscribe(response => {
-      if (response.discounts && response.coupons) {
-        this.discountsAndCoupons = response.discounts.concat(response.coupons);
-      }
+    const userLogin = {
+      email: this.userService.getUserFromLocalStorage().email,
+      password: this.userService.getUserFromLocalStorage().password,
+    };
+    this.geoCodeService.getLatitudeLongitude().then(latlng => {
+      this.shopService
+        .getNearByDiscountsAndCoupons(userLogin, latlng, range)
+        .subscribe(response => {
+          if (response.discounts && response.coupons) {
+            this.discountsAndCoupons = response.discounts.concat(
+              response.coupons
+            );
+          }
+        });
+      this.shopService
+        .getRecommendedAndOtherShops(userLogin, categories, latlng, range)
+        .subscribe(response => {
+          let othersShops = response.filter(
+            (shop: any) => shop.shopType === 'others'
+          );
+          this.recommendedShops = response.filter(
+            (shop: any) => shop.shopType !== 'others'
+          );
+          this.recommendedAndOthersShops = this.recommendedShops.concat(
+            othersShops
+          );
+        });
     });
-    this.shopService
-      .getRecommendedAndOtherShops(categories, range)
-      .subscribe(response => {
-        let othersShops = response.filter(
-          (shop: any) => shop.shopType === 'others'
-        );
-        this.recommendedShops = response.filter(
-          (shop: any) => shop.shopType !== 'others'
-        );
-        this.recommendedAndOthersShops = this.recommendedShops.concat(
-          othersShops
-        );
-        console.log(this.recommendedShops);
-        console.log(this.recommendedAndOthersShops);
-      });
   }
 }

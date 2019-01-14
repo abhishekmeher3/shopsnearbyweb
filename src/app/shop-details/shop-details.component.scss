@@ -4,13 +4,10 @@
 shop-details-page {
   .signupBtn {
     background: #f4b11b;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    font-size: 20px;
-    border-radius: 30px;
-    border: transparent;
+    padding-left: 45px;
+    padding-right: 45px;
+    font-size: 15px;
+    border-radius: 20px;
   }
 
   .textBtn {
@@ -19,7 +16,7 @@ shop-details-page {
     background: transparent;
     color: white;
     border-width: 0;
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .padded {
@@ -28,12 +25,11 @@ shop-details-page {
   }
   .header {
     width: 100%;
-    border: 1px solid #ddd;
     background-image: linear-gradient(#39278b, #15184d);
   }
   .navLinks {
     display: inline-block;
-    font-size: 10px;
+    font-size: 12px;
     color: white;
     margin-right: 2px;
   }

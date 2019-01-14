@@ -21,6 +21,7 @@ import {HomeModule} from './home-page/home-page.module';
 import {ShopDetailsModule} from './shop-details/shop-details.module';
 import {SharedServiceModule} from './service/shared-service.module';
 import {FileUploadTriggerDirective} from './add-shop/file-upload.directive';
+import {AgmCoreModule} from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,9 @@ import {FileUploadTriggerDirective} from './add-shop/file-upload.directive';
     HomeModule,
     ShopDetailsModule,
     SharedServiceModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDztFmS-D98D67YHhqXvgBKFeMgLkCS4GA',
+    }),
     AppRoutingModule,
   ],
   providers: [],

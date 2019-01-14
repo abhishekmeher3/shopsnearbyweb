@@ -6,6 +6,14 @@ export interface LatLng {
 export interface ResolvedAddress {
   latlng: LatLng;
   formattedAddress: string;
+  completeAddress: {
+    streetNum: string;
+    address: string;
+    city: string;
+    state: string;
+    pincode: string;
+    country: string;
+  };
 }
 
 export interface UserLogin {

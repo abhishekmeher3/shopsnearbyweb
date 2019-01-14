@@ -16,58 +16,50 @@ export class ShopsService {
 
   constructor(private http: HttpClient) {}
 
-  addShop(shopObject): Observable<any> {
-    const userDetails: any = JSON.parse(localStorage.getItem('shopsnearbyme'));
+  addShop(userLogin: UserLogin, shopObject): Observable<any> {
     let body = new FormData();
     body.set('name', shopObject.shopName);
     body.set('category', shopObject.shopCategory);
     body.set('description', shopObject.shopDescription);
-    body.set('phoneNumber', userDetails.phoneNumber);
+    body.set('phoneNumber', shopObject.phoneNumber);
     body.set('timeFrom', shopObject.startTime);
     body.set('timeTo', shopObject.endTime);
     body.set('address', shopObject.shopAddress);
-    body.set('latitude', userDetails.latitude);
-    body.set('longitude', userDetails.longitude);
+    body.set('latitude', shopObject.latitude);
+    body.set('longitude', shopObject.longitude);
     if (shopObject.imageFile) {
       body.set('image', shopObject.imageFile);
     }
     let options = {
-      headers: this.setBasicAuthHeader({
-        email: userDetails.email,
-        password: userDetails.password,
-      }),
+      headers: this.setBasicAuthHeader(userLogin),
     };
     return this.http.post<any>(`${config.API_URL}/shops/others`, body, options);
   }
 
-  getNearByDiscountsAndCoupons() {
-    const userDetails: any = JSON.parse(localStorage.getItem('shopsnearbyme'));
-    const latlng = this.sanitizeLatLng({
-      latitude: userDetails.latitude,
-      longitude: userDetails.longitude,
-    });
+  getNearByDiscountsAndCoupons(
+    userLogin: UserLogin,
+    latlng: LatLng,
+    distance: number
+  ) {
+    latlng = this.sanitizeLatLng(latlng);
     let url =
       config.API_URL +
       '/shops/discountsAndCoupons?latitude=' +
       latlng.latitude +
       '&longitude=' +
       latlng.longitude +
-      '&range=20000';
-    return this.simpleGetRequest<any>(url, {
-      email: userDetails.email,
-      password: userDetails.password,
-    });
+      '&range=' +
+      distance;
+    return this.simpleGetRequest<any>(url, userLogin);
   }
 
   public getRecommendedAndOtherShops(
+    userLogin: UserLogin,
     categories: Category[],
+    latlng: LatLng,
     distance: number
   ): Observable<any> {
-    const userDetails: any = JSON.parse(localStorage.getItem('shopsnearbyme'));
-    const latlng = this.sanitizeLatLng({
-      latitude: userDetails.latitude,
-      longitude: userDetails.longitude,
-    });
+    latlng = this.sanitizeLatLng(latlng);
     let url: string =
       config.API_URL +
       '/shops/recommendedAndOthers?latitude=' +
@@ -79,10 +71,7 @@ export class ShopsService {
     categories.forEach(category => {
       url = url + '&categories=' + category.value;
     });
-    return this.simpleGetRequest<Shop[]>(url, {
-      email: userDetails.email,
-      password: userDetails.password,
-    });
+    return this.simpleGetRequest<Shop[]>(url, userLogin);
   }
 
   public getNearByShops(

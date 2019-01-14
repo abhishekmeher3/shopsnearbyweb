@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from './login.service';
+import {UserService} from '../../core/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,11 @@ export class loginComponent implements OnInit {
 
   abhishek = '';
   name = '';
-  constructor(public loginService: LoginService, private router: Router) {}
+  constructor(
+    public loginService: LoginService,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {}
 
@@ -22,13 +27,16 @@ export class loginComponent implements OnInit {
     if (this.email && this.password) {
       this.loginService.doLogIn(this.email, this.password).subscribe(
         (response: any) => {
-          console.log(JSON.stringify(response));
           response['password'] = this.password; // added for use when fetching from localStorage, as there password doesn't get returned from the response
-          localStorage.setItem('shopsnearbyme', JSON.stringify(response));
+          this.userService.setUserToLocalStorage(JSON.stringify(response));
           this.router.navigate(['/home']);
         },
         error => {
-          console.log(JSON.stringify(error));
+          console.error(
+            `There is some issue with the login service ${JSON.stringify(
+              error
+            )}. Please contact administrator.`
+          );
         }
       );
     }
