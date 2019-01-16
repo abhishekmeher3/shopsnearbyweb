@@ -150,11 +150,15 @@
         class="slide"
         ngxSlickItem
         *ngFor="let slide of recommendedAndOthersShops"
-        [ngStyle]="{'background-image': 'url(' + slide.imageUrl + ')'}"
+        [ngStyle]="{
+          'background-image': slide.imageUrl.endsWith('null')
+            ? 'url(' + '../../assets/img/no-image.jpeg' + ')'
+            : 'url(' + slide.imageUrl + ')'
+        }"
       >
         <div style="position: absolute; bottom: 0px;margin-bottom: 10px;">
           <div style="color: #fff;">{{ slide.description }}</div>
-          <div style="color: #fff;">View Shops Nearby</div>
+          <div style="color: #fff;">View Shops Nearby &#10132;</div>
         </div>
       </div>
     </ngx-slick>

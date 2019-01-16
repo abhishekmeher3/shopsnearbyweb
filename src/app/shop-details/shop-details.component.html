@@ -4,109 +4,243 @@
   [hidden]="!loading"
   class="loadingBar"
 ></mat-progress-bar>
-
-<div class="header container-fluid">
-  <div class="row padded" style="padding-top: 40px;padding-bottom: 10px;">
-    <div class="col-md-6">
-      <img
-        style="width: 200px; height: 50px;"
-        src="../../assets/img/logo.svg"
-      />
-      <div>
-        <a class="navLinks" href="#">Home</a>
-        <p class="navLinks">></p>
-        <a class="navLinks" href="#">Category</a>
-        <p class="navLinks">></p>
-        <a class="navLinks" href="#">Restaurants Nearby You</a>
-      </div>
-      <div class="row" style="margin-top: 14px;">
-        <div class="col-md-2" style="color:orange;font-size: 23px">
-          <i class="fa fa-arrow-left"></i>
+<div style="position:relative;width: 100%">
+  <div class="header padded">
+    <div class="row" style="padding-top: 40px;padding-bottom: 10px;">
+      <div class="col-md-6">
+        <img
+          style="width: 200px; height: 50px;"
+          src="../../assets/img/logo.svg"
+        />
+        <div>
+          <a class="navLinks" href="#">Home</a>
+          <p class="navLinks">></p>
+          <a class="navLinks" href="#">Category</a>
+          <p class="navLinks">></p>
+          <a class="navLinks" href="#">Restaurants Nearby You</a>
         </div>
-        <div class="col-md-10" style="margin-left: -23px;">
-          <div style="color:orange;font-size: 23px;">Bikanervala</div>
-          <div style="color: #fff;font-size: 19px;">
-            North Indian, Chat, Sweet Shop
+        <div class="row" style="margin-top: 14px;">
+          <div class="col-md-2" style="color:orange;font-size: 23px">
+            <i class="fa fa-arrow-left"></i>
+          </div>
+          <div class="col-md-10" style="margin-left: -23px;">
+            <div style="color:orange;font-size: 23px;">Bikanervala</div>
+            <div style="color: #fff;font-size: 19px;">
+              North Indian, Chat, Sweet Shop
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-6" style="text-align: right;">
-      <div style="position: relative;">
-        <button type="button" class="btn btn-default textBtn" href="login">
-          Register Your shop
-        </button>
-        <button type="button" class="btn btn-default textBtn" href="login">
-          Login
-        </button>
-        <button type="button" class="btn btn-default signupBtn">Sign Up</button>
-      </div>
+      <div class="col-md-6" style="text-align: right;">
+        <div style="position: relative;">
+          <button type="button" class="btn btn-default textBtn" href="login">
+            Register Your shop
+          </button>
+          <button type="button" class="btn btn-default textBtn" href="login">
+            Login
+          </button>
+          <button type="button" class="btn btn-default signupBtn">
+            Sign Up
+          </button>
+        </div>
 
-      <div
-        style="position: absolute;bottom: 0px;color: #fff;right: 0px;
-      margin-right: 15px;"
-      >
         <div
-          class="chip"
-          style="background: orange;
+          style="position: absolute;bottom: 0px;color: #fff;right: 0px;
+      margin-right: 15px;"
+        >
+          <div
+            class="chip"
+            style="background: orange;
         border-radius: 6px;
         padding: 4px 0px;
         color: #000;
         text-align: center;"
-        >
-          4.1/5
+          >
+            4.1/5
+          </div>
+          <div style="font-size: 12px;">2124 votes</div>
         </div>
-        <div style="font-size: 12px;">2124 votes</div>
       </div>
     </div>
   </div>
-</div>
-<div class="container-fluid">
-  <div class="row padded" style="margin-top: 18px;">
-    <div class="col-md-12">
-      <button type="button" class="btn btn-primary" style="margin-right: 15px;">
-        <i class="fa fa-bookmark" style="margin-right: 10px;"></i>Bookmark
-      </button>
-      <button type="button" class="btn btn-primary" style="margin-right: 15px;">
-        <i class="fa fa-star" style="margin-right: 10px;"></i>Rate
-      </button>
-      <button type="button" class="btn btn-primary" style="margin-right: 15px;">
-        <i class="fa fa-share-alt" style="margin-right: 10px;"></i>Share
-      </button>
-    </div>
-  </div>
-  <div class="row padded" style="margin-top: 18px;">
-    <div class="col-md-4">
-      <div style="font-size: 20px;">Phone Numbers</div>
-      <div class="phone-numbers" style="margin-top: 10px;font-size: 14px;">
-        <div>+91 9160016801</div>
-        <div>+91 9160016801</div>
+  <div
+    class="padded"
+    style="padding-top: 20px; padding-bottom: 20px;background: #ebebeb"
+  >
+    <div class="row">
+      <div class="col-md-12">
+        <div class="button-detail">
+          <i class="fa fa-bookmark" style="margin-right: 10px;"></i>Bookmark
+        </div>
+        <div class="button-detail">
+          <i class="fa fa-star" style="margin-right: 10px;"></i>Rate
+        </div>
+        <div class="button-detail">
+          <i class="fa fa-share-alt" style="margin-right: 10px;"></i>Share
+        </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div style="font-size: 20px;">Address</div>
-      <div class="address" style="margin-top: 10px;font-size: 14px;">
-        <div style="color: red;">4 Kms Away</div>
-        <div>6-3-190/2, Road Number 1,</div>
-        <div>Prem nagar, Banjaara hills</div>
-        <div>Hyderabad, Telangana 500034</div>
+    <div class="row" style="margin-top: 25px;">
+      <div class="col-md-4">
+        <div style="font-size: 20px;">Phone Numbers</div>
+        <div class="phone-numbers" style="margin-top: 10px;font-size: 14px;">
+          <div>+91 9160016801</div>
+          <div>+91 9160016801</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div style="font-size: 20px;">Address</div>
+        <div class="address" style="margin-top: 10px;font-size: 14px;">
+          <div style="color: red;">4 Kms Away</div>
+          <div>6-3-190/2, Road Number 1,</div>
+          <div>Prem nagar, Banjaara hills</div>
+          <div>Hyderabad, Telangana 500034</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div style="font-size: 20px;">Map</div>
+        <div class="map" style="position: relative;padding: 20px;">
+          <div
+            style="position: absolute;left: 0px;margin-bottom: 20px;color: #fff;margin-left: 20px;bottom: 0px;"
+          >
+            <div>6-3-190/2, Road Number 1, Prem Nagar</div>
+            <div>Banjara Hills, Hyderabad, Telangana 500034</div>
+            <div>View on Maps &#10132;</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div style="font-size: 20px;">Map</div>
-      <div
-        class="map"
-        style="margin-top: 10px;font-size: 14px;border: 1px solid #000;height: 135px;border-radius: 8px;"
-      ></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div style="font-size: 20px;">Open Timings</div>
+        <div class="phone-numbers" style="margin-top: 10px;font-size: 14px;">
+          <div>Open till 02:30AM</div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 35px;">
+      <div class="col-md-12">
+        <div style="font-size: 20px;">Gallery</div>
+        <div class="flex-container" style="margin-top: 10px;">
+          <div
+            *ngFor="let url of (gallery | slice: 0:4); let i = index"
+            style="cursor: pointer;"
+            class="child"
+            [ngStyle]="{'background-image': 'url(' + url + ')'}"
+          ></div>
+          <div
+            class="child"
+            style="cursor: pointer;display: table;"
+            *ngIf="gallery.length > 4"
+          >
+            <div style="padding: 20px 20px 0px 20px;text-align: center;">
+              <i class="fa fa-arrow-right" style="color: orange"></i>
+              <div>View All Photos</div>
+            </div>
+            <div
+              style="background: grey;text-align: center;display: table-row; color: #fff;"
+            >
+              +{{ gallery.length - 4 }} Photos
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 35px;">
+      <div class="col-md-12">
+        <div style="display: flex;justify-content: space-between;width: 100%;">
+          <div>
+            <h3>Offers by Bikanervala</h3>
+            <p>View Offers by Bikanervala</p>
+          </div>
+          <button style="background:#ebebeb;border:none;">View all</button>
+        </div>
+        <ngx-slick
+          class="carousel"
+          #slickModal="slick-modal"
+          [config]="slideConfig"
+          (afterChange)="afterChange($event)"
+        >
+          <!-- [ngStyle]="{
+        'background-image': slide.imageUrl.endsWith('null')
+          ? 'url(' + '../../assets/img/no-image.jpeg' + ')'
+          : 'url(' + slide.imageUrl + ')'
+      }" -->
+          <div
+            class="slide"
+            ngxSlickItem
+            *ngFor="let slide of shopOffers"
+            [ngStyle]="{
+              'background-image':
+                'url(' + '../../assets/img/no-image.jpeg' + ')'
+            }"
+          >
+            <div style="text-align: right;"><span>10% off</span></div>
+            <div style="position: absolute; bottom: 0px;margin-bottom: 10px;">
+              <div style="color: #fff;">Mon to Fri: Buffet Breakfast</div>
+              <div style="color: #fff;">
+                Valid for: 1 Person | Valid on: Mon-Fri
+              </div>
+              <div style="color: #fff;">View Offer &#10132;</div>
+            </div>
+          </div>
+        </ngx-slick>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 35px;">
+      <div class="col-md-12">
+        <div style="display: flex;justify-content: space-between;width: 100%;">
+          <div>
+            <h3>Similar Restaurants Nearby You</h3>
+            <p>View more similar restaurants nearby you</p>
+          </div>
+          <button style="background:#ebebeb;border:none;">View all</button>
+        </div>
+        <ngx-slick
+          class="carousel"
+          #slickModal="slick-modal"
+          [config]="slideConfig"
+          (afterChange)="afterChangeOfSimilarRestaurants($event)"
+        >
+          <!-- [ngStyle]="{
+          'background-image': slide.imageUrl.endsWith('null')
+            ? 'url(' + '../../assets/img/no-image.jpeg' + ')'
+            : 'url(' + slide.imageUrl + ')'
+        }" -->
+          <div
+            class="slide"
+            ngxSlickItem
+            *ngFor="let slide of similarRestaurants"
+            [ngStyle]="{
+              'background-image':
+                'url(' + '../../assets/img/no-image.jpeg' + ')'
+            }"
+          >
+            <div style="text-align: right;">
+              <span style="margin-right: 10px;"
+                ><i class="fa fa-share-alt"></i
+              ></span>
+              <span><i class="fa fa-star"></i></span>
+            </div>
+            <div style="position: absolute; bottom: 0px;margin-bottom: 10px;">
+              <div style="color: #fff;">Fat Pigeon - Bar Hop</div>
+              <div style="color: #fff;">Continental, Mexican, North Indian</div>
+              <div style="color: #fff;">1km away</div>
+            </div>
+          </div>
+        </ngx-slick>
+      </div>
     </div>
   </div>
-</div>
-<div class="joinnow">
-  <div>
-    <p style="margin:0;display: inline-block;">
-      Are you a shop owner looking to grow your bussiness online?
-    </p>
-    <button class="btn joinnow-btn">Join now</button>
+
+  <div class="joinnow">
+    <div>
+      <p style="margin:0;display: inline-block;">
+        Are you a shop owner looking to grow your bussiness online?
+      </p>
+      <button class="btn joinnow-btn">Join now</button>
+    </div>
   </div>
 </div>
 

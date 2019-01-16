@@ -15,7 +15,7 @@ import {
     MatDialogModule,
     MatButtonModule,
     MatProgressBarModule,
-    SlickModule,
+    SlickModule.forRoot(),
   ],
   providers: [],
   bootstrap: [ShopDetailsComponent],

@@ -62,6 +62,7 @@ export class AddShop implements OnInit {
     this.selectedImageUrl = '';
     this.latitude = 17.385;
     this.longitude = 78.4867;
+    this.inValidAddress = false;
   }
   onMapClick(event) {
     this.latitude = event.coords.lat;
