@@ -11,3 +11,11 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+.slick-next:before {
+  color: #000;
+}
+
+.slick-prev:before {
+  color: #000;
+}

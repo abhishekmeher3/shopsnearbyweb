@@ -1,7 +1,6 @@
 import {ShopDetailsComponent} from './shop-details.component';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SlickModule} from 'ngx-slick';
 import {
   MatDialogModule,
   MatButtonModule,
@@ -15,7 +14,6 @@ import {
     MatDialogModule,
     MatButtonModule,
     MatProgressBarModule,
-    SlickModule.forRoot(),
   ],
   providers: [],
   bootstrap: [ShopDetailsComponent],

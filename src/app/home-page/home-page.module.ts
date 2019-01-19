@@ -6,7 +6,6 @@ import {
   MatButtonModule,
   MatProgressBarModule,
 } from '@angular/material';
-import {SlickModule} from 'ngx-slick';
 
 @NgModule({
   declarations: [HomePageComponent],
@@ -15,7 +14,6 @@ import {SlickModule} from 'ngx-slick';
     MatButtonModule,
     MatProgressBarModule,
     CommonModule,
-    SlickModule,
   ],
   providers: [],
   bootstrap: [HomePageComponent],

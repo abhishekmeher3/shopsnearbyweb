@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ShopsService} from 'src/core/services/shops.service';
 import {UserService} from 'src/core/services/user.service';
 import {GeocodeService} from 'src/core/services/geocode.service';
+declare var jQuery: any;
 
 @Component({
   selector: 'home-page',
@@ -138,6 +139,14 @@ export class HomePageComponent implements OnInit {
     slidesToShow: 3,
     infinite: false,
   };
+  slides1 = [
+    {img: 'http://placehold.it/350x150/000000'},
+    {img: 'http://placehold.it/350x150/111111'},
+    {img: 'http://placehold.it/350x150/333333'},
+    {img: 'http://placehold.it/350x150/000000'},
+    {img: 'http://placehold.it/350x150/111111'},
+    {img: 'http://placehold.it/350x150/333333'},
+  ];
   constructor(
     private shopService: ShopsService,
     private userService: UserService,
@@ -146,6 +155,16 @@ export class HomePageComponent implements OnInit {
 
   afterChange(e) {
     this.currentSlideOffers = e.currentSlide;
+  }
+  initializeSlick(str: string) {
+    let self = this;
+    if (str === 'discountsAndCoupons') {
+      jQuery(document).ready(function() {
+        jQuery('.discounts-coupons').slick(
+          self.shopService.getSlideConfiguration()
+        );
+      });
+    }
   }
   ngOnInit() {
     //hardcoding for now. To be checked on later
@@ -181,6 +200,9 @@ export class HomePageComponent implements OnInit {
             this.discountsAndCoupons = response.discounts.concat(
               response.coupons
             );
+            if (this.discountsAndCoupons.length > 0) {
+              this.initializeSlick('discountsAndCoupons');
+            }
           }
         });
       this.shopService

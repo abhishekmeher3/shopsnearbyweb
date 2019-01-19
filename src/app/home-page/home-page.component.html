@@ -103,18 +103,11 @@
       </div>
       <button style="background:#ebebeb;border:none;">View all</button>
     </div>
-
-    <ngx-slick
-      class="carousel"
-      #slickModal="slick-modal"
-      [config]="slideConfig"
-      (afterChange)="afterChange($event)"
-    >
+    <div class="discounts-coupons">
       <div
-        class="slide"
-        ngxSlickItem
         *ngFor="let slide of discountsAndCoupons"
         [ngStyle]="{'background-image': 'url(' + slide.imageUrl + ')'}"
+        class="slide"
       >
         <div class="text-right">
           <span> {{ slide.offPercentage }}% off </span>
@@ -124,9 +117,8 @@
           <div style="color: #fff;">View Offer &#10132;</div>
         </div>
       </div>
-    </ngx-slick>
+    </div>
   </div>
-
   <div
     class="padded"
     style="margin-top: 50px;"
@@ -140,7 +132,7 @@
       <button style="background:#ebebeb;border:none;">View all</button>
     </div>
 
-    <ngx-slick
+    <!-- <ngx-slick
       class="carousel"
       #slickModal="slick-modal"
       [config]="slideConfig"
@@ -161,7 +153,7 @@
           <div style="color: #fff;">View Shops Nearby &#10132;</div>
         </div>
       </div>
-    </ngx-slick>
+    </ngx-slick> -->
   </div>
 
   <div class="padded" style="margin: 70px 0px">

@@ -36,6 +36,28 @@ export class ShopsService {
     return this.http.post<any>(`${config.API_URL}/shops/others`, body, options);
   }
 
+  getSlideConfiguration() {
+    return {
+      infinite: false,
+      slidesToShow: 3,
+      swipeToSlide: true,
+      responsive: [
+        {
+          breakpoint: 800,
+          settings: {
+            slidesToShow: 2,
+          },
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+          },
+        },
+      ],
+    };
+  }
+
   getNearByDiscountsAndCoupons(
     userLogin: UserLogin,
     latlng: LatLng,
