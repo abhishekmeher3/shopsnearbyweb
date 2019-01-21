@@ -22,6 +22,7 @@ import {ShopDetailsModule} from './shop-details/shop-details.module';
 import {SharedServiceModule} from './service/shared-service.module';
 import {FileUploadTriggerDirective} from './add-shop/file-upload.directive';
 import {AgmCoreModule} from '@agm/core';
+import {ComponentsModule} from './components/components.module';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {AgmCoreModule} from '@agm/core';
     MatProgressBarModule,
     HomeModule,
     ShopDetailsModule,
+    ComponentsModule,
     SharedServiceModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDztFmS-D98D67YHhqXvgBKFeMgLkCS4GA',

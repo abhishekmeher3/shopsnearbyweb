@@ -1,31 +1,11 @@
-<div class="bg container-fluid">
-  <div
-    class="row"
-    style="padding-left: 10%;padding-right: 10%;padding-top: 40px;padding-bottom: 20px;"
-  >
-    <div class="col-md-6">
-      <img
-        style="width: 200px; height: 50px;"
-        src="../../assets/img/logo.svg"
-      />
-      <div style="margin-top: 60px;">
-        <div style="color:#f6b118;font-size: 20px"><b>Add Your Shop</b></div>
-        <div style="color:white;font-size: 20px;">
-          Enter your shop details to get listed
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6" style="text-align: right;">
-      <span id="login" style="margin-right: 20px;"> Login </span>
-      <button type="button" class="btn btn-default loginbtn">Sign Up</button>
-    </div>
-  </div>
-</div>
-<br />
-<!-- <div class="container"> -->
-<div class="container">
-  <div class="row">
-    <div class="col-md-8">
+<div class="container-fluid">
+  <shopsnearby-header
+    [route]="'add-shop'"
+    [primaryHeading]="'Add Your Shop'"
+    [secondaryHeading]="'Enter your shop details to get listed'"
+  ></shopsnearby-header>
+  <div class="row padded" style="margin-top: 20px;">
+    <div class="col-md-8 order-md-1 order-lg-1 order-xl-1 order-2 order-sm-2">
       <form
         novalidate
         #form="ngForm"
@@ -408,12 +388,11 @@
         </div>
       </form>
     </div>
-    <div class="col-md-2">
-      <div style="margin-left: 6px;">Shop Logo</div>
+    <div class="col-md-4 order-md-2 order-lg-2 order-xl-2 order-1 order-sm-1">
+      <div style="margin-left: 6px;text-align: center;">Shop Logo</div>
       <div
         class="border"
-        style="text-align:left"
-        style="background: lightgrey;text-align:center;"
+        style="margin: 20px auto;background: lightgrey;text-align:center;"
         fileUpload
         [imgUpload]="'imgupload'"
       >
@@ -441,7 +420,5 @@
       </div>
     </div>
   </div>
+  <div class="footer">Copyright © Shops Nearby Me. All Rights Reserved</div>
 </div>
-
-<!-- </div> -->
-<div class="footer">Copyright © Shops Nearby Me. All Rights Reserved</div>

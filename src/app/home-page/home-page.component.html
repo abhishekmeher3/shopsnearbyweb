@@ -4,63 +4,18 @@
   [hidden]="!loading"
   class="loadingBar"
 ></mat-progress-bar>
+<div class="container-fluid">
+  <shopsnearby-header
+    [route]="'home'"
+    [primaryHeading]="'Looking for Restaurant Nearby?'"
+    [secondaryHeading]="'Search for shops nearby you'"
+  ></shopsnearby-header>
 
-<div class="top" style="position:relative;width: 100%">
-  <div class="padded header">
-    <div style="display: flex;justify-content: space-between;">
-      <img
-        src="../../assets/img/logo.svg"
-        style="width: 24%;height: 10%; margin-top: 4%"
-      />
-      <div style="display:inline-block;margin-top: 4%;">
-        <a class="textBtn" href="#">Register Your shop</a>
-        <a class="textBtn" href="login">Login</a>
-        <a class="signupBtn">Signup</a>
-      </div>
-    </div>
-
-    <div style="margin-top:6px;">
-      <a class="navLinks" href="#">Home</a>
-      <p class="navLinks">></p>
-      <a class="navLinks" href="#">Category</a>
-      <p class="navLinks">></p>
-      <a class="navLinks" href="#">Restaurants Nearby You</a>
-    </div>
-
-    <p
-      style="font-size:18px; color: goldenrod;margin-bottom: 10px;margin-top: 20px"
-    >
-      Showing Restaurants Nearby You
-    </p>
-
-    <div class="searchBar">
-      <img
-        style="margin-left: 10px;"
-        src="../../assets/img/ic_my_location.svg"
-      />
-      <p class="current-location">{{ currentLocation }}</p>
-      <div
-        style="width:1px;height:100%;background-color: black; margin-left: 5px;margin-right: 5px"
-      ></div>
-      <input
-        style="border:0; width:46%;margin-left: 10px;"
-        placeholder="Search Nearby Restaurants by Name"
-        type="text"
-        name="search"
-      />
-      <button
-        class="signupBtn"
-        style="padding-left:10px; height:100%; width:18%; border-radius:40px;padding-right:10px;font-size:16px;"
-      >
-        Find Nearby
-      </button>
-    </div>
-  </div>
-  <div class="padded" style="margin-top: 34px;">
-    <p style="margin-left: 14px;">Trending Search: {{ trendingSearches }}</p>
+  <div class="padded" style="margin-top: 50px;">
+    <div>Trending Search: {{ trendingSearches }}</div>
     <div class="row top-row-margin">
       <div class="col-md-8">
-        <h3>Popular Categories</h3>
+        <div style="font-size: 23px;">Popular Categories</div>
         <p>Explore Nearby Restaurants, Hospitals, Gyms etc by Category</p>
         <div class="flex-container">
           <div
@@ -75,7 +30,7 @@
         <button class="view-all-categories">View All Categories</button>
       </div>
       <div class="col-md-4" *ngIf="recommendedShops.length !== 0">
-        <h3>Our Recommendations</h3>
+        <div style="font-size: 23px;">Our Recommendations</div>
         <p>Our team always curate the best for you</p>
         <div class="recommendations">
           <div style="color: #fff;">
@@ -92,79 +47,80 @@
   </div>
 
   <div
-    class="padded"
+    class="row padded"
     style="margin-top: 50px;"
-    *ngIf="discountsAndCoupons.length !== 0"
+    *ngIf="discountsAndCoupons.value.length !== 0"
   >
-    <div style="display: flex;justify-content: space-between">
-      <div>
-        <h3>Offers Nearby You</h3>
-        <p>Explore Shops Nearby you Offering discounts</p>
-      </div>
-      <button style="background:#ebebeb;border:none;">View all</button>
-    </div>
-    <div class="discounts-coupons">
-      <div
-        *ngFor="let slide of discountsAndCoupons"
-        [ngStyle]="{'background-image': 'url(' + slide.imageUrl + ')'}"
-        class="slide"
-      >
-        <div class="text-right">
-          <span> {{ slide.offPercentage }}% off </span>
+    <div class="col-12">
+      <div style="display: flex;justify-content: space-between">
+        <div>
+          <div style="font-size: 23px;">Offers Nearby You</div>
+          <p>Explore Shops Nearby you Offering discounts</p>
         </div>
-        <div style="position: absolute; bottom: 0px;margin-bottom: 10px;">
-          <div style="color: #fff;">{{ slide.shopname }}</div>
-          <div style="color: #fff;">View Offer &#10132;</div>
+        <button style="background:transparent;border:none;">View all</button>
+      </div>
+      <div class="{{ discountsAndCoupons.label }}">
+        <div
+          *ngFor="let slide of discountsAndCoupons.value"
+          [ngStyle]="{
+            'background-image': slide.imageUrl.endsWith('null')
+              ? 'url(' + '../../assets/img/no-image.jpeg' + ')'
+              : 'url(' + slide.imageUrl + ')'
+          }"
+          class="slide"
+        >
+          <div class="text-right">
+            <span> {{ slide.offPercentage }}% off </span>
+          </div>
+          <div style="position: absolute; bottom: 0px;margin-bottom: 10px;">
+            <div style="color: #fff;">{{ slide.shopname }}</div>
+            <div style="color: #fff;">View Offer &#10132;</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div
-    class="padded"
+    class="row padded"
     style="margin-top: 50px;"
-    *ngIf="recommendedAndOthersShops.length !== 0"
+    *ngIf="recommendedAndOthersShops.value.length !== 0"
   >
-    <div style="display: flex;justify-content: space-between">
-      <div>
-        <h3>Trending Locations Nearby You</h3>
-        <p>Explore Experiences Nearby you</p>
+    <div class="col-12">
+      <div style="display: flex;justify-content: space-between">
+        <div>
+          <div style="font-size: 23px;">Trending Locations Nearby You</div>
+          <p>Explore Experiences Nearby you</p>
+        </div>
+        <button style="background:transparent;border:none;">View all</button>
       </div>
-      <button style="background:#ebebeb;border:none;">View all</button>
-    </div>
 
-    <!-- <ngx-slick
-      class="carousel"
-      #slickModal="slick-modal"
-      [config]="slideConfig"
-      (afterChange)="afterChange($event)"
-    >
-      <div
-        class="slide"
-        ngxSlickItem
-        *ngFor="let slide of recommendedAndOthersShops"
-        [ngStyle]="{
-          'background-image': slide.imageUrl.endsWith('null')
-            ? 'url(' + '../../assets/img/no-image.jpeg' + ')'
-            : 'url(' + slide.imageUrl + ')'
-        }"
-      >
-        <div style="position: absolute; bottom: 0px;margin-bottom: 10px;">
-          <div style="color: #fff;">{{ slide.description }}</div>
-          <div style="color: #fff;">View Shops Nearby &#10132;</div>
+      <div class="{{ recommendedAndOthersShops.label }}">
+        <div
+          *ngFor="let slide of recommendedAndOthersShops.value"
+          [ngStyle]="{
+            'background-image': slide.imageUrl.endsWith('null')
+              ? 'url(' + '../../assets/img/no-image.jpeg' + ')'
+              : 'url(' + slide.imageUrl + ')'
+          }"
+          class="slide"
+        >
+          <div style="position: absolute; bottom: 0px;margin-bottom: 10px;">
+            <div style="color: #fff;">{{ slide.description }}</div>
+            <div style="color: #fff;">View Shops Nearby &#10132;</div>
+          </div>
         </div>
       </div>
-    </ngx-slick> -->
+    </div>
   </div>
-
-  <div class="padded" style="margin: 70px 0px">
+  <div class="padded" style="margin: 50px 0px">
     <div class="row">
-      <div class="col-md-4">
-        <img src="../../assets/img/mobile.png" style="height: 450px;" />
+      <div class="col-md-6" style="text-align: center;">
+        <img src="../../assets/img/mobile.png" style="max-width: 100%;" />
       </div>
-      <div class="col-md-5" style="padding: 50px 0px;">
-        <h2>Download the App</h2>
+      <div class="col-md-6" style="padding: 20px 0px;">
+        <div style="font-size: 24px">Download the App</div>
         <p>Explore more than 100+ nearby stops on the Shops Nearby You App</p>
-        <div class="phone-number-link" style="margin-top: 40px;">
+        <div class="phone-number-link" style="margin-top: 20px;">
           <p>Send a link via SMS to install the app</p>
           <div class="input-group mb-3">
             <input
@@ -178,78 +134,22 @@
             </div>
           </div>
         </div>
-        <div class="btn-group">
+        <span>
           <button
             type="button"
-            style="width: 162px; height: 60px;background: transparent;background-repeat: no-repeat;background-size: 100% 100%;margin-right: 10px; border-radius: 5px;background-image: url('../../assets/img/android-app-playstore-logo.png')"
-            class="btn"
+            style="width: 145px; height: 50px;background: transparent;background-repeat: no-repeat;background-size: 100% 100%; border-radius: 5px;background-image: url('../../assets/img/android-app-playstore-logo.png')"
+            class="btn img-fluid"
           ></button>
+        </span>
+        <span>
           <button
             type="button"
-            style="width: 162px; height: 60px;background: transparent;background-repeat: no-repeat;background-size: 100% 100%;margin-left: 10px; border-radius: 5px;background-image: url('../../assets/img/apple-appstore-logo.png')"
-            class="btn"
+            style="width: 145px; height: 50px;background: transparent;background-repeat: no-repeat;background-size: 100% 100%; border-radius: 5px;background-image: url('../../assets/img/apple-appstore-logo.png')"
+            class="btn img-fluid"
           ></button>
-        </div>
+        </span>
       </div>
-      <div class="col-md-3"></div>
     </div>
   </div>
-
-  <div class="joinnow">
-    <div>
-      <p style="margin:0;display: inline-block;">
-        Are you a shop owner looking to grow your bussiness online?
-      </p>
-      <button class="btn joinnow-btn">Join now</button>
-    </div>
-  </div>
-</div>
-
-<div class="footer">
-  <div>
-    <p style="font-weight:500; font-size:16px">About Shops Nearby Me</p>
-    <p>
-      Shops Nearby you helps you discover the Nearby things to do, eat, buy or
-      explore - whatever you are, who ever you are! We have more than 10k
-      listings which include Restaurants, gym, spa, shopping malls other unique
-      places located around you. Don't stop yet! Take it whenever you go with
-      the shops nearby you mobile app. Based on your location and preference,
-      our smart search engine will suggest new things to explore every time you
-      open the app. What's more, with offers on everything around you.. you are
-      sure to try something new everytime.
-    </p>
-
-    <p>Product of Himaja Infotech, Developed by Abhishek Meher</p>
-  </div>
-
-  <div style="margin-left:20px; margin-right:20px; width: 40%">
-    <p style="font-weight:500; font-size:16px">Useful Links</p>
-    <a href="#" class="footer-links">About us</a>
-    <a href="#" class="footer-links">Privacy Policy</a>
-    <a href="#" class="footer-links">Terms and conditions</a>
-
-    <p style="font-weight:500; font-size:16px; margin-top: 20px;">Follow Us</p>
-    <div style="display:flex;align-items:center;">
-      <img style="height:30px;width:30px;" src="../../assets/img/fb.svg" />
-      <img
-        style="height:30px;width:30px;margin:4px"
-        src="../../assets/img/insta.svg"
-      />
-      <img style="height:30px;width:30px;" src="../../assets/img/twitter.svg" />
-    </div>
-  </div>
-
-  <div style="width:40%;margin-top:40px;">
-    <a href="#" class="footer-links">Contact us</a>
-    <a href="#" class="footer-links">Blogs</a>
-    <a href="#" class="footer-links">Carreers</a>
-  </div>
-</div>
-
-<div
-  style="background-color:grey;height:30px; display: flex; flex-direction: row;align-items: center"
->
-  <p style="margin:auto; font-size:14px;">
-    Copyright Shops Nearby Me. All Right Reserved.
-  </p>
+  <shopsnearby-footer></shopsnearby-footer>
 </div>

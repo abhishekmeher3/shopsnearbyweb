@@ -10,8 +10,14 @@ declare var jQuery: any;
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  discountsAndCoupons: any = [];
-  recommendedAndOthersShops: any = [];
+  discountsAndCoupons: any = {
+    label: 'discounts-coupons',
+    value: [],
+  };
+  recommendedAndOthersShops: any = {
+    label: 'recommended-others',
+    value: [],
+  };
   recommendedShops: any = [];
   test: string;
   currentSlideOffers = 0;
@@ -158,13 +164,9 @@ export class HomePageComponent implements OnInit {
   }
   initializeSlick(str: string) {
     let self = this;
-    if (str === 'discountsAndCoupons') {
-      jQuery(document).ready(function() {
-        jQuery('.discounts-coupons').slick(
-          self.shopService.getSlideConfiguration()
-        );
-      });
-    }
+    jQuery(document).ready(function() {
+      jQuery(`.${str}`).slick(self.shopService.getSlideConfiguration());
+    });
   }
   ngOnInit() {
     //hardcoding for now. To be checked on later
@@ -197,11 +199,11 @@ export class HomePageComponent implements OnInit {
         .getNearByDiscountsAndCoupons(userLogin, latlng, range)
         .subscribe(response => {
           if (response.discounts && response.coupons) {
-            this.discountsAndCoupons = response.discounts.concat(
+            this.discountsAndCoupons.value = response.discounts.concat(
               response.coupons
             );
-            if (this.discountsAndCoupons.length > 0) {
-              this.initializeSlick('discountsAndCoupons');
+            if (this.discountsAndCoupons.value.length > 0) {
+              this.initializeSlick(this.discountsAndCoupons.label);
             }
           }
         });
@@ -214,9 +216,12 @@ export class HomePageComponent implements OnInit {
           this.recommendedShops = response.filter(
             (shop: any) => shop.shopType !== 'others'
           );
-          this.recommendedAndOthersShops = this.recommendedShops.concat(
+          this.recommendedAndOthersShops.value = this.recommendedShops.concat(
             othersShops
           );
+          if (this.recommendedAndOthersShops.value.length > 0) {
+            this.initializeSlick(this.recommendedAndOthersShops.label);
+          }
         });
     });
   }

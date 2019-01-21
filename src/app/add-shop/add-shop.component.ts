@@ -5,7 +5,7 @@ import {LatLng} from '../../core/models/Models';
 import {UserService} from 'src/core/services/user.service';
 
 @Component({
-  selector: 'app-AddShop',
+  selector: 'app-addshop',
   templateUrl: './add-shop.component.html',
   styleUrls: ['./add-shop.component.scss'],
 })

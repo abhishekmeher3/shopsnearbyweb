@@ -1,0 +1,36 @@
+shopsnearby-footer {
+  .padded {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  .joinnow {
+    background-color: #f4b11b;
+    font-size: 16px;
+    font-weight: 500;
+    color: #15184d;
+    margin-top: 20px;
+    padding: 20px;
+  }
+
+  .joinnow-btn {
+    background-color: white;
+  }
+
+  .footer {
+    background-color: darkslategray;
+    color: white;
+    font-size: 12px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .footer > * {
+    margin: 0;
+  }
+
+  .footer-links {
+    color: white;
+    font-size: 12px;
+    display: block;
+  }
+}

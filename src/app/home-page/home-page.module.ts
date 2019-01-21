@@ -6,6 +6,7 @@ import {
   MatButtonModule,
   MatProgressBarModule,
 } from '@angular/material';
+import {ComponentsModule} from '../components/components.module';
 
 @NgModule({
   declarations: [HomePageComponent],
@@ -14,6 +15,7 @@ import {
     MatButtonModule,
     MatProgressBarModule,
     CommonModule,
+    ComponentsModule,
   ],
   providers: [],
   bootstrap: [HomePageComponent],
