@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Shop, ShopOwner} from 'src/core/models/shop.model';
-import {ShopsService} from '../../core/services/shops.service';
-import {UserLogin} from 'src/core/models/Models';
+import { Component, OnInit } from '@angular/core';
+import { Shop, ShopOwner } from 'src/core/models/shop.model';
+import { ShopsService } from '../../core/services/shops.service';
+import { UserLogin } from 'src/core/models/Models';
+import { UserService } from 'src/core/services/user.service';
 
 @Component({
   selector: 'app-filters-page',
@@ -172,35 +173,45 @@ export class FiltersPageComponent implements OnInit {
     'Category 4',
     'Category 5',
   ];
-  distances: number[] = [2, 4, 6, 8, 10];
+  distances: number[] = [2, 4, 6, 8, 10, 20 ,100];
   selectedDistance: number = 8;
-  constructor(private shopsService: ShopsService) {
+  constructor(private shopsService: ShopsService, private userService: UserService) {
     this.loading = true;
-    let userloging: UserLogin = {
-      email: 'abhishekmeher3@gmail.com',
-      password: 'KtKiLa',
-    };
-    this.shopsService.getNearByShops(userloging).subscribe(
-      shops => {
-        this.shops = shops;
-        this.loading = false;
-      },
-      error => {
-        this.loading = false;
-        console.log(error);
-      }
-    );
-    this.shops = this.testShops;
+    this.shopsService.getCategoryList()
+      .subscribe(categories => {
+        this.categories = categories
+        this.selectedCategories = JSON.parse(JSON.stringify(categories));
+        this.updateShops()
+      })
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onChipRemoveClicked(i: string) {
     let index = this.selectedCategories.indexOf(i);
     if (index !== -1) {
       this.selectedCategories.splice(index, 1);
     }
+    this.updateShops()
   }
+
+  private updateShops(){
+    this.loading = true;
+    const userLogin = {
+      email: this.userService.getUserFromLocalStorage().email,
+      password: this.userService.getUserFromLocalStorage().password,
+    };
+    this.shopsService.getRecommendedAndOtherShops(
+      userLogin,
+      this.selectedCategories,
+      null,
+      this.selectedDistance
+    ).subscribe(shops=>{
+      this.shops = shops;
+      this.loading = false;
+    })
+  }
+
 
   updateCategorySelection(category: string, event) {
     if (event.target.checked) {
@@ -211,11 +222,13 @@ export class FiltersPageComponent implements OnInit {
         this.selectedCategories.splice(index, 1);
       }
     }
+    this.updateShops()
   }
 
   onDistanceSelectionChanged(distance: number) {
     this.selectedDistance = distance;
+    this.updateShops()
   }
 
-  onSearchClicked(term: String) {}
+  onSearchClicked(term: String) { }
 }

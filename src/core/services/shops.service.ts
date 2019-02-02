@@ -1,9 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {LatLng, UserLogin, Category} from '../models/Models';
-import {Observable} from 'rxjs';
-import {Shop} from '../models/shop.model';
-import {config} from '../../configs/baseconfig';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LatLng, UserLogin } from '../models/Models';
+import { Category } from '../models/category.model'
+import { Observable, from } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Shop } from '../models/shop.model';
+import { config } from '../../configs/baseconfig';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +16,7 @@ export class ShopsService {
     longitude: 78.4867,
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   addShop(userLogin: UserLogin, shopObject): Observable<any> {
     let body = new FormData();
@@ -77,10 +79,10 @@ export class ShopsService {
 
   public getRecommendedAndOtherShops(
     userLogin: UserLogin,
-    categories: Category[],
+    categories: string[],
     latlng: LatLng,
     distance: number
-  ): Observable<any> {
+  ): Observable<Shop[]> {
     latlng = this.sanitizeLatLng(latlng);
     let url: string =
       config.API_URL +
@@ -91,7 +93,7 @@ export class ShopsService {
       '&range=' +
       distance;
     categories.forEach(category => {
-      url = url + '&categories=' + category.value;
+      url = url + '&categories=' + category;
     });
     return this.simpleGetRequest<Shop[]>(url, userLogin);
   }
@@ -110,6 +112,15 @@ export class ShopsService {
       '&range=20000';
     return this.simpleGetRequest<Shop[]>(url, userlogin);
   }
+
+  public getCategoryList(): Observable<string[]> {
+    let url = config.API_URL + '/categories'
+    return this.http.get<Category[]>(url).pipe(map(values => {
+      let categories = values.map(value=> value.text)
+      return categories
+    }))
+  }
+
 
   private simpleGetRequest<T>(
     url: string,

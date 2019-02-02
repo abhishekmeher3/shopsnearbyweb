@@ -9,7 +9,7 @@
   <div class="padded header">
     <div style="display: flex;justify-content: space-between;">
       <img
-        src="../../assets/img/logo.svg"
+        src="./assets/img/logo.svg"
         style="width: 24%;height: 10%; margin-top: 4%"
       />
       <div style="display:inline-block;margin-top: 4%;">
@@ -36,7 +36,7 @@
     <div class="searchBar">
       <img
         style="margin-left: 10px;"
-        src="../../assets/img/ic_my_location.svg"
+        src="./assets/img/ic_my_location.svg"
       />
       <p
         style="margin:0;padding-left:10px;width:30%;text-overflow: ellipsis;max-height: 1.1em;overflow: hidden;line-height: 1em"
@@ -90,7 +90,7 @@
           <div
             style="background-color:#15184d; height:1px;margin-bottom: 15px;"
           ></div>
-          <div>
+          <div style="padding-left:4px">
             <label *ngFor="let category of categories" style="display:block">
               <input
                 type="checkbox"
@@ -111,7 +111,7 @@
           <div
             style="background-color:#15184d; height:1px;margin-bottom: 15px;"
           ></div>
-          <div class="custom-control custom-checkbox">
+          <div class="custom-control custom-checkbox" style="padding-left:4px">
             <label *ngFor="let distance of distances" style="display:block">
               <input
                 type="radio"
@@ -133,7 +133,7 @@
             style="display: block; position: relative; border-radius: 8px;padding: 0;overflow: hidden;"
           >
             <img
-              [src]="shop.imageUrl || '../../assets/img/shopimg.png'"
+              [src]="shop.imageUrl || './assets/img/shopimg.png'"
               style="border-radius:8px;margin:0;height: 200px; width: 100%; object-fit: cover; position: absolute"
             />
             <div
@@ -154,7 +154,7 @@
             >
               <img
                 style="margin:auto;height:24px;width: 24px;"
-                src="../../assets/img/ic_bookmark.svg"
+                src="./assets/img/ic_bookmark.svg"
               />
             </button>
             <button
@@ -162,7 +162,7 @@
             >
               <img
                 style="margin:auto;height:22px;width: 22px;"
-                src="../../assets/img/ic_share.svg"
+                src="./assets/img/ic_share.svg"
               />
             </button>
           </div>
@@ -206,12 +206,12 @@
 
     <p style="font-weight:500; font-size:16px; margin-top: 20px;">Follow Us</p>
     <div style="display:flex;align-items:center;">
-      <img style="height:30px;width:30px;" src="../../assets/img/fb.svg" />
+      <img style="height:30px;width:30px;" src="./assets/img/fb.svg" />
       <img
         style="height:30px;width:30px;margin:4px"
-        src="../../assets/img/insta.svg"
+        src="./assets/img/insta.svg"
       />
-      <img style="height:30px;width:30px;" src="../../assets/img/twitter.svg" />
+      <img style="height:30px;width:30px;" src="./assets/img/twitter.svg" />
     </div>
   </div>
 

@@ -208,7 +208,7 @@ export class HomePageComponent implements OnInit {
           }
         });
       this.shopService
-        .getRecommendedAndOtherShops(userLogin, categories, latlng, range)
+        .getRecommendedAndOtherShops(userLogin, categories.map(value=> value.value), latlng, range)
         .subscribe(response => {
           let othersShops = response.filter(
             (shop: any) => shop.shopType === 'others'
