@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {ShopsService} from 'src/core/services/shops.service';
-import {UserService} from 'src/core/services/user.service';
-import {GeocodeService} from 'src/core/services/geocode.service';
+import { Component, OnInit } from '@angular/core';
+import { ShopsService } from 'src/core/services/shops.service';
+import { UserService } from 'src/core/services/user.service';
+import { GeocodeService } from 'src/core/services/geocode.service';
+import { LatLng, UserLogin } from 'src/core/models/Models';
 declare var jQuery: any;
 
 @Component({
   selector: 'home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss'],
+  styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
   discountsAndCoupons: any = {
@@ -21,20 +22,20 @@ export class HomePageComponent implements OnInit {
   recommendedShops: any = [];
   test: string;
   currentSlideOffers = 0;
-  currentLocation: string = 'Banjara hills';
+  currentLocation: string = 'Hyderabad';
   loading: boolean = false;
   trendingSearches: String[] = ['Gyms, Car Repair, Medical Hall'];
   popularCategories = [
-    {display: 'Restaurants', value: 'restaurants', icon: 'fa fa-car'},
-    {display: 'Parks', value: 'parks', icon: 'fa fa-car'},
-    {display: 'Pharmacy', value: 'pharmacy', icon: 'fa fa-car'},
-    {display: 'Hotels', value: 'hotels', icon: 'fa fa-car'},
-    {display: 'Petrol Bunks', value: 'petrolBunks', icon: 'fa fa-car'},
-    {display: 'Schools', value: 'schools', icon: 'fa fa-car'},
-    {display: 'Gyms', value: 'gyms', icon: 'fa fa-car'},
-    {display: 'Shopping', value: 'shopping', icon: 'fa fa-car'},
-    {display: 'Furniture', value: 'furniture', icon: 'fa fa-car'},
-    {display: 'Bus Stop', value: 'busStop', icon: 'fa fa-car'},
+    { display: 'Restaurants', value: 'restaurants', icon: 'fa fa-car' },
+    { display: 'Parks', value: 'parks', icon: 'fa fa-car' },
+    { display: 'Pharmacy', value: 'pharmacy', icon: 'fa fa-car' },
+    { display: 'Hotels', value: 'hotels', icon: 'fa fa-car' },
+    { display: 'Petrol Bunks', value: 'petrolBunks', icon: 'fa fa-car' },
+    { display: 'Schools', value: 'schools', icon: 'fa fa-car' },
+    { display: 'Gyms', value: 'gyms', icon: 'fa fa-car' },
+    { display: 'Shopping', value: 'shopping', icon: 'fa fa-car' },
+    { display: 'Furniture', value: 'furniture', icon: 'fa fa-car' },
+    { display: 'Bus Stop', value: 'busStop', icon: 'fa fa-car' },
   ];
   slides = [
     {
@@ -146,83 +147,96 @@ export class HomePageComponent implements OnInit {
     infinite: false,
   };
   slides1 = [
-    {img: 'http://placehold.it/350x150/000000'},
-    {img: 'http://placehold.it/350x150/111111'},
-    {img: 'http://placehold.it/350x150/333333'},
-    {img: 'http://placehold.it/350x150/000000'},
-    {img: 'http://placehold.it/350x150/111111'},
-    {img: 'http://placehold.it/350x150/333333'},
+    { img: 'http://placehold.it/350x150/000000' },
+    { img: 'http://placehold.it/350x150/111111' },
+    { img: 'http://placehold.it/350x150/333333' },
+    { img: 'http://placehold.it/350x150/000000' },
+    { img: 'http://placehold.it/350x150/111111' },
+    { img: 'http://placehold.it/350x150/333333' },
   ];
+
   constructor(
     private shopService: ShopsService,
     private userService: UserService,
     private geoCodeService: GeocodeService
-  ) {}
+  ) { 
+    let hyderabadLatng: LatLng = {
+      latitude: 17.385,
+      longitude: 78.4867,
+    };
+    this.updateData(hyderabadLatng)
+  }
 
   afterChange(e) {
     this.currentSlideOffers = e.currentSlide;
   }
   initializeSlick(str: string) {
     let self = this;
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function () {
       jQuery(`.${str}`).slick(self.shopService.getSlideConfiguration());
     });
   }
   ngOnInit() {
-    //hardcoding for now. To be checked on later
-    const categories = [
-      {
-        display: 'Automobile',
-        value: 'Automobile',
-      },
-      {
-        display: 'Electronics',
-        value: 'Electronics',
-      },
-      {
-        display: 'Education',
-        value: 'Education',
-      },
-      {
-        display: 'Internet',
-        value: 'Internet',
-      },
-    ];
+    
+  }
 
+  onLocateClicked(){
+    this.geoCodeService.getLatitudeLongitude().then(latlng => { 
+      this.updateData(latlng)
+    });
+  }
+
+  updateData(latlng: LatLng){
+    this.loading = true
     const range = 20000;
     const userLogin = {
       email: this.userService.getUserFromLocalStorage().email,
       password: this.userService.getUserFromLocalStorage().password,
     };
-    this.geoCodeService.getLatitudeLongitude().then(latlng => {
-      this.shopService
-        .getNearByDiscountsAndCoupons(userLogin, latlng, range)
-        .subscribe(response => {
-          if (response.discounts && response.coupons) {
-            this.discountsAndCoupons.value = response.discounts.concat(
-              response.coupons
-            );
-            if (this.discountsAndCoupons.value.length > 0) {
-              this.initializeSlick(this.discountsAndCoupons.label);
-            }
+    this.fetchData(userLogin, latlng, range)
+  }
+
+  fetchData(userLogin: UserLogin, latlng: LatLng, range:number) {
+    this.fetchNearbyDiscountsAndCoupons(userLogin, latlng, range)
+    this.shopService.getCategoryList()
+      .subscribe(categories => {        
+        this.fetchRecommendedShops(userLogin, latlng, categories, range)
+      })
+  }
+
+  fetchNearbyDiscountsAndCoupons(userLogin: UserLogin, latlng: LatLng, range: number) {
+    this.shopService
+      .getNearByDiscountsAndCoupons(userLogin, latlng, range)
+      .subscribe(response => {
+        this.loading = false
+        if (response.discounts && response.coupons) {
+          this.discountsAndCoupons.value = response.discounts.concat(
+            response.coupons
+          );
+          if (this.discountsAndCoupons.value.length > 0) {
+            this.initializeSlick(this.discountsAndCoupons.label);
           }
-        });
-      this.shopService
-        .getRecommendedAndOtherShops(userLogin, categories.map(value=> value.value), latlng, range)
-        .subscribe(response => {
-          let othersShops = response.filter(
-            (shop: any) => shop.shopType === 'others'
-          );
-          this.recommendedShops = response.filter(
-            (shop: any) => shop.shopType !== 'others'
-          );
-          this.recommendedAndOthersShops.value = this.recommendedShops.concat(
-            othersShops
-          );
-          if (this.recommendedAndOthersShops.value.length > 0) {
-            this.initializeSlick(this.recommendedAndOthersShops.label);
-          }
-        });
-    });
+        }
+      });
+  }
+
+  fetchRecommendedShops(userLogin: UserLogin, latlng: LatLng, categories: string[], range: number) {
+    this.shopService
+      .getRecommendedAndOtherShops(userLogin, categories, latlng, range)
+      .subscribe(response => {
+        this.loading= false
+        let othersShops = response.filter(
+          (shop: any) => shop.shopType === 'others'
+        );
+        this.recommendedShops = response.filter(
+          (shop: any) => shop.shopType !== 'others'
+        );
+        this.recommendedAndOthersShops.value = this.recommendedShops.concat(
+          othersShops
+        );
+        if (this.recommendedAndOthersShops.value.length > 0) {
+          this.initializeSlick(this.recommendedAndOthersShops.label);
+        }
+      });
   }
 }
