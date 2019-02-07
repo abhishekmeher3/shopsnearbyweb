@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Shop, ShopOwner } from 'src/core/models/shop.model';
-import { ShopsService } from '../../core/services/shops.service';
-import { UserLogin } from 'src/core/models/Models';
-import { UserService } from 'src/core/services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {Shop, ShopOwner} from 'src/core/models/shop.model';
+import {ShopsService} from '../../core/services/shops.service';
+import {UserLogin} from 'src/core/models/Models';
+import {UserService} from 'src/core/services/user.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-filters-page',
@@ -14,47 +15,56 @@ export class FiltersPageComponent implements OnInit {
   currentLocation: string = 'Hyderabad';
   shops: Shop[] = [];
   selectedCategories: string[] = [];
+  searchTerm: any;
 
   categories: string[] = [];
-  distances: number[] = [2, 4, 6, 8, 10, 20 ,100];
+  distances: number[] = [2, 4, 6, 8, 10, 20, 100];
   selectedDistance: number = 8;
-  constructor(private shopsService: ShopsService, private userService: UserService) {
+  constructor(
+    private shopsService: ShopsService,
+    private userService: UserService,
+    private route: ActivatedRoute
+  ) {
     this.loading = true;
-    this.shopsService.getCategoryList()
-      .subscribe(categories => {
-        this.categories = categories
-        this.selectedCategories = JSON.parse(JSON.stringify(categories));
-        this.updateShops()
-      })
+    this.shopsService.getCategoryList().subscribe(categories => {
+      this.categories = categories;
+      this.selectedCategories = JSON.parse(JSON.stringify(categories));
+      this.updateShops();
+    });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.searchTerm = params.q;
+    });
+  }
 
   onChipRemoveClicked(i: string) {
     let index = this.selectedCategories.indexOf(i);
     if (index !== -1) {
       this.selectedCategories.splice(index, 1);
     }
-    this.updateShops()
+    this.updateShops();
   }
 
-  private updateShops(){
+  private updateShops() {
     this.loading = true;
     const userLogin = {
       email: this.userService.getUserFromLocalStorage().email,
       password: this.userService.getUserFromLocalStorage().password,
     };
-    this.shopsService.getRecommendedAndOtherShops(
-      userLogin,
-      this.selectedCategories,
-      null,
-      this.selectedDistance
-    ).subscribe(shops=>{
-      this.shops = shops;
-      this.loading = false;
-    })
+    this.shopsService
+      .getRecommendedAndOtherShops(
+        userLogin,
+        this.selectedCategories,
+        null,
+        this.selectedDistance
+      )
+      .subscribe(shops => {
+        this.shops = shops;
+        this.loading = false;
+      });
   }
-
 
   updateCategorySelection(category: string, event) {
     if (event.target.checked) {
@@ -65,13 +75,11 @@ export class FiltersPageComponent implements OnInit {
         this.selectedCategories.splice(index, 1);
       }
     }
-    this.updateShops()
+    this.updateShops();
   }
 
   onDistanceSelectionChanged(distance: number) {
     this.selectedDistance = distance;
-    this.updateShops()
+    this.updateShops();
   }
-
-  onSearchClicked(term: String) { }
 }

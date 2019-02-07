@@ -1,11 +1,5 @@
-import {
-  Component,
-  OnInit,
-  HostListener,
-  Input,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+import {Component, OnInit, HostListener, Input} from '@angular/core';
+import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {HeaderService} from './header.service';
@@ -17,13 +11,12 @@ import {HeaderService} from './header.service';
 })
 export class HeaderComponent implements OnInit {
   searchTerm = '';
-  @Output() onSearchPress: EventEmitter<any> = new EventEmitter<any>();
   resize$ = new Subject<void>();
   targetDevice: string;
   content: any;
   @Input() route;
   @Input() currentLocation;
-  constructor(private headerService: HeaderService) {}
+  constructor(private headerService: HeaderService, private router: Router) {}
   setDeviceViewport() {
     if (window.innerWidth < 576) {
       this.targetDevice = 'xs';
@@ -45,7 +38,9 @@ export class HeaderComponent implements OnInit {
     });
   }
   onSearchClicked() {
-    this.onSearchPress.emit(this.searchTerm);
+    if (this.searchTerm) {
+      this.router.navigate(['/filters'], {queryParams: {q: this.searchTerm}});
+    }
   }
 
   @HostListener('window:resize')

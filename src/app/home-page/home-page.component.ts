@@ -201,10 +201,6 @@ export class HomePageComponent implements OnInit {
     });
   }
 
-  onSearchPress(ev) {
-    console.log(ev);
-  }
-
   fetchNearbyDiscountsAndCoupons(
     userLogin: UserLogin,
     latlng: LatLng,
