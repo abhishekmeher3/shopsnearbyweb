@@ -6,11 +6,7 @@
     >
       <nav class="navbar navbar-expand-md navbar-dark">
         <a class="navbar-brand" href="#">
-          <img
-            src="./assets/img/logo.svg"
-            style="height: 1.5em;"
-            alt=""
-          />
+          <img src="./assets/img/logo.svg" style="height: 1.5em;" alt="" />
         </a>
         <button
           class="navbar-toggler"
@@ -39,9 +35,9 @@
         <p
           style="font-size:18px; color: goldenrod;margin-bottom: 10px;margin-top: 20px"
         >
-          {{ primaryHeading }}
+          {{ content.pHeading }}
         </p>
-        <div>{{ secondaryHeading }}</div>
+        <div>{{ content.sHeading }}</div>
         <div
           *ngIf="route === 'home'"
           style="width: 100%;margin:auto;padding: 15px;border-radius: 50px;position: relative;top: 30px;background: #fff;box-shadow: 0px 6px 13px -3px rgb(143, 143, 143)"
@@ -54,9 +50,11 @@
               placeholder="Search Nearby Restaurants by Name"
               type="text"
               name="search"
+              [(ngModel)]="searchTerm"
             />
             <div
-              style="background: orange;font-size: 12px;padding: 5px 16px;color: #000;border-radius: 16px;"
+              style="cursor:pointer;background: orange;font-size: 12px;padding: 5px 16px;color: #000;border-radius: 16px;"
+              (click)="onSearchClicked()"
             >
               Search
             </div>
@@ -91,9 +89,9 @@
       <p
         style="font-size:18px; color: goldenrod;margin-bottom: 10px;margin-top: 20px"
       >
-        {{ primaryHeading }}
+        {{ content.pHeading }}
       </p>
-      <div>{{ secondaryHeading }}</div>
+      <div>{{ content.sHeading }}</div>
       <div
         *ngIf="route === 'home'"
         style="padding: 15px;border-radius: 50px;position: relative;top: 30px;background: #fff;box-shadow: 0px 6px 13px -3px rgb(143, 143, 143)"
@@ -106,9 +104,11 @@
             placeholder="Search Nearby Restaurants by Name"
             type="text"
             name="search"
+            [(ngModel)]="searchTerm"
           />
           <div
-            style="background: orange;font-size: 12px;padding: 5px 16px;color: #000;border-radius: 16px;"
+            style="cursor:pointer;background: orange;font-size: 12px;padding: 5px 16px;color: #000;border-radius: 16px;"
+            (click)="onSearchClicked()"
           >
             Search
           </div>
