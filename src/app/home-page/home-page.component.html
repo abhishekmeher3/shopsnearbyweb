@@ -8,6 +8,7 @@
   <shopsnearby-header
     [route]="'home'"
     [currentLocation]="currentLocation"
+    (onSearchClick)="onSearchClicked($event)"
   ></shopsnearby-header>
   <div class="padded" style="margin-top: 50px;">
     <div>Trending Search: {{ trendingSearches }}</div>

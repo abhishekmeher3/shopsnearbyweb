@@ -113,6 +113,11 @@ export class ShopsService {
     return this.simpleGetRequest<Shop[]>(url, userlogin);
   }
 
+  public searchShops( searchTerm: string, userlogin?: UserLogin):Observable<Shop[]>{
+    let url = config.API_URL + "/shops/search?query=" + searchTerm;
+    return this.simpleGetRequest<Shop[]>(url, userlogin)
+  }
+
   public getCategoryList(): Observable<string[]> {
     let url = config.API_URL + '/categories'
     return this.http.get<Category[]>(url).pipe(map(values => {

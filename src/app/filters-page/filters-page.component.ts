@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {Shop, ShopOwner} from 'src/core/models/shop.model';
-import {ShopsService} from '../../core/services/shops.service';
-import {UserLogin} from 'src/core/models/Models';
-import {UserService} from 'src/core/services/user.service';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Shop, ShopOwner } from 'src/core/models/shop.model';
+import { ShopsService } from '../../core/services/shops.service';
+import { UserLogin, LatLng } from 'src/core/models/Models';
+import { UserService } from 'src/core/services/user.service';
+import { ActivatedRoute } from '@angular/router';
+import { GeocodeService } from 'src/core/services/geocode.service';
 
 @Component({
   selector: 'app-filters-page',
@@ -12,30 +13,38 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class FiltersPageComponent implements OnInit {
   loading: boolean = false;
-  currentLocation: string = 'Hyderabad';
+  currentLocation: string;
+  currentLatlng: LatLng;
   shops: Shop[] = [];
   selectedCategories: string[] = [];
-  searchTerm: any;
 
   categories: string[] = [];
   distances: number[] = [2, 4, 6, 8, 10, 20, 100];
   selectedDistance: number = 8;
+  searchTerm: string ;
   constructor(
     private shopsService: ShopsService,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private geocodeService: GeocodeService
   ) {
-    this.loading = true;
-    this.shopsService.getCategoryList().subscribe(categories => {
-      this.categories = categories;
-      this.selectedCategories = JSON.parse(JSON.stringify(categories));
-      this.updateShops();
-    });
+
+    this.currentLatlng = this.geocodeService.getSavedLocation().latlng
+    this.currentLocation = this.geocodeService.getSavedLocation().formattedAddress
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.searchTerm = params.q;
+    this.loading = true;
+    this.shopsService.getCategoryList().subscribe(categories => {
+      this.categories = categories;
+      this.selectedCategories = JSON.parse(JSON.stringify(categories));      
+      let searchParam = this.route.snapshot.queryParams.q
+      if (searchParam) {
+        this.searchTerm = this.route.snapshot.queryParams.q
+        this.onSearchClicked(searchParam)
+      } else {
+        this.updateShops()
+      }
     });
   }
 
@@ -53,11 +62,12 @@ export class FiltersPageComponent implements OnInit {
       email: this.userService.getUserFromLocalStorage().email,
       password: this.userService.getUserFromLocalStorage().password,
     };
+    this.searchTerm = null;
     this.shopsService
       .getRecommendedAndOtherShops(
         userLogin,
         this.selectedCategories,
-        null,
+        this.geocodeService.getSavedLocation().latlng,
         this.selectedDistance
       )
       .subscribe(shops => {
@@ -81,5 +91,22 @@ export class FiltersPageComponent implements OnInit {
   onDistanceSelectionChanged(distance: number) {
     this.selectedDistance = distance;
     this.updateShops();
+  }
+
+  onSearchClicked(searchTerm) {
+    this.loading = true;
+    const userLogin = {
+      email: this.userService.getUserFromLocalStorage().email,
+      password: this.userService.getUserFromLocalStorage().password,
+    };
+    this.shopsService
+      .searchShops(
+        searchTerm,
+        userLogin
+      )
+      .subscribe(shops => {
+        this.shops = shops;
+        this.loading = false;
+      });
   }
 }

@@ -3,6 +3,8 @@ import {ShopsService} from 'src/core/services/shops.service';
 import {UserService} from 'src/core/services/user.service';
 import {GeocodeService} from 'src/core/services/geocode.service';
 import {LatLng, UserLogin} from 'src/core/models/Models';
+import {Router} from '@angular/router';
+
 declare var jQuery: any;
 
 @Component({
@@ -158,7 +160,8 @@ export class HomePageComponent implements OnInit {
   constructor(
     private shopService: ShopsService,
     private userService: UserService,
-    private geoCodeService: GeocodeService
+    private geoCodeService: GeocodeService,
+    private router: Router
   ) {
     let latlng = this.geoCodeService.getSavedLocation().latlng
     this.currentLocation = this.geoCodeService.getSavedLocation().formattedAddress
@@ -242,5 +245,9 @@ export class HomePageComponent implements OnInit {
           this.initializeSlick(this.recommendedAndOthersShops.label);
         }
       });
+  }
+
+  onSearchClicked(searchTerm){
+    this.router.navigate(['/filters'], {queryParams: {q: searchTerm}});
   }
 }
