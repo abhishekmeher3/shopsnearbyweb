@@ -8,12 +8,18 @@ shopsnearby-header {
     background-image: url('../../../assets/img/map-bg.png'),
       linear-gradient(#39278b, #15184d);
   }
-  .search-bar {
+
+
+  .searchBar {
+    height: 40px;
+    border-radius: 20px;
     width: 100%;
     background-color: white;
+    box-shadow: 0px 6px 13px -3px rgb(143, 143, 143);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 20px;
   }
   .current-location {
     margin: 0;
@@ -43,6 +49,9 @@ shopsnearby-header {
     font-size: 16px;
     border-radius: 30px;
     border: transparent;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-lines: 1;
   }
 
   .padded {
