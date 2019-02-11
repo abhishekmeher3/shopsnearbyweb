@@ -1,4 +1,4 @@
-import {Component, OnInit, HostListener, Input} from '@angular/core';
+import {Component, OnInit, HostListener, Input, Output, EventEmitter} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
@@ -10,12 +10,13 @@ import {HeaderService} from './header.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  searchTerm = '';
+  @Input() searchTerm = '';
   resize$ = new Subject<void>();
   targetDevice: string;
   content: any;
   @Input() route;
   @Input() currentLocation;
+  @Output() onSearchClick: EventEmitter<any> = new EventEmitter<any>();
   constructor(private headerService: HeaderService, private router: Router) {}
   setDeviceViewport() {
     if (window.innerWidth < 576) {
@@ -39,7 +40,7 @@ export class HeaderComponent implements OnInit {
   }
   onSearchClicked() {
     if (this.searchTerm) {
-      this.router.navigate(['/filters'], {queryParams: {q: this.searchTerm}});
+      this.onSearchClick.emit(this.searchTerm);
     }
   }
 
