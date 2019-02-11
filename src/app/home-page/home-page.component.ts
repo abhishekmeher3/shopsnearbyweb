@@ -160,11 +160,9 @@ export class HomePageComponent implements OnInit {
     private userService: UserService,
     private geoCodeService: GeocodeService
   ) {
-    let hyderabadLatng: LatLng = {
-      latitude: 17.385,
-      longitude: 78.4867,
-    };
-    this.updateData(hyderabadLatng);
+    let latlng = this.geoCodeService.getSavedLocation().latlng
+    this.currentLocation = this.geoCodeService.getSavedLocation().formattedAddress
+    this.updateData(latlng);
   }
 
   afterChange(e) {

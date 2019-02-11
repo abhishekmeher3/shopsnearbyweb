@@ -4,6 +4,7 @@ import { LoginService } from './login.service';
 import { UserService } from '../../core/services/user.service';
 import { MatDialog } from '@angular/material';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+import { GeocodeService } from 'src/core/services/geocode.service';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class loginComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     public dialog: MatDialog,
+    private geocodeService: GeocodeService
   ) { }
 
   ngOnInit() { }
@@ -28,18 +30,22 @@ export class loginComponent implements OnInit {
   login() {
     let validationResult = this.validate()
     if (validationResult.status === true) {
-      this.loginService.doLogIn(this.email, this.password).subscribe(
-        (response: any) => {
-          response['password'] = this.password; // added for use when fetching from localStorage, as there password doesn't get returned from the response
-          this.userService.setUserToLocalStorage(JSON.stringify(response));
-          this.router.navigate(['/home']);
-        },
-        error => {
-          console.log(error);
-          this.showDialog("Login Error:", error.error.message)
-          this.loading = false
-        }
-      );
+      this.loading = true
+      this.geocodeService.fetchAndSaveLocation().then(address => {
+        this.loginService.doLogIn(this.email, this.password).subscribe(
+          (response: any) => {
+            response['password'] = this.password; // added for use when fetching from localStorage, as there password doesn't get returned from the response
+            this.userService.setUserToLocalStorage(JSON.stringify(response));
+            this.router.navigate(['/home']);
+            this.loading = false
+          },
+          error => {
+            console.log(error);
+            this.showDialog("Login Error:", error.error.message)
+            this.loading = false
+          }
+        );
+      })
     } else {
       this.showDialog("Validation Error", validationResult.message)
       this.loading = false
