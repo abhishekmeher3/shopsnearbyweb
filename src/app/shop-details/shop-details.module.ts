@@ -6,6 +6,7 @@ import {
   MatButtonModule,
   MatProgressBarModule,
 } from '@angular/material';
+import {ComponentsModule} from '../components/components.module';
 
 @NgModule({
   declarations: [ShopDetailsComponent],
@@ -14,6 +15,7 @@ import {
     MatDialogModule,
     MatButtonModule,
     MatProgressBarModule,
+    ComponentsModule,
   ],
   providers: [],
   bootstrap: [ShopDetailsComponent],

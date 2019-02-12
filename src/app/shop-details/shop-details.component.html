@@ -4,69 +4,9 @@
   [hidden]="!loading"
   class="loadingBar"
 ></mat-progress-bar>
-<div style="position:relative;width: 100%">
-  <div class="header padded">
-    <div class="row" style="padding-top: 40px;padding-bottom: 10px;">
-      <div class="col-md-6">
-        <img
-          style="width: 200px; height: 50px;"
-          src="./assets/img/logo.svg"
-        />
-        <div>
-          <a class="navLinks" href="#">Home</a>
-          <p class="navLinks">></p>
-          <a class="navLinks" href="#">Category</a>
-          <p class="navLinks">></p>
-          <a class="navLinks" href="#">Restaurants Nearby You</a>
-        </div>
-        <div class="row" style="margin-top: 14px;">
-          <div class="col-md-2" style="color:orange;font-size: 23px">
-            <i class="fa fa-arrow-left"></i>
-          </div>
-          <div class="col-md-10" style="margin-left: -23px;">
-            <div style="color:orange;font-size: 23px;">Bikanervala</div>
-            <div style="color: #fff;font-size: 19px;">
-              North Indian, Chat, Sweet Shop
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6" style="text-align: right;">
-        <div style="position: relative;">
-          <button type="button" class="btn btn-default textBtn" href="login">
-            Register Your shop
-          </button>
-          <button type="button" class="btn btn-default textBtn" href="login">
-            Login
-          </button>
-          <button type="button" class="btn btn-default signupBtn">
-            Sign Up
-          </button>
-        </div>
-
-        <div
-          style="position: absolute;bottom: 0px;color: #fff;right: 0px;
-      margin-right: 15px;"
-        >
-          <div
-            class="chip"
-            style="background: orange;
-        border-radius: 6px;
-        padding: 4px 0px;
-        color: #000;
-        text-align: center;"
-          >
-            4.1/5
-          </div>
-          <div style="font-size: 12px;">2124 votes</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="padded"
-    style="padding-top: 20px; padding-bottom: 20px;background: #ebebeb"
-  >
+<div class="container-fluid">
+  <shopsnearby-header [route]="'shop-details'"></shopsnearby-header>
+  <div class="padded" style="padding-top: 20px; padding-bottom: 20px">
     <div class="row">
       <div class="col-md-12">
         <div class="button-detail">
@@ -153,22 +93,18 @@
             <h3>Offers by Bikanervala</h3>
             <p>View Offers by Bikanervala</p>
           </div>
-          <button style="background:#ebebeb;border:none;">View all</button>
+          <button style="background:transparent;border:none;">View all</button>
         </div>
-        <!-- <ngx-slick
-          class="carousel"
-          #slickModal="slick-modal"
-          [config]="slideConfig"
-          (afterChange)="afterChange($event)"
-        >
+        <div class="{{ selectedRestaurant.label }}">
           <div
-            class="slide"
-            ngxSlickItem
-            *ngFor="let slide of shopOffers"
+            *ngFor="let slide of selectedRestaurant.value"
             [ngStyle]="{
               'background-image':
-                'url(' + './assets/img/no-image.jpeg' + ')'
+                slide.imageUrl && slide.imageUrl.endsWith('null')
+                  ? 'url(' + '../../assets/img/no-image.jpeg' + ')'
+                  : 'url(' + slide.imageUrl + ')'
             }"
+            class="slide"
           >
             <div style="text-align: right;"><span>10% off</span></div>
             <div style="position: absolute; bottom: 0px;margin-bottom: 10px;">
@@ -179,7 +115,7 @@
               <div style="color: #fff;">View Offer &#10132;</div>
             </div>
           </div>
-        </ngx-slick> -->
+        </div>
       </div>
     </div>
 
@@ -190,22 +126,19 @@
             <h3>Similar Restaurants Nearby You</h3>
             <p>View more similar restaurants nearby you</p>
           </div>
-          <button style="background:#ebebeb;border:none;">View all</button>
+          <button style="background:transparent;border:none;">View all</button>
         </div>
-        <!-- <ngx-slick
-          class="carousel"
-          #slickModal="slick-modal"
-          [config]="slideConfig"
-          (afterChange)="afterChangeOfSimilarRestaurants($event)"
-        >
+
+        <div class="{{ similarRestaurants.label }}">
           <div
-            class="slide"
-            ngxSlickItem
-            *ngFor="let slide of similarRestaurants"
+            *ngFor="let slide of similarRestaurants.value"
             [ngStyle]="{
               'background-image':
-                'url(' + './assets/img/no-image.jpeg' + ')'
+                slide.imageUrl && slide.imageUrl.endsWith('null')
+                  ? 'url(' + '../../assets/img/no-image.jpeg' + ')'
+                  : 'url(' + slide.imageUrl + ')'
             }"
+            class="slide"
           >
             <div style="text-align: right;">
               <span style="margin-right: 10px;"
@@ -219,66 +152,9 @@
               <div style="color: #fff;">1km away</div>
             </div>
           </div>
-        </ngx-slick> -->
+        </div>
       </div>
     </div>
   </div>
-
-  <div class="joinnow">
-    <div>
-      <p style="margin:0;display: inline-block;">
-        Are you a shop owner looking to grow your bussiness online?
-      </p>
-      <button class="btn joinnow-btn">Join now</button>
-    </div>
-  </div>
-</div>
-
-<div class="footer">
-  <div>
-    <p style="font-weight:500; font-size:16px">About Shops Nearby Me</p>
-    <p>
-      Shops Nearby you helps you discover the Nearby things to do, eat, buy or
-      explore - whatever you are, who ever you are! We have more than 10k
-      listings which include Restaurants, gym, spa, shopping malls other unique
-      places located around you. Don't stop yet! Take it whenever you go with
-      the shops nearby you mobile app. Based on your location and preference,
-      our smart search engine will suggest new things to explore every time you
-      open the app. What's more, with offers on everything around you.. you are
-      sure to try something new everytime.
-    </p>
-
-    <p>Product of Himaja Infotech, Developed by Abhishek Meher</p>
-  </div>
-
-  <div style="margin-left:20px; margin-right:20px; width: 40%">
-    <p style="font-weight:500; font-size:16px">Useful Links</p>
-    <a href="#" class="footer-links">About us</a>
-    <a href="#" class="footer-links">Privacy Policy</a>
-    <a href="#" class="footer-links">Terms and conditions</a>
-
-    <p style="font-weight:500; font-size:16px; margin-top: 20px;">Follow Us</p>
-    <div style="display:flex;align-items:center;">
-      <img style="height:30px;width:30px;" src="./assets/img/fb.svg" />
-      <img
-        style="height:30px;width:30px;margin:4px"
-        src="./assets/img/insta.svg"
-      />
-      <img style="height:30px;width:30px;" src="./assets/img/twitter.svg" />
-    </div>
-  </div>
-
-  <div style="width:40%;margin-top:40px;">
-    <a href="#" class="footer-links">Contact us</a>
-    <a href="#" class="footer-links">Blogs</a>
-    <a href="#" class="footer-links">Carreers</a>
-  </div>
-</div>
-
-<div
-  style="background-color:grey;height:30px; display: flex; flex-direction: row;align-items: center"
->
-  <p style="margin:auto; font-size:14px;">
-    Copyright Shops Nearby Me. All Right Reserved.
-  </p>
+  <shopsnearby-footer></shopsnearby-footer>
 </div>

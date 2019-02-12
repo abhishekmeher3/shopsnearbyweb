@@ -38,37 +38,74 @@
           {{ content.pHeading }}
         </p>
         <div>{{ content.sHeading }}</div>
-        <div
-          *ngIf="route === 'home'"
-        >
-        <div class="searchBar">
-          <img
-            style="margin-left: 10px;"
-            src="./assets/img/ic_my_location.svg"
-          />
-          <p
-            style="margin:0;padding-left:10px;width:30%;text-overflow: ellipsis;max-height: 1.1em;overflow: hidden;line-height: 1em; color: black"
-          >
-            {{ currentLocation }}
-          </p>
-          <div
-            style="width:1px;height:100%;background-color: black; margin-left: 5px;margin-right: 5px"
-          ></div>
-          <input
-            style="border:0; width:46%;margin-left: 10px;text-overflow: ellipsis; overflow: hidden;"
-            placeholder="Search Nearby"
-            type="text"
-            name="search"
-            [(ngModel)]="searchTerm"
-          />
-          <button
-            class="signupBtn"
-            style="padding-left:10px; height:100%; width:18%; border-radius:40px;padding-right:10px;font-size:16px;"
-            (click)="onSearchClicked()"
-          >
-            Search
-          </button>
+        <div id="shop-details" *ngIf="route === 'shop-details'">
+          <div class="row">
+            <div class="col-9">
+              <div
+                style="display: inline-block;height: 100%;"
+                class="align-middle"
+              >
+                <i class="fa fa-arrow-left" style="color: orange;"></i>
+              </div>
+
+              <div style="display: inline-block; margin-left: 13px;">
+                <div style="color:orange;font-size: 23px;">
+                  Bikanervala
+                </div>
+                <div style="color: #fff;font-size: 15px;">
+                  North Indian, Chat, Sweet Shop
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div
+                style="position: absolute;bottom: 0px;color: #fff;right: 0px;
+                  margin-right: 15px;"
+              >
+                <div
+                  class="chip"
+                  style="background: orange;
+                    border-radius: 6px;
+                    padding: 4px 0px;
+                    color: #000;
+                    text-align: center;"
+                >
+                  4.1/5
+                </div>
+                <div style="font-size: 15px;">2124 votes</div>
+              </div>
+            </div>
+          </div>
         </div>
+        <div *ngIf="route === 'home'">
+          <div class="searchBar">
+            <img
+              style="margin-left: 10px;"
+              src="./assets/img/ic_my_location.svg"
+            />
+            <p
+              style="margin:0;padding-left:10px;width:30%;text-overflow: ellipsis;max-height: 1.1em;overflow: hidden;line-height: 1em; color: black"
+            >
+              {{ currentLocation }}
+            </p>
+            <div
+              style="width:1px;height:100%;background-color: black; margin-left: 5px;margin-right: 5px"
+            ></div>
+            <input
+              style="border:0; width:46%;margin-left: 10px;text-overflow: ellipsis; overflow: hidden;"
+              placeholder="Search Nearby"
+              type="text"
+              name="search"
+              [(ngModel)]="searchTerm"
+            />
+            <button
+              class="signupBtn"
+              style="padding-left:10px; height:100%; width:18%; border-radius:40px;padding-right:10px;font-size:16px;"
+              (click)="onSearchClicked()"
+            >
+              Search
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -103,8 +140,49 @@
       </p>
       <div>{{ content.sHeading }}</div>
       <div
-        *ngIf="route === 'home'"
-        >
+        id="shop-details"
+        style="padding-bottom: 20px;"
+        *ngIf="route === 'shop-details'"
+      >
+        <div class="row">
+          <div class="col-9">
+            <div
+              style="display: inline-block;height: 100%;"
+              class="align-middle"
+            >
+              <i class="fa fa-arrow-left" style="color: orange;"></i>
+            </div>
+
+            <div style="display: inline-block; margin-left: 15px;">
+              <div style="color:orange;font-size: 23px;">
+                Bikanervala
+              </div>
+              <div style="color: #fff;font-size: 15px;">
+                North Indian, Chat, Sweet Shop
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div
+              style="position: absolute;bottom: 0px;color: #fff;right: 0px;
+                margin-right: 15px;"
+            >
+              <div
+                class="chip"
+                style="background: orange;
+                  border-radius: 6px;
+                  padding: 4px 0px;
+                  color: #000;
+                  text-align: center;"
+              >
+                4.1/5
+              </div>
+              <div style="font-size: 15px;">2124 votes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="route === 'home'">
         <div class="searchBar">
           <img
             style="margin-left: 10px;"
