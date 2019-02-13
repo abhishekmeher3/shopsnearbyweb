@@ -7,7 +7,7 @@ import {HeaderService} from './header.service';
 @Component({
   selector: 'shopsnearby-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   @Input() searchTerm = '';

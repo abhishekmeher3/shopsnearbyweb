@@ -5,7 +5,7 @@ declare var jQuery: any;
 @Component({
   selector: 'shop-details-page',
   templateUrl: './shop-details.component.html',
-  styleUrls: ['./shop-details.component.scss'],
+  styleUrls: ['./shop-details.component.css'],
 })
 export class ShopDetailsComponent implements OnInit {
   shopObject: any;

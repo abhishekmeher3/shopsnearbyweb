@@ -1,4 +1,4 @@
-app-addshop {
+
   .padded {
     padding-left: 10%;
     padding-right: 10%;
@@ -56,16 +56,24 @@ app-addshop {
   .owl-dt-container-buttons {
     height: 40px;
     color: #000;
-    .owl-dt-control-button:first-child {
-      border-right: 1px solid #000;
-    }
+    
   }
+
+  .owl-dt-container-buttons.owl-dt-control-button:first-child {
+    border-right: 1px solid #000;
+  }
+
   shopsnearby-header {
-    .padded:first-child {
-      padding-bottom: 25px;
-    }
-    .small-devices-header {
-      padding-bottom: 25px;
-    }
+    
+    
   }
+
+
+shopsnearby-header.padded:first-child {
+  padding-bottom: 25px;
+}
+
+
+shopsnearby-header.small-devices-header {
+  padding-bottom: 25px;
 }
