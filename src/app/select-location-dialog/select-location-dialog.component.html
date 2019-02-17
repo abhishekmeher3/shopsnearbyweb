@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Select Location</h1>
+<div mat-dialog-content>
+
+  <input places-autocomplete (onSelect)="addressSelected($event)" class="search">
+
+</div>
+<div mat-dialog-actions>
+  <span class="spacer"></span>
+  <button mat-button [mat-dialog-close]="address" class="no-highlight" cdkFocusInitial>Ok</button>
+</div>
+<div style="height:10px"></div>

@@ -1,9 +1,11 @@
-import {Component, OnInit, HostListener, Input, Output, EventEmitter} from '@angular/core';
-import {Router} from '@angular/router';
-import {Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
-import {HeaderService} from './header.service';
-
+import { Component, OnInit, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { HeaderService } from './header.service';
+import { MatDialog } from '@angular/material';
+import { SelectLocationDialogComponent } from '../../select-location-dialog/select-location-dialog.component'
+import { GeocodeService } from 'src/core/services/geocode.service';
 @Component({
   selector: 'shopsnearby-header',
   templateUrl: './header.component.html',
@@ -17,7 +19,13 @@ export class HeaderComponent implements OnInit {
   @Input() route;
   @Input() currentLocation;
   @Output() onSearchClick: EventEmitter<any> = new EventEmitter<any>();
-  constructor(private headerService: HeaderService, private router: Router) {}
+  @Output() onLocationChanged: EventEmitter<any> = new EventEmitter<any>();
+  constructor(
+    private headerService: HeaderService,
+    private router: Router,
+    public dialog: MatDialog,
+    private geocodeService: GeocodeService
+  ) { }
   setDeviceViewport() {
     if (window.innerWidth < 576) {
       this.targetDevice = 'xs';
@@ -47,5 +55,16 @@ export class HeaderComponent implements OnInit {
   @HostListener('window:resize')
   onResize(): void {
     this.resize$.next();
+  }
+
+
+  onLocationClicked() {
+    const dialogref = this.dialog.open(SelectLocationDialogComponent, {})
+    dialogref.afterClosed().subscribe(result => {
+      if (result) {
+        this.geocodeService.saveLocation(result)
+        this.onLocationChanged.emit(result)
+      }
+    })
   }
 }

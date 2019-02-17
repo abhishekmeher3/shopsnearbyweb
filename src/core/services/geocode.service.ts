@@ -160,11 +160,19 @@ export class GeocodeService {
   }
 
   getSavedLocation(): ResolvedAddress {
-    let address = JSON.parse(localStorage.getItem("currentAddress")) as ResolvedAddress
-    if (address != null) {
-      return address
-    } else {
+    try{
+      let address = JSON.parse(localStorage.getItem("currentAddress")) as ResolvedAddress
+      if (address != null) {
+        return address
+      } else {
+        return this.hyderabadAddress
+      }
+    }catch{
       return this.hyderabadAddress
     }
+  }
+
+  saveLocation(address: ResolvedAddress){
+    localStorage.setItem("currentAddress", JSON.stringify(address))
   }
 }
