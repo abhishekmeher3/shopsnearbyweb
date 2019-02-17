@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ShopsService} from 'src/core/services/shops.service';
 import {UserService} from 'src/core/services/user.service';
 import {GeocodeService} from 'src/core/services/geocode.service';
-import {LatLng, UserLogin} from 'src/core/models/Models';
+import {LatLng, UserLogin, ResolvedAddress} from 'src/core/models/Models';
 import {Router} from '@angular/router';
 
 declare var jQuery: any;
@@ -249,5 +249,10 @@ export class HomePageComponent implements OnInit {
 
   onSearchClicked(searchTerm){
     this.router.navigate(['/filters'], {queryParams: {q: searchTerm}});
+  }
+
+  onLocationChanged(address: ResolvedAddress){
+    this.updateData(address.latlng)
+    this.currentLocation = address.formattedAddress
   }
 }

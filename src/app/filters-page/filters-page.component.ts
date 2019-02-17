@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Shop, ShopOwner } from 'src/core/models/shop.model';
 import { ShopsService } from '../../core/services/shops.service';
-import { UserLogin, LatLng } from 'src/core/models/Models';
+import { UserLogin, LatLng, ResolvedAddress } from 'src/core/models/Models';
 import { UserService } from 'src/core/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { GeocodeService } from 'src/core/services/geocode.service';
@@ -108,5 +108,10 @@ export class FiltersPageComponent implements OnInit {
         this.shops = shops;
         this.loading = false;
       });
+  }
+
+  onLocationChanged(address: ResolvedAddress){
+    this.updateShops()
+    this.currentLocation = address.formattedAddress
   }
 }
