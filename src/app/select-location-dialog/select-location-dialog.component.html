@@ -1,11 +1,19 @@
 <h1 mat-dialog-title>Select Location</h1>
 <div mat-dialog-content>
+  <mat-progress-bar mode="indeterminate" [hidden]="!loading"></mat-progress-bar>
+  <div>
 
-  <input places-autocomplete (onSelect)="addressSelected($event)" class="search">
+    <button class="btn btn-primary" style="margin-top:4px" (click)="currentLocationClicked()">Select My Current
+      Location</button>
+    <br>
+    <br>
+    <p style="margin-left:4px">Or</p>
+    <input places-autocomplete (onSelect)="addressSelected($event)" class="search form-control" [ngModel]="placesText">
+  </div>
 
 </div>
-<div mat-dialog-actions>
+<mat-dialog-actions align="end">
   <span class="spacer"></span>
-  <button mat-button [mat-dialog-close]="address" class="no-highlight" cdkFocusInitial>Ok</button>
-</div>
+  <button mat-raised-button [mat-dialog-close]="address" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>
 <div style="height:10px"></div>
