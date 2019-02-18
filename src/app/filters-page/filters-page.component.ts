@@ -42,7 +42,11 @@ export class FiltersPageComponent implements OnInit {
       if (searchParam) {
         this.searchTerm = this.route.snapshot.queryParams.q
         this.onSearchClicked(searchParam)
-      } else {
+      } else if (this.route.snapshot.queryParams.category){
+        this.selectedCategories = []
+        this.selectedCategories.push(this.route.snapshot.queryParams.category)
+        this.updateShops()
+      }else {
         this.updateShops()
       }
     });

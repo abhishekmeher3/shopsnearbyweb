@@ -255,4 +255,12 @@ export class HomePageComponent implements OnInit {
     this.updateData(address.latlng)
     this.currentLocation = address.formattedAddress
   }
+
+  onCategoryClicked(categoryText){
+      if(!categoryText){
+        this.router.navigateByUrl('/filters');
+      }else{        
+        this.router.navigate(['/filters'], {queryParams: {category: categoryText}});
+      }
+  }
 }
