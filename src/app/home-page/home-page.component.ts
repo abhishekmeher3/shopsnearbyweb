@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ShopsService} from 'src/core/services/shops.service';
 import {UserService} from 'src/core/services/user.service';
 import {GeocodeService} from 'src/core/services/geocode.service';
-import {LatLng, UserLogin, ResolvedAddress} from 'src/core/models/Models';
+import {LatLng, UserLogin, ResolvedAddress, HeaderPath} from 'src/core/models/Models';
 import {Router} from '@angular/router';
 
 declare var jQuery: any;
@@ -27,6 +27,7 @@ export class HomePageComponent implements OnInit {
   currentLocation: string = 'Hyderabad';
   loading: boolean = false;
   trendingSearches: String[] = ['Gyms, Car Repair, Medical Hall'];
+  paths: HeaderPath[] = []
   popularCategories = [
     {display: 'Restaurants', value: 'restaurants', icon: 'fa fa-car'},
     {display: 'Parks', value: 'parks', icon: 'fa fa-car'},
@@ -177,7 +178,9 @@ export class HomePageComponent implements OnInit {
       jQuery(`.${str}`).slick(self.shopService.getSlideConfiguration());
     });
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.paths.push({display: "Home", path: "/home"})
+  }
 
   onLocateClicked() {
     this.geoCodeService.getLatitudeLongitude().then(latlng => {

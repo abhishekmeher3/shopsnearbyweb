@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material';
 import { SelectLocationDialogComponent } from '../../select-location-dialog/select-location-dialog.component'
 import { GeocodeService } from 'src/core/services/geocode.service';
 import { UserService } from 'src/core/services/user.service';
+import { HeaderPath } from 'src/core/models/Models';
 @Component({
   selector: 'shopsnearby-header',
   templateUrl: './header.component.html',
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
   @Input() currentLocation;
   @Output() onSearchClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() onLocationChanged: EventEmitter<any> = new EventEmitter<any>();
+  @Input() paths: HeaderPath[] = []
   constructor(
     private headerService: HeaderService,
     public dialog: MatDialog,

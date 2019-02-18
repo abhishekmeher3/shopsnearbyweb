@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Shop, ShopOwner } from 'src/core/models/shop.model';
 import { ShopsService } from '../../core/services/shops.service';
-import { UserLogin, LatLng, ResolvedAddress } from 'src/core/models/Models';
+import { UserLogin, LatLng, ResolvedAddress, HeaderPath } from 'src/core/models/Models';
 import { UserService } from 'src/core/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { GeocodeService } from 'src/core/services/geocode.service';
@@ -22,6 +22,7 @@ export class FiltersPageComponent implements OnInit {
   distances: number[] = [2, 4, 6, 8, 10, 20, 100];
   selectedDistance: number = 8;
   searchTerm: string ;
+  paths: HeaderPath[] = []
   constructor(
     private shopsService: ShopsService,
     private userService: UserService,
@@ -35,16 +36,21 @@ export class FiltersPageComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    this.paths.push({display: "Home", path: "/home"})
+    this.paths.push({display: "Categories", path: "/filters"})
     this.shopsService.getCategoryList().subscribe(categories => {
       this.categories = categories;
       this.selectedCategories = JSON.parse(JSON.stringify(categories));      
       let searchParam = this.route.snapshot.queryParams.q
+      let categoryParam = this.route.snapshot.queryParams.category
       if (searchParam) {
         this.searchTerm = this.route.snapshot.queryParams.q
+        this.paths.push({display: "Search", path: "/filters"})
         this.onSearchClicked(searchParam)
-      } else if (this.route.snapshot.queryParams.category){
+      } else if (categoryParam){
         this.selectedCategories = []
-        this.selectedCategories.push(this.route.snapshot.queryParams.category)
+        this.selectedCategories.push(categoryParam)
+        this.paths.push({display: categoryParam, path: `/filters?category=${categoryParam}`})
         this.updateShops()
       }else {
         this.updateShops()

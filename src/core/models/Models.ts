@@ -25,3 +25,8 @@ export interface Category {
   display: string;
   value: string;
 }
+
+export interface HeaderPath{
+  display: string,
+  path: string
+}
