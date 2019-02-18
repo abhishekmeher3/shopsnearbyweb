@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LatLng, UserLogin } from '../models/Models';
-import { Category } from '../models/category.model'
-import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Shop } from '../models/shop.model';
-import { config } from '../../configs/baseconfig';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {LatLng, UserLogin} from '../models/Models';
+import {Category} from '../models/category.model';
+import {Observable, from} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {Shop} from '../models/shop.model';
+import {config} from '../../configs/baseconfig';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class ShopsService {
     longitude: 78.4867,
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   addShop(userLogin: UserLogin, shopObject): Observable<any> {
     let body = new FormData();
@@ -113,19 +113,36 @@ export class ShopsService {
     return this.simpleGetRequest<Shop[]>(url, userlogin);
   }
 
-  public searchShops( searchTerm: string, userlogin?: UserLogin):Observable<Shop[]>{
-    let url = config.API_URL + "/shops/search?query=" + searchTerm;
-    return this.simpleGetRequest<Shop[]>(url, userlogin)
+  public searchShops(
+    searchTerm: string,
+    userlogin?: UserLogin
+  ): Observable<Shop[]> {
+    let url = config.API_URL + '/shops/search?query=' + searchTerm;
+    return this.simpleGetRequest<Shop[]>(url, userlogin);
+  }
+
+  public searchShopById(
+    shopId: number,
+    userlogin: UserLogin
+  ): Observable<Shop> {
+    let url = config.API_URL + '/shops/byId?shopId=' + shopId;
+    return this.simpleGetRequest<Shop>(url, userlogin);
+  }
+
+  public searchSimilarRestaurantsByBranchId(branchId, userlogin: UserLogin) {
+    let url = config.API_URL + '/shops/branches?branchId=' + branchId;
+    return this.simpleGetRequest<Shop[]>(url, userlogin);
   }
 
   public getCategoryList(): Observable<string[]> {
-    let url = config.API_URL + '/categories'
-    return this.http.get<Category[]>(url).pipe(map(values => {
-      let categories = values.map(value=> value.text)
-      return categories
-    }))
+    let url = config.API_URL + '/categories';
+    return this.http.get<Category[]>(url).pipe(
+      map(values => {
+        let categories = values.map(value => value.text);
+        return categories;
+      })
+    );
   }
-
 
   private simpleGetRequest<T>(
     url: string,

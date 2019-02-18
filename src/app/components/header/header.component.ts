@@ -1,4 +1,13 @@
-import {Component, OnInit, HostListener, Input, Output, EventEmitter} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
@@ -9,7 +18,8 @@ import {HeaderService} from './header.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnChanges {
+  @Input() shopDetails;
   @Input() searchTerm = '';
   resize$ = new Subject<void>();
   targetDevice: string;
@@ -29,6 +39,11 @@ export class HeaderComponent implements OnInit {
       this.targetDevice = 'lg';
     } else {
       this.targetDevice = 'xl';
+    }
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.shopDetails.currentValue) {
+      this.shopDetails = changes.shopDetails.currentValue;
     }
   }
   ngOnInit() {

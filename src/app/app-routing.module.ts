@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {path: 'addshop', component: AddShop, canActivate: [AuthenticationGuard]},
   {
-    path: 'details',
+    path: 'details/:id',
     component: ShopDetailsComponent,
     canActivate: [AuthenticationGuard],
   },
