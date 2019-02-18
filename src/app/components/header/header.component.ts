@@ -6,6 +6,7 @@ import { HeaderService } from './header.service';
 import { MatDialog } from '@angular/material';
 import { SelectLocationDialogComponent } from '../../select-location-dialog/select-location-dialog.component'
 import { GeocodeService } from 'src/core/services/geocode.service';
+import { UserService } from 'src/core/services/user.service';
 @Component({
   selector: 'shopsnearby-header',
   templateUrl: './header.component.html',
@@ -22,9 +23,9 @@ export class HeaderComponent implements OnInit {
   @Output() onLocationChanged: EventEmitter<any> = new EventEmitter<any>();
   constructor(
     private headerService: HeaderService,
-    private router: Router,
     public dialog: MatDialog,
-    private geocodeService: GeocodeService
+    private geocodeService: GeocodeService,
+    private userService: UserService
   ) { }
   setDeviceViewport() {
     if (window.innerWidth < 576) {
