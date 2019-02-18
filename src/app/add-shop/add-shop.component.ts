@@ -7,7 +7,7 @@ import {UserService} from 'src/core/services/user.service';
 @Component({
   selector: 'app-addshop',
   templateUrl: './add-shop.component.html',
-  styleUrls: ['./add-shop.component.scss'],
+  styleUrls: ['./add-shop.component.css'],
 })
 export class AddShop implements OnInit {
   loaderForReadOnly = false;

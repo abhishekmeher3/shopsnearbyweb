@@ -23,6 +23,8 @@ import {SharedServiceModule} from './service/shared-service.module';
 import {FileUploadTriggerDirective} from './add-shop/file-upload.directive';
 import {AgmCoreModule} from '@agm/core';
 import {ComponentsModule} from './components/components.module';
+import { SelectLocationDialogComponent } from './select-location-dialog/select-location-dialog.component';
+import { PlacesAutocompleteDirective } from './places-autocomplete-directive/places-autocomplete.directive';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import {ComponentsModule} from './components/components.module';
     InfoDialogComponent,
     FiltersPageComponent,
     FileUploadTriggerDirective,
+    SelectLocationDialogComponent,
+    PlacesAutocompleteDirective,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +59,6 @@ import {ComponentsModule} from './components/components.module';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [InfoDialogComponent],
+  entryComponents: [InfoDialogComponent, SelectLocationDialogComponent],
 })
 export class AppModule {}

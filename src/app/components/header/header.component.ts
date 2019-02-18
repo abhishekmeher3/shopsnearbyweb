@@ -8,15 +8,17 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {HeaderService} from './header.service';
-
+import {MatDialog} from '@angular/material';
+import {SelectLocationDialogComponent} from '../../select-location-dialog/select-location-dialog.component';
+import {GeocodeService} from 'src/core/services/geocode.service';
+import {UserService} from 'src/core/services/user.service';
 @Component({
   selector: 'shopsnearby-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit, OnChanges {
   @Input() shopDetails;
@@ -27,7 +29,13 @@ export class HeaderComponent implements OnInit, OnChanges {
   @Input() route;
   @Input() currentLocation;
   @Output() onSearchClick: EventEmitter<any> = new EventEmitter<any>();
-  constructor(private headerService: HeaderService, private router: Router) {}
+  @Output() onLocationChanged: EventEmitter<any> = new EventEmitter<any>();
+  constructor(
+    private headerService: HeaderService,
+    public dialog: MatDialog,
+    private geocodeService: GeocodeService,
+    private userService: UserService
+  ) {}
   setDeviceViewport() {
     if (window.innerWidth < 576) {
       this.targetDevice = 'xs';
@@ -42,7 +50,7 @@ export class HeaderComponent implements OnInit, OnChanges {
     }
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.shopDetails.currentValue) {
+    if (this.route === 'shop-details' && changes.shopDetails.currentValue) {
       this.shopDetails = changes.shopDetails.currentValue;
     }
   }
@@ -62,5 +70,15 @@ export class HeaderComponent implements OnInit, OnChanges {
   @HostListener('window:resize')
   onResize(): void {
     this.resize$.next();
+  }
+
+  onLocationClicked() {
+    const dialogref = this.dialog.open(SelectLocationDialogComponent, {});
+    dialogref.afterClosed().subscribe(result => {
+      if (result) {
+        this.geocodeService.saveLocation(result);
+        this.onLocationChanged.emit(result);
+      }
+    });
   }
 }

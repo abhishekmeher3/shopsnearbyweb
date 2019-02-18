@@ -48,4 +48,10 @@ export class UserService {
   getUserFromLocalStorage() {
     return JSON.parse(localStorage.getItem('shopsnearbyme'));
   }
+
+  isSignedIn(): boolean{
+      let user = this.getUserFromLocalStorage()
+      if(user)return true
+      else return false
+  }
 }

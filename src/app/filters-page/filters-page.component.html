@@ -10,7 +10,8 @@
     [route]="'home'"
     [currentLocation]="currentLocation"
     [searchTerm] = "searchTerm"
-    (onSearchClick)="onSearchClicked($event)">
+    (onSearchClick)="onSearchClicked($event)"
+    (onLocationChanged) = "onLocationChanged($event)">
   </shopsnearby-header>
   <div class="padded" style="margin-top:60px;">
     <div style="display:flex; justify-content:space-between">

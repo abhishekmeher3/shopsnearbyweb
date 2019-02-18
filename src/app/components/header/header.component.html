@@ -89,6 +89,7 @@
             <img
               style="margin-left: 10px;"
               src="./assets/img/ic_my_location.svg"
+              (click) = "onLocationClicked()"
             />
             <p
               style="margin:0;padding-left:10px;width:30%;text-overflow: ellipsis;max-height: 1.1em;overflow: hidden;line-height: 1em; color: black"
@@ -128,8 +129,8 @@
         />
         <div style="display:inline-block;margin-top: 4%;">
           <a class="textBtn" href="#">Register Your shop</a>
-          <a class="textBtn" href="login">Login</a>
-          <a class="signupBtn">Signup</a>
+          <a [hidden]= "this.userService.isSignedIn()" class="textBtn" href="login">Login</a>
+          <a [hidden]= "this.userService.isSignedIn()" class="signupBtn">Signup</a>
         </div>
       </div>
 
@@ -197,6 +198,7 @@
           <img
             style="margin-left: 10px;"
             src="./assets/img/ic_my_location.svg"
+            (click) = "onLocationClicked()"
           />
           <p
             style="margin:0;padding-left:10px;width:30%;text-overflow: ellipsis;max-height: 1.1em;overflow: hidden;line-height: 1em; color: black"
