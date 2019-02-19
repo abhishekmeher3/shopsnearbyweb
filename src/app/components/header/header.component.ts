@@ -16,6 +16,7 @@ import {SelectLocationDialogComponent} from '../../select-location-dialog/select
 import {GeocodeService} from 'src/core/services/geocode.service';
 import {UserService} from 'src/core/services/user.service';
 import { HeaderPath } from 'src/core/models/Models';
+import { Location } from '@angular/common';
 @Component({
   selector: 'shopsnearby-header',
   templateUrl: './header.component.html',
@@ -36,7 +37,8 @@ export class HeaderComponent implements OnInit, OnChanges {
     private headerService: HeaderService,
     public dialog: MatDialog,
     private geocodeService: GeocodeService,
-    private userService: UserService
+    private userService: UserService,
+    private location: Location
   ) {}
   setDeviceViewport() {
     if (window.innerWidth < 576) {
@@ -82,5 +84,9 @@ export class HeaderComponent implements OnInit, OnChanges {
         this.onLocationChanged.emit(result);
       }
     });
+  }
+
+  onBackClicked(){
+    this.location.back();
   }
 }
