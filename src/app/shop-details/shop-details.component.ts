@@ -109,6 +109,8 @@ export class ShopDetailsComponent implements OnInit {
     };
 
     this.shopService.searchShopById(shopId, userLogin).subscribe(shop => {
+      this.gallery.shift()
+      this.gallery.unshift(shop.imageUrl)
       this.shopService
         .searchSimilarRestaurantsByBranchId(shop.branchId, userLogin)
         .subscribe(shops => {
