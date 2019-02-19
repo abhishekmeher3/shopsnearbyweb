@@ -266,4 +266,8 @@ export class HomePageComponent implements OnInit {
         this.router.navigate(['/filters'], {queryParams: {category: categoryText}});
       }
   }
+
+  naviageToId(id){
+    this.router.navigateByUrl(`/details/${id}`)
+  }
 }

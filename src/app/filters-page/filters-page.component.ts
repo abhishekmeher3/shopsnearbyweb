@@ -3,7 +3,7 @@ import { Shop, ShopOwner } from 'src/core/models/shop.model';
 import { ShopsService } from '../../core/services/shops.service';
 import { UserLogin, LatLng, ResolvedAddress, HeaderPath } from 'src/core/models/Models';
 import { UserService } from 'src/core/services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GeocodeService } from 'src/core/services/geocode.service';
 
 @Component({
@@ -27,7 +27,8 @@ export class FiltersPageComponent implements OnInit {
     private shopsService: ShopsService,
     private userService: UserService,
     private route: ActivatedRoute,
-    private geocodeService: GeocodeService
+    private geocodeService: GeocodeService,
+    private router: Router
   ) {
 
     this.currentLatlng = this.geocodeService.getSavedLocation().latlng
@@ -123,5 +124,9 @@ export class FiltersPageComponent implements OnInit {
   onLocationChanged(address: ResolvedAddress){
     this.updateShops()
     this.currentLocation = address.formattedAddress
+  }
+
+  naviageToId(id){
+    this.router.navigateByUrl(`/details/${id}`)
   }
 }
