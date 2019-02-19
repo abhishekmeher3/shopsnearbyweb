@@ -7,9 +7,10 @@ import {
   MatProgressBarModule,
 } from '@angular/material';
 import {ComponentsModule} from '../components/components.module';
+import {TimeFormat} from './24-12hr.pipe';
 
 @NgModule({
-  declarations: [ShopDetailsComponent],
+  declarations: [ShopDetailsComponent, TimeFormat],
   imports: [
     CommonModule,
     MatDialogModule,

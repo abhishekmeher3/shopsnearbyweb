@@ -5,7 +5,11 @@
   class="loadingBar"
 ></mat-progress-bar>
 <div class="container-fluid">
-  <shopsnearby-header [route]="'shop-details'"></shopsnearby-header>
+  <!-- No. of votes is yet to be passed to header component -->
+  <shopsnearby-header
+    [route]="'shop-details'"
+    [shopDetails]="routedShop"
+  ></shopsnearby-header>
   <div class="padded" style="padding-top: 20px; padding-bottom: 20px">
     <div class="row">
       <div class="col-md-12">
@@ -15,46 +19,82 @@
         <div class="button-detail">
           <i class="fa fa-star" style="margin-right: 10px;"></i>Rate
         </div>
-        <div class="button-detail">
+        <div
+          class="button-detail"
+          (click)="copyURLToClipboard(); toast = true"
+          style="cursor: pointer;"
+        >
           <i class="fa fa-share-alt" style="margin-right: 10px;"></i>Share
         </div>
+        <basic-toast *ngIf="toast" (closeEvent)="toast = false"></basic-toast>
       </div>
     </div>
-    <div class="row" style="margin-top: 25px;">
+    <div class="row">
       <div class="col-md-4">
         <div style="font-size: 20px;">Phone Numbers</div>
         <div class="phone-numbers" style="margin-top: 10px;font-size: 14px;">
-          <div>+91 9160016801</div>
-          <div>+91 9160016801</div>
+          <div *ngIf="routedShop?.phoneNumber">
+            {{ routedShop?.phoneNumber }}
+          </div>
+          <div
+            *ngIf="
+              routedShop?.shopOwner?.ownerPhoneNum &&
+              routedShop?.shopOwner?.ownerPhoneNum !== routedShop?.phoneNumber
+            "
+          >
+            {{ routedShop?.shopOwner?.ownerPhoneNum }}
+          </div>
         </div>
       </div>
       <div class="col-md-4">
         <div style="font-size: 20px;">Address</div>
         <div class="address" style="margin-top: 10px;font-size: 14px;">
-          <div style="color: red;">4 Kms Away</div>
-          <div>6-3-190/2, Road Number 1,</div>
-          <div>Prem nagar, Banjaara hills</div>
-          <div>Hyderabad, Telangana 500034</div>
+          <div style="color: red;" *ngIf="currentDistanceFromShop">
+            {{ currentDistanceFromShop }} Kms Away
+          </div>
+          <div *ngIf="addressObj && addressObj.isJSON">
+            <div>
+              <span *ngIf="addressObj.houseNumber">{{
+                addressObj.houseNumber
+              }}</span>
+              <span *ngIf="addressObj.building">
+                {{ ', ' + addressObj.building }}
+              </span>
+            </div>
+            <div *ngIf="addressObj.locality">
+              {{ addressObj.locality }}
+            </div>
+            <div>
+              <span *ngIf="addressObj.city">
+                {{ addressObj.city }}
+              </span>
+              <span *ngIf="addressObj.state">
+                {{ ', ' + addressObj.state }}
+              </span>
+              <span *ngIf="addressObj.pincode">
+                {{ ' ' + addressObj.pincode }}
+              </span>
+            </div>
+          </div>
+          <div *ngIf="addressObj && !addressObj.isJSON">
+            {{ addressObj.address }}
+          </div>
         </div>
       </div>
       <div class="col-md-4">
         <div style="font-size: 20px;">Map</div>
-        <div class="map" style="position: relative;padding: 20px;">
-          <div
-            style="position: absolute;left: 0px;margin-bottom: 20px;color: #fff;margin-left: 20px;bottom: 0px;"
-          >
-            <div>6-3-190/2, Road Number 1, Prem Nagar</div>
-            <div>Banjara Hills, Hyderabad, Telangana 500034</div>
-            <div>View on Maps &#10132;</div>
-          </div>
-        </div>
+        <div
+          id="map"
+          style="width: 100%;height: 300px;border: 1px solid #000; border-radius: 8px;"
+          (click)="openMapsInNewTab($event)"
+        ></div>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="routedShop?.timeTo">
       <div class="col-md-12">
         <div style="font-size: 20px;">Open Timings</div>
         <div class="phone-numbers" style="margin-top: 10px;font-size: 14px;">
-          <div>Open till 02:30AM</div>
+          <div>Open till {{ routedShop.timeTo | convert24To12Format }}</div>
         </div>
       </div>
     </div>
@@ -119,7 +159,11 @@
       </div>
     </div>
 
-    <div class="row" style="margin-top: 35px;">
+    <div
+      class="row"
+      style="margin-top: 35px;"
+      *ngIf="this.similarRestaurants.value.length > 0"
+    >
       <div class="col-md-12">
         <div style="display: flex;justify-content: space-between;width: 100%;">
           <div>

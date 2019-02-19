@@ -10,7 +10,7 @@
     [paths] = "paths"
     [currentLocation]="currentLocation"
     (onSearchClick)="onSearchClicked($event)"
-    (onLocationChanged) = "onLocationChanged($event)"
+    (onLocationChanged)="onLocationChanged($event)"
   ></shopsnearby-header>
   <div class="padded" style="margin-top: 50px;">
     <div>Trending Search: {{ trendingSearches }}</div>
@@ -24,11 +24,10 @@
             style="cursor: pointer;"
             class="child"
           >
-          <div (click)= "onCategoryClicked(category.display)">
+            <div (click)="onCategoryClicked(category.display)">
               <i class="{{ category.icon }} icon"></i>
               <div class="inner-div-text">{{ category.display }}</div>
-          </div>
-           
+            </div>
           </div>
         </div>
         <button class="view-all-categories" (click)="onCategoryClicked(null)">

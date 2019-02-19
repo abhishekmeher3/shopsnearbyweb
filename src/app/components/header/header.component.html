@@ -41,19 +41,24 @@
         <div id="shop-details" *ngIf="route === 'shop-details'">
           <div class="row">
             <div class="col-9">
-              <div
-                style="display: inline-block;height: 100%;"
-                class="align-middle"
-              >
-                <i class="fa fa-arrow-left" style="color: orange;"></i>
-              </div>
-
-              <div style="display: inline-block; margin-left: 13px;">
-                <div style="color:orange;font-size: 23px;">
-                  Bikanervala
+              <div class="row">
+                <div
+                  class="col-1"
+                  style="margin-top: auto; margin-bottom: auto;"
+                >
+                  <i class="fa fa-arrow-left" style="color: orange;"></i>
                 </div>
-                <div style="color: #fff;font-size: 15px;">
-                  North Indian, Chat, Sweet Shop
+                <div class="col-10">
+                  <div style="color:orange;font-size: 18px;">
+                    {{ shopDetails?.name ? shopDetails.name : 'Not Available' }}
+                  </div>
+                  <div style="color: #fff;font-size: 15px;">
+                    {{
+                      shopDetails?.category
+                        ? shopDetails.category
+                        : 'Not Available'
+                    }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -70,9 +75,11 @@
                     color: #000;
                     text-align: center;"
                 >
-                  4.1/5
+                  {{ shopDetails?.rating ? shopDetails.rating + '/ 5' : 'N.A' }}
                 </div>
-                <div style="font-size: 15px;">2124 votes</div>
+                <div style="font-size: 13px;">
+                  2124 votes
+                </div>
               </div>
             </div>
           </div>
@@ -147,22 +154,25 @@
       >
         <div class="row">
           <div class="col-9">
-            <div
-              style="display: inline-block;height: 100%;"
-              class="align-middle"
-            >
-              <i class="fa fa-arrow-left" style="color: orange;"></i>
-            </div>
-
-            <div style="display: inline-block; margin-left: 15px;">
-              <div style="color:orange;font-size: 23px;">
-                Bikanervala
+            <div class="row">
+              <div class="col-1" style="margin-top: auto; margin-bottom: auto;">
+                <i class="fa fa-arrow-left" style="color: orange;"></i>
               </div>
-              <div style="color: #fff;font-size: 15px;">
-                North Indian, Chat, Sweet Shop
+              <div class="col-11">
+                <div style="color:orange;font-size: 23px;">
+                  {{ shopDetails?.name ? shopDetails.name : 'Not Available' }}
+                </div>
+                <div style="color: #fff;font-size: 18px;">
+                  {{
+                    shopDetails?.category
+                      ? shopDetails.category
+                      : 'Not Available'
+                  }}
+                </div>
               </div>
             </div>
           </div>
+
           <div class="col-3">
             <div
               style="position: absolute;bottom: 0px;color: #fff;right: 0px;
@@ -176,7 +186,7 @@
                   color: #000;
                   text-align: center;"
               >
-                4.1/5
+                {{ shopDetails?.rating ? shopDetails.rating + '/ 5' : 'N.A' }}
               </div>
               <div style="font-size: 15px;">2124 votes</div>
             </div>
