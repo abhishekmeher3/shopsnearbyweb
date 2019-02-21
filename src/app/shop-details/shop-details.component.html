@@ -13,20 +13,71 @@
   <div class="padded" style="padding-top: 20px; padding-bottom: 20px">
     <div class="row">
       <div class="col-md-12">
-        <div class="button-detail">
-          <i class="fa fa-bookmark" style="margin-right: 10px;"></i>Bookmark
+        <div class="button-detail" (click)="onBookmarkClick()">
+          <span *ngIf="routedShop?.bookmarkId === null">
+            <i class="fa fa-bookmark" style="margin-right: 10px;"></i>Bookmark
+          </span>
+          <span *ngIf="routedShop?.bookmarkId">Un-Bookmark</span>
         </div>
-        <div class="button-detail">
+        <div class="button-detail" data-toggle="modal" data-target="#modal">
           <i class="fa fa-star" style="margin-right: 10px;"></i>Rate
         </div>
+        <!-- Modal -->
         <div
-          class="button-detail"
-          (click)="copyURLToClipboard(); toast = true"
-          style="cursor: pointer;"
+          class="modal fade"
+          id="modal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
         >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Please rate</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <star-rating
+                  [starType]="'svg'"
+                  [rating]="currentRating"
+                  (ratingChange)="currentRating = $event.rating"
+                ></star-rating>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="onRateModalClose()"
+                >
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="button-detail" (click)="copyURLToClipboard()">
           <i class="fa fa-share-alt" style="margin-right: 10px;"></i>Share
         </div>
-        <basic-toast *ngIf="toast" (closeEvent)="toast = false"></basic-toast>
+        <basic-toast
+          *ngIf="toast"
+          [text]="toastText"
+          (closeEvent)="toast = false"
+        ></basic-toast>
       </div>
     </div>
     <div class="row">
@@ -130,8 +181,10 @@
       <div class="col-md-12">
         <div style="display: flex;justify-content: space-between;width: 100%;">
           <div>
-            <h3>Offers by {{routedShop ? routedShop.name : "Loading..."}}</h3>
-            <p>View Offers by {{routedShop ? routedShop.name : "Loading..."}}</p>
+            <h3>Offers by {{ routedShop ? routedShop.name : 'Loading...' }}</h3>
+            <p>
+              View Offers by {{ routedShop ? routedShop.name : 'Loading...' }}
+            </p>
           </div>
           <button style="background:transparent;border:none;">View all</button>
         </div>

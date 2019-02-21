@@ -8,6 +8,7 @@ import {
 } from '@angular/material';
 import {ComponentsModule} from '../components/components.module';
 import {TimeFormat} from './24-12hr.pipe';
+import {StarRatingModule} from 'angular-star-rating';
 
 @NgModule({
   declarations: [ShopDetailsComponent, TimeFormat],
@@ -17,6 +18,7 @@ import {TimeFormat} from './24-12hr.pipe';
     MatButtonModule,
     MatProgressBarModule,
     ComponentsModule,
+    StarRatingModule.forRoot(),
   ],
   providers: [],
   bootstrap: [ShopDetailsComponent],

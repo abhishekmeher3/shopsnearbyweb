@@ -2,7 +2,7 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'font-awesome/css/font-awesome.css';
 @import '~ng-pick-datetime/assets/style/picker.min.css';
-
+@import '~css-star-rating/css/star-rating.css';
 html,
 body {
   height: 100%;
@@ -18,4 +18,9 @@ body {
 
 .slick-prev:before {
   color: #000;
+}
+
+*:focus {
+  outline: 0;
+  outline: none;
 }

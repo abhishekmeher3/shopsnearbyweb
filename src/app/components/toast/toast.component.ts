@@ -5,6 +5,7 @@ import {
   AfterContentInit,
   EventEmitter,
   Output,
+  Input,
 } from '@angular/core';
 
 @Component({
@@ -15,10 +16,9 @@ import {
 export class ToastComponent implements AfterContentInit {
   @ViewChild('toast') toast: ElementRef;
   @Output() closeEvent: EventEmitter<any> = new EventEmitter<any>();
-  toastText: string = '';
+  @Input('text') toastText: string;
   ngAfterContentInit() {
     const element = this.toast.nativeElement;
-    this.toastText = 'URL copied to clipboard';
     element.className = 'show';
     let k = this;
     setTimeout(function() {

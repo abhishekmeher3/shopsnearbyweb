@@ -38,6 +38,28 @@ export class ShopsService {
     return this.http.post<any>(`${config.API_URL}/shops/others`, body, options);
   }
 
+  addBookmark(userLogin: UserLogin, shopId): Observable<any> {
+    let body = new FormData();
+    body.set('shopId', shopId);
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: this.getBasicAuthhash(userLogin),
+      }),
+    };
+    return this.http.post<any>(`${config.API_URL}/bookmarks`, body, options);
+  }
+
+  deleteBookmark(userLogin: UserLogin, bookmarkId): Observable<any> {
+    let body = new FormData();
+    body.set('id', bookmarkId);
+    const options = {
+      headers: this.setBasicAuthHeader(userLogin),
+      body: body,
+    };
+    return this.http.delete<any>(`${config.API_URL}/bookmarks/`, options);
+  }
+
   getSlideConfiguration() {
     return {
       infinite: false,

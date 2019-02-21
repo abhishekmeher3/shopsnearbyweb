@@ -14,6 +14,9 @@ declare var jQuery: any;
   providers: [ShopDetailsService],
 })
 export class ShopDetailsComponent implements OnInit {
+  currentRating = 0;
+  toast = false;
+  toastText = '';
   routedShop = null;
   currentDistanceFromShop: number;
   addressObj = null;
@@ -96,6 +99,37 @@ export class ShopDetailsComponent implements OnInit {
       '_blank'
     );
   }
+  onBookmarkClick() {
+    const userLogin = {
+      email: this.userService.getUserFromLocalStorage().email,
+      password: this.userService.getUserFromLocalStorage().password,
+    };
+    if (this.routedShop.bookmarkId) {
+      // There is a bookmarkId for that shop, for that particular user.
+      // delete bookmark
+      this.shopService
+        .deleteBookmark(userLogin, this.routedShop.bookmarkId)
+        .subscribe(response => {
+          this.showToast('Shop un-bookmarked');
+        });
+    } else {
+      // There is no bookmarkId for that shop, for that particular user.
+      // add bookmark
+      this.shopService
+        .addBookmark(userLogin, this.routedShop.id)
+        .subscribe(response => {
+          this.showToast('Shop bookmarked');
+        });
+    }
+  }
+  onRateModalClose() {
+    jQuery('#modal').modal('hide');
+    console.log(this.currentRating);
+  }
+  showToast(str) {
+    this.toast = true;
+    this.toastText = str;
+  }
   initializeSlick(str: string) {
     let self = this;
     jQuery(document).ready(function() {
@@ -109,8 +143,8 @@ export class ShopDetailsComponent implements OnInit {
     };
 
     this.shopService.searchShopById(shopId, userLogin).subscribe(shop => {
-      this.gallery.shift()
-      this.gallery.unshift(shop.imageUrl)
+      this.gallery.shift();
+      this.gallery.unshift(shop.imageUrl);
       this.shopService
         .searchSimilarRestaurantsByBranchId(shop.branchId, userLogin)
         .subscribe(shops => {
@@ -129,6 +163,7 @@ export class ShopDetailsComponent implements OnInit {
   copyURLToClipboard() {
     const str = (window as any).location.href;
     this.shopsDetailsServ.copyToClipboard(str);
+    this.showToast('URL copied to clipboard');
   }
   prepareUI() {
     this.setMap({
