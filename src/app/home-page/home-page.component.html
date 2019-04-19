@@ -1,0 +1,162 @@
+<mat-progress-bar
+  mode="indeterminate"
+  color="accent"
+  [hidden]="!loading"
+  id="loadingBar"
+></mat-progress-bar>
+<div class="container-fluid">
+  <shopsnearby-header
+    [route]="'home'"
+    [paths] = "paths"
+    [currentLocation]="currentLocation"
+    (onSearchClick)="onSearchClicked($event)"
+    (onLocationChanged)="onLocationChanged($event)"
+  ></shopsnearby-header>
+  <div class="padded" style="margin-top: 50px;">
+    <div>Trending Search: {{ trendingSearches }}</div>
+    <div class="row top-row-margin">
+      <div class="col-md-8">
+        <div style="font-size: 23px;">Popular Categories</div>
+        <p>Explore Nearby Restaurants, Hospitals, Gyms etc by Category</p>
+        <div class="flex-container">
+          <div
+            *ngFor="let category of popularCategories"
+            style="cursor: pointer;"
+            class="child"
+          >
+            <div (click)="onCategoryClicked(category.display)">
+              <i class="{{ category.icon }} icon"></i>
+              <div class="inner-div-text">{{ category.display }}</div>
+            </div>
+          </div>
+        </div>
+        <button class="view-all-categories" (click)="onCategoryClicked(null)">
+          View All Categories
+        </button>
+      </div>
+      <div class="col-md-4" *ngIf="recommendedShops.length !== 0">
+        <div style="font-size: 23px;">Our Recommendations</div>
+        <p>Our team always curate the best for you</p>
+        <div class="recommendations">
+          <div style="color: #fff;">
+            1/{{ recommendedShops.length }} Recommendations
+          </div>
+          <div style="position: absolute; bottom: 0px;margin-bottom: 20px;">
+            <div style="color: #fff;">Nearby Garage Recommendations</div>
+            <div style="color: #fff;">20 Nearby Recommendations</div>
+            <div style="color: #fff;">View all &#10132;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="row padded"
+    style="margin-top: 50px;"
+    *ngIf="discountsAndCoupons.value.length !== 0"
+  >
+    <div class="col-12">
+      <div style="display: flex;justify-content: space-between">
+        <div>
+          <div style="font-size: 23px;">Offers Nearby You</div>
+          <p>Explore Shops Nearby you Offering discounts</p>
+        </div>
+        <button style="background:transparent;border:none;">View all</button>
+      </div>
+      <div class="{{ discountsAndCoupons.label }}">
+        <div
+          *ngFor="let slide of discountsAndCoupons.value"
+          [ngStyle]="{
+            'background-image': slide.imageUrl.endsWith('null')
+              ? 'url(' + '../../assets/img/no-image.jpeg' + ')'
+              : 'url(' + slide.imageUrl + ')'
+          }"
+          class="slide"
+          (click) = "naviageToId(slide.shopId)"
+        >
+          <div class="text-right">
+            <span> {{ slide.offPercentage }}% off </span>
+          </div>
+          <div style="position: absolute; bottom: 0px;margin-bottom: 10px;">
+            <div style="color: #fff;">{{ slide.shopname }}</div>
+            <div style="color: #fff;">View Offer &#10132;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="row padded"
+    style="margin-top: 50px;"
+    *ngIf="recommendedAndOthersShops.value.length !== 0"
+  >
+    <div class="col-12">
+      <div style="display: flex;justify-content: space-between">
+        <div>
+          <div style="font-size: 23px;">Trending Locations Nearby You</div>
+          <p>Explore Experiences Nearby you</p>
+        </div>
+        <button style="background:transparent;border:none;">View all</button>
+      </div>
+
+      <div class="{{ recommendedAndOthersShops.label }}">
+        <div
+          *ngFor="let slide of recommendedAndOthersShops.value"
+          [ngStyle]="{
+            'background-image': slide.imageUrl.endsWith('null')
+              ? 'url(' + '../../assets/img/no-image.jpeg' + ')'
+              : 'url(' + slide.imageUrl + ')'
+          }"
+          class="slide"
+          (click) = "naviageToId(slide.id)"
+        >
+          <div style="position: absolute; bottom: 0px;margin-bottom: 10px;">
+            <div style="color: #fff;">{{ slide.description }}</div>
+            <div style="color: #fff;">View Shops Nearby &#10132;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="padded" style="margin: 50px 0px">
+    <div class="row">
+      <div class="col-md-6" style="text-align: center;">
+        <img src="../../assets/img/mobile.png" style="max-width: 100%;" />
+      </div>
+      <div class="col-md-6" style="padding: 20px 0px;">
+        <div style="font-size: 24px">Download the App</div>
+        <p>Explore more than 100+ nearby stops on the Shops Nearby You App</p>
+        <div class="phone-number-link" style="margin-top: 20px;">
+          <p>Send a link via SMS to install the app</p>
+          <div class="input-group mb-3">
+            <input
+              aria-label="+ 91"
+              class="form-control text-box-link"
+              placeholder="+ 91"
+              type="text"
+            />
+            <div class="input-group-append">
+              <span class="input-group-text">Send Link</span>
+            </div>
+          </div>
+        </div>
+        <span>
+          <button
+            type="button"
+            style="width: 145px; height: 50px;background: transparent;background-repeat: no-repeat;background-size: 100% 100%; border-radius: 5px;background-image: url('../../assets/img/android-app-playstore-logo.png')"
+            class="btn img-fluid"
+          ></button>
+        </span>
+        <span>
+          <button
+            type="button"
+            style="width: 145px; height: 50px;background: transparent;background-repeat: no-repeat;background-size: 100% 100%; border-radius: 5px;background-image: url('../../assets/img/apple-appstore-logo.png')"
+            class="btn img-fluid"
+          ></button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <shopsnearby-footer></shopsnearby-footer>
+</div>

@@ -1,0 +1,420 @@
+<div class="container-fluid">
+  <shopsnearby-header [route]="'add-shop'"></shopsnearby-header>
+  <div class="row padded" style="margin-top: 20px;">
+    <div class="col-md-8 order-md-1 order-lg-1 order-xl-1 order-2 order-sm-2">
+      <form
+        novalidate
+        #form="ngForm"
+        (ngSubmit)="
+          form.valid &&
+            compareTime(
+              form.controls.startTime.value,
+              form.controls.endTime.value
+            ) &&
+            onSubmit(form)
+        "
+      >
+        <div class="form-group">
+          <label for="shop-name">Shop Name</label>
+          <input
+            class="form-control"
+            id="shop-name"
+            name="shopName"
+            ngModel
+            type="text"
+            required
+          />
+          <div *ngIf="form.submitted && form.controls.shopName.invalid">
+            <div
+              *ngIf="form.controls.shopName.errors.required"
+              style="color: red;"
+            >
+              Shop name is required
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="shop-category">Shop Category</label>
+              <select
+                ngModel
+                name="shopCategory"
+                class="form-control"
+                id="shop-category"
+                required
+              >
+                <option
+                  *ngFor="let category of categories"
+                  [ngValue]="category"
+                >
+                  {{ category }}</option
+                >
+              </select>
+              <div *ngIf="form.submitted && form.controls.shopCategory.invalid">
+                <div
+                  *ngIf="form.controls.shopCategory.errors.required"
+                  style="color: red;"
+                >
+                  Shop category is required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="shop-website">Shop Website (if any)</label>
+              <input
+                class="form-control"
+                id="shop-website"
+                ngModel
+                name="shopWebsite"
+                type="text"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12" style="padding: 0px;">
+          <div class="form-group">
+            <label for="shop-description">Shop Description</label>
+            <textarea
+              class="form-control"
+              id="shop-description"
+              type="text"
+              placeholder="Toys"
+              style="height:150px;"
+              name="shopDescription"
+              ngModel
+              required
+            ></textarea>
+            <div
+              *ngIf="form.submitted && form.controls.shopDescription.invalid"
+            >
+              <div
+                *ngIf="form.controls.shopDescription.errors.required"
+                style="color: red;"
+              >
+                Shop description is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <label for="start-timing">Timings</label>
+              <!-- https://danielykpan.github.io/date-time-picker/ -->
+              <!-- Timepicker docs and implementation -->
+              <input
+                class="form-control"
+                id="start-timing"
+                type="text"
+                [owlDateTime]="dt1"
+                [owlDateTimeTrigger]="dt1"
+                name="startTime"
+                ngModel
+                required
+              />
+              <div *ngIf="form.submitted && form.controls.startTime.invalid">
+                <div
+                  *ngIf="form.controls.startTime.errors.required"
+                  style="color: red;"
+                >
+                  Start time is required
+                </div>
+              </div>
+              <div
+                *ngIf="
+                  form.submitted &&
+                  form.controls.startTime.valid &&
+                  form.controls.endTime.valid &&
+                  !compareTime(
+                    form.controls.startTime.value,
+                    form.controls.endTime.value
+                  )
+                "
+                style="color: red;"
+              >
+                Start time can't be greater than or equal to end time
+              </div>
+              <owl-date-time #dt1 [pickerType]="'timer'"></owl-date-time>
+            </div>
+          </div>
+          <div class="col-md-2" style="text-align:center;margin: auto;">to</div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <label for="end-timing">&nbsp;</label>
+              <input
+                class="form-control"
+                id="end-timing"
+                type="text"
+                [owlDateTime]="dt2"
+                [owlDateTimeTrigger]="dt2"
+                name="endTime"
+                ngModel
+                required
+              />
+              <div *ngIf="form.submitted && form.controls.endTime.invalid">
+                <div
+                  *ngIf="form.controls.endTime.errors.required"
+                  style="color: red;"
+                >
+                  End time is required
+                </div>
+              </div>
+              <owl-date-time #dt2 [pickerType]="'timer'"></owl-date-time>
+            </div>
+          </div>
+        </div>
+        <div ngModelGroup="address">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="shop-address-line-1">Address</label>
+                <input
+                  class="form-control"
+                  id="shop-address-line-1"
+                  type="text"
+                  placeholder="House / Flat / Apt No."
+                  [(ngModel)]="address.flatNum"
+                  name="flatNum"
+                  required
+                  [readonly]="loaderForReadOnly"
+                />
+                <div
+                  *ngIf="
+                    form.submitted &&
+                    form.controls.address.controls.flatNum.invalid
+                  "
+                >
+                  <div
+                    *ngIf="
+                      form.controls.address.controls.flatNum.errors.required
+                    "
+                    style="color: red;"
+                  >
+                    Flat number is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="shop-address-line-2">&nbsp;</label>
+                <input
+                  class="form-control"
+                  id="shop-address-line-2"
+                  type="text"
+                  placeholder="Building Name"
+                  [(ngModel)]="address.buildingName"
+                  name="buildingName"
+                  required
+                  [readonly]="loaderForReadOnly"
+                />
+                <div
+                  *ngIf="
+                    form.submitted &&
+                    form.controls.address.controls.buildingName.invalid
+                  "
+                >
+                  <div
+                    *ngIf="
+                      form.controls.address.controls.buildingName.errors
+                        .required
+                    "
+                    style="color: red;"
+                  >
+                    Building name is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  id="shop-address-line-3"
+                  type="text"
+                  placeholder="Locality"
+                  [(ngModel)]="address.locality"
+                  name="locality"
+                  required
+                  [readonly]="loaderForReadOnly"
+                />
+                <div
+                  *ngIf="
+                    form.submitted &&
+                    form.controls.address.controls.locality.invalid
+                  "
+                >
+                  <div
+                    *ngIf="
+                      form.controls.address.controls.locality.errors.required
+                    "
+                    style="color: red;"
+                  >
+                    Locality is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  id="shop-address-line-4"
+                  type="text"
+                  placeholder="City"
+                  [(ngModel)]="address.city"
+                  name="city"
+                  required
+                  [readonly]="loaderForReadOnly"
+                />
+                <div
+                  *ngIf="
+                    form.submitted &&
+                    form.controls.address.controls.city.invalid
+                  "
+                >
+                  <div
+                    *ngIf="form.controls.address.controls.city.errors.required"
+                    style="color: red;"
+                  >
+                    City is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  id="shop-address-line-5"
+                  type="text"
+                  placeholder="State"
+                  [(ngModel)]="address.state"
+                  name="state"
+                  required
+                  [readonly]="loaderForReadOnly"
+                />
+                <div
+                  *ngIf="
+                    form.submitted &&
+                    form.controls.address.controls.state.invalid
+                  "
+                >
+                  <div
+                    *ngIf="form.controls.address.controls.state.errors.required"
+                    style="color: red;"
+                  >
+                    State is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  id="shop-address-line-6"
+                  type="number"
+                  placeholder="Pincode"
+                  [(ngModel)]="address.pincode"
+                  name="pincode"
+                  required
+                  [readonly]="loaderForReadOnly"
+                />
+                <div
+                  *ngIf="
+                    form.submitted &&
+                    form.controls.address.controls.pincode.invalid
+                  "
+                >
+                  <div
+                    *ngIf="
+                      form.controls.address.controls.pincode.errors.required
+                    "
+                    style="color: red;"
+                  >
+                    Pincode is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="inValidAddress">
+            <div class="col-md-12 form-group">
+              <div style="color: red">This is an invalid address</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <agm-map
+              style="height: 400px; width: 100%;background-color: grey;"
+              [latitude]="latitude"
+              [longitude]="longitude"
+              (mapClick)="onMapClick($event)"
+            >
+              <agm-marker
+                [latitude]="latitude"
+                [longitude]="longitude"
+              ></agm-marker>
+            </agm-map>
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 100px;">
+          <div class="form-group col-md-12">
+            <button type="submit" class="btn btn-default loginbtn">
+              Submit
+            </button>
+            <button
+              style="margin-left:20px;background: transparent; border: none;"
+              id="login_click"
+              type="button"
+              (click)="resetForm(form)"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4 order-md-2 order-lg-2 order-xl-2 order-1 order-sm-1">
+      <div style="margin-left: 6px;text-align: center;">Shop Logo</div>
+      <div
+        class="border"
+        style="margin: 20px auto;background: lightgrey;text-align:center;"
+        fileUpload
+        [imgUpload]="'imgupload'"
+      >
+        <input
+          type="file"
+          id="imgupload"
+          style="display:none"
+          accept="image/*"
+          (change)="onImageSelected($event)"
+        />
+        <div style="position: relative; top: 85px;" *ngIf="!imageUpload">
+          <i
+            class="fa fa-camera"
+            aria-hidden="true"
+            style="font-size: 54px;"
+          ></i>
+          <p>250 * 250</p>
+        </div>
+        <img
+          [src]="selectedImageUrl"
+          height="100%"
+          width="100%"
+          *ngIf="imageUpload"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="footer">Copyright © Shops Nearby Me. All Rights Reserved</div>
+</div>

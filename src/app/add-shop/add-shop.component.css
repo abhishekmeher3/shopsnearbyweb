@@ -1,0 +1,79 @@
+
+  .padded {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #5b5b5b;
+    color: white;
+    padding: 10px 0px;
+    text-align: center;
+  }
+
+  .border {
+    width: 250px;
+    height: 250px;
+    margin: 6px;
+    background-color: #cacaca;
+    border-color: #1d2463;
+  }
+
+  label {
+    color: #676767;
+  }
+
+  .form-control {
+    border-width: 1px;
+    border-color: #1d2463;
+    box-sizing: border-box;
+  }
+
+  .loginbtn {
+    background: #f4b11b;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-size: 15px;
+    border-radius: 20px;
+  }
+
+  .login_click {
+    color: #676767;
+    font-family: Arial;
+    margin-left: 30px;
+    size: 17px;
+  }
+
+  .login {
+    color: black;
+    font-family: Arial;
+    margin-left: 20px;
+    size: 17px;
+  }
+  .owl-dt-container-buttons {
+    height: 40px;
+    color: #000;
+    
+  }
+
+  .owl-dt-container-buttons.owl-dt-control-button:first-child {
+    border-right: 1px solid #000;
+  }
+
+  shopsnearby-header {
+    
+    
+  }
+
+
+shopsnearby-header.padded:first-child {
+  padding-bottom: 25px;
+}
+
+
+shopsnearby-header.small-devices-header {
+  padding-bottom: 25px;
+}

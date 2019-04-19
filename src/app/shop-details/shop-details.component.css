@@ -1,0 +1,91 @@
+.padded {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+.navLinks {
+  display: inline-block;
+  font-size: 12px;
+  color: white;
+  margin-right: 2px;
+}
+.view-all-categories {
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #000;
+  width: 100%;
+  padding: 15px 0px;
+}
+.recommendations {
+  padding: 20px;
+  background-image: url('../../assets/img/movie.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 250px;
+  position: relative;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-family: FontAwesome;
+  font-size: 40px;
+  line-height: 1;
+  opacity: 0.75;
+  color: grey;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.slick-prev {
+  left: -36px;
+}
+.slick-prev:before {
+  content: '\f137';
+}
+.slick-next:before {
+  content: '\f138';
+}
+.slide {
+  margin: 0px 10px;
+  background-repeat: no-repeat;
+  padding: 10px;
+  height: 200px;
+  position: relative;
+  background-size: 100% 100%;
+}
+.slide.span {
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  color: #000;
+  font-size: 15px;
+  padding: 3px 15px;
+}
+
+.button-detail {
+  margin-right: 15px;
+  margin-bottom: 15px;
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0px 1px 23px 3px #ccc;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+.child {
+  height: 130px;
+  width: 130px;
+  background: #fff;
+  border: 1px solid #000;
+  margin: 0px 12px 12px 0px;
+  text-align: center;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.inner-div-text {
+  line-height: 18px;
+  margin-top: 10px;
+}

@@ -1,0 +1,257 @@
+<mat-progress-bar
+  mode="indeterminate"
+  color="accent"
+  [hidden]="!loading"
+  class="loadingBar"
+></mat-progress-bar>
+<div class="container-fluid">
+  <!-- No. of votes is yet to be passed to header component -->
+  <shopsnearby-header
+    [route]="'shop-details'"
+    [shopDetails]="routedShop"
+  ></shopsnearby-header>
+  <div class="padded" style="padding-top: 20px; padding-bottom: 20px">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="button-detail" (click)="onBookmarkClick()">
+          <span *ngIf="routedShop?.bookmarkId === null">
+            <i class="fa fa-bookmark" style="margin-right: 10px;"></i>Bookmark
+          </span>
+          <span *ngIf="routedShop?.bookmarkId">Un-Bookmark</span>
+        </div>
+        <div class="button-detail" data-toggle="modal" data-target="#modal">
+          <i class="fa fa-star" style="margin-right: 10px;"></i>Rate
+        </div>
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="modal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Please rate</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <star-rating
+                  [starType]="'svg'"
+                  [rating]="currentRating"
+                  (ratingChange)="currentRating = $event.rating"
+                ></star-rating>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="onRateModalClose()"
+                >
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="button-detail" (click)="copyURLToClipboard()">
+          <i class="fa fa-share-alt" style="margin-right: 10px;"></i>Share
+        </div>
+        <basic-toast
+          *ngIf="toast"
+          [text]="toastText"
+          (closeEvent)="toast = false"
+        ></basic-toast>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div style="font-size: 20px;">Phone Numbers</div>
+        <div class="phone-numbers" style="margin-top: 10px;font-size: 14px;">
+          <div *ngIf="routedShop?.phoneNumber">
+            {{ routedShop?.phoneNumber }}
+          </div>
+          <div
+            *ngIf="
+              routedShop?.shopOwner?.ownerPhoneNum &&
+              routedShop?.shopOwner?.ownerPhoneNum !== routedShop?.phoneNumber
+            "
+          >
+            {{ routedShop?.shopOwner?.ownerPhoneNum }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div style="font-size: 20px;">Address</div>
+        <div class="address" style="margin-top: 10px;font-size: 14px;">
+          <div style="color: red;" *ngIf="currentDistanceFromShop">
+            {{ currentDistanceFromShop }} Kms Away
+          </div>
+          <div *ngIf="addressObj && addressObj.isJSON">
+            <div>
+              <span *ngIf="addressObj.houseNumber">{{
+                addressObj.houseNumber
+              }}</span>
+              <span *ngIf="addressObj.building">
+                {{ ', ' + addressObj.building }}
+              </span>
+            </div>
+            <div *ngIf="addressObj.locality">
+              {{ addressObj.locality }}
+            </div>
+            <div>
+              <span *ngIf="addressObj.city">
+                {{ addressObj.city }}
+              </span>
+              <span *ngIf="addressObj.state">
+                {{ ', ' + addressObj.state }}
+              </span>
+              <span *ngIf="addressObj.pincode">
+                {{ ' ' + addressObj.pincode }}
+              </span>
+            </div>
+          </div>
+          <div *ngIf="addressObj && !addressObj.isJSON">
+            {{ addressObj.address }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div style="font-size: 20px;">Map</div>
+        <div
+          id="map"
+          style="width: 100%;height: 300px;border: 1px solid #000; border-radius: 8px;"
+          (click)="openMapsInNewTab($event)"
+        ></div>
+      </div>
+    </div>
+    <div class="row" *ngIf="routedShop?.timeTo">
+      <div class="col-md-12">
+        <div style="font-size: 20px;">Open Timings</div>
+        <div class="phone-numbers" style="margin-top: 10px;font-size: 14px;">
+          <div>Open till {{ routedShop.timeTo | convert24To12Format }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 35px;">
+      <div class="col-md-12">
+        <div style="font-size: 20px;">Gallery</div>
+        <div class="flex-container" style="margin-top: 10px;">
+          <div
+            *ngFor="let url of (gallery | slice: 0:4); let i = index"
+            style="cursor: pointer;"
+            class="child"
+            [ngStyle]="{'background-image': 'url(' + url + ')'}"
+          ></div>
+          <div
+            class="child"
+            style="cursor: pointer;display: table;"
+            *ngIf="gallery.length > 4"
+          >
+            <div style="padding: 20px 20px 0px 20px;text-align: center;">
+              <i class="fa fa-arrow-right" style="color: orange"></i>
+              <div>View All Photos</div>
+            </div>
+            <div
+              style="background: grey;text-align: center;display: table-row; color: #fff;"
+            >
+              +{{ gallery.length - 4 }} Photos
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 35px;">
+      <div class="col-md-12">
+        <div style="display: flex;justify-content: space-between;width: 100%;">
+          <div>
+            <h3>Offers by {{ routedShop ? routedShop.name : 'Loading...' }}</h3>
+            <p>
+              View Offers by {{ routedShop ? routedShop.name : 'Loading...' }}
+            </p>
+          </div>
+          <button style="background:transparent;border:none;">View all</button>
+        </div>
+        <div class="{{ selectedRestaurant.label }}">
+          <div
+            *ngFor="let slide of selectedRestaurant.value"
+            [ngStyle]="{
+              'background-image':
+                slide.imageUrl && slide.imageUrl.endsWith('null')
+                  ? 'url(' + '../../assets/img/no-image.jpeg' + ')'
+                  : 'url(' + slide.imageUrl + ')'
+            }"
+            class="slide"
+          >
+            <div style="text-align: right;"><span>10% off</span></div>
+            <div style="position: absolute; bottom: 0px;margin-bottom: 10px;">
+              <div style="color: #fff;">Mon to Fri: Buffet Breakfast</div>
+              <div style="color: #fff;">
+                Valid for: 1 Person | Valid on: Mon-Fri
+              </div>
+              <div style="color: #fff;">View Offer &#10132;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="row"
+      style="margin-top: 35px;"
+      *ngIf="this.similarRestaurants.value.length > 0"
+    >
+      <div class="col-md-12">
+        <div style="display: flex;justify-content: space-between;width: 100%;">
+          <div>
+            <h3>Similar Restaurants Nearby You</h3>
+            <p>View more similar restaurants nearby you</p>
+          </div>
+          <button style="background:transparent;border:none;">View all</button>
+        </div>
+
+        <div class="{{ similarRestaurants.label }}">
+          <div
+            *ngFor="let slide of similarRestaurants.value"
+            [ngStyle]="{
+              'background-image':
+                slide.imageUrl && slide.imageUrl.endsWith('null')
+                  ? 'url(' + '../../assets/img/no-image.jpeg' + ')'
+                  : 'url(' + slide.imageUrl + ')'
+            }"
+            class="slide"
+          >
+            <div style="text-align: right;">
+              <span style="margin-right: 10px;"
+                ><i class="fa fa-share-alt"></i
+              ></span>
+              <span><i class="fa fa-star"></i></span>
+            </div>
+            <div style="position: absolute; bottom: 0px;margin-bottom: 10px;">
+              <div style="color: #fff;">Fat Pigeon - Bar Hop</div>
+              <div style="color: #fff;">Continental, Mexican, North Indian</div>
+              <div style="color: #fff;">1km away</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <shopsnearby-footer></shopsnearby-footer>
+</div>
