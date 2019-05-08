@@ -2,8 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {ShopsService} from 'src/core/services/shops.service';
 import {UserService} from 'src/core/services/user.service';
 import {GeocodeService} from 'src/core/services/geocode.service';
-import {LatLng, UserLogin, ResolvedAddress, HeaderPath} from 'src/core/models/Models';
+import {
+  LatLng,
+  UserLogin,
+  ResolvedAddress,
+  HeaderPath,
+} from 'src/core/models/Models';
 import {Router} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 
 declare var jQuery: any;
 
@@ -27,7 +33,7 @@ export class HomePageComponent implements OnInit {
   currentLocation: string = 'Hyderabad';
   loading: boolean = false;
   trendingSearches: String[] = ['Gyms, Car Repair, Medical Hall'];
-  paths: HeaderPath[] = []
+  paths: HeaderPath[] = [];
   popularCategories = [
     {display: 'Restaurants', value: 'restaurants', icon: 'fa fa-car'},
     {display: 'Parks', value: 'parks', icon: 'fa fa-car'},
@@ -162,10 +168,11 @@ export class HomePageComponent implements OnInit {
     private shopService: ShopsService,
     private userService: UserService,
     private geoCodeService: GeocodeService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {
-    let latlng = this.geoCodeService.getSavedLocation().latlng
-    this.currentLocation = this.geoCodeService.getSavedLocation().formattedAddress
+    let latlng = this.geoCodeService.getSavedLocation().latlng;
+    this.currentLocation = this.geoCodeService.getSavedLocation().formattedAddress;
     this.updateData(latlng);
   }
 
@@ -179,7 +186,8 @@ export class HomePageComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.paths.push({display: "Home", path: "/home"})
+    this.titleService.setTitle('HOME');
+    this.paths.push({display: 'Home', path: '/home'});
   }
 
   onLocateClicked() {
@@ -250,24 +258,26 @@ export class HomePageComponent implements OnInit {
       });
   }
 
-  onSearchClicked(searchTerm){
+  onSearchClicked(searchTerm) {
     this.router.navigate(['/filters'], {queryParams: {q: searchTerm}});
   }
 
-  onLocationChanged(address: ResolvedAddress){
-    this.updateData(address.latlng)
-    this.currentLocation = address.formattedAddress
+  onLocationChanged(address: ResolvedAddress) {
+    this.updateData(address.latlng);
+    this.currentLocation = address.formattedAddress;
   }
 
-  onCategoryClicked(categoryText){
-      if(!categoryText){
-        this.router.navigateByUrl('/filters');
-      }else{        
-        this.router.navigate(['/filters'], {queryParams: {category: categoryText}});
-      }
+  onCategoryClicked(categoryText) {
+    if (!categoryText) {
+      this.router.navigateByUrl('/filters');
+    } else {
+      this.router.navigate(['/filters'], {
+        queryParams: {category: categoryText},
+      });
+    }
   }
 
-  naviageToId(id){
-    this.router.navigateByUrl(`/details/${id}`)
+  naviageToId(id) {
+    this.router.navigateByUrl(`/details/${id}`);
   }
 }

@@ -5,6 +5,7 @@ import { UserLogin, LatLng, ResolvedAddress, HeaderPath } from 'src/core/models/
 import { UserService } from 'src/core/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GeocodeService } from 'src/core/services/geocode.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-filters-page',
@@ -28,7 +29,8 @@ export class FiltersPageComponent implements OnInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private geocodeService: GeocodeService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {
 
     this.currentLatlng = this.geocodeService.getSavedLocation().latlng
@@ -36,6 +38,7 @@ export class FiltersPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('FILTERS');
     this.loading = true;
     this.paths.push({display: "Home", path: "/home"})
     this.paths.push({display: "Categories", path: "/filters"})
