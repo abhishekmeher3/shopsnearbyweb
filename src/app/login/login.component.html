@@ -1,4 +1,9 @@
-<mat-progress-bar mode="indeterminate" color="accent" [hidden]="!loading" id="loadingBar"></mat-progress-bar>
+<mat-progress-bar
+  mode="indeterminate"
+  color="accent"
+  [hidden]="!loading"
+  id="loadingBar"
+></mat-progress-bar>
 <div class="row">
   <div class="col-md-6" style="height:100vh;padding-right: 0px">
     <div style="position:relative; height: 100%; width: 100%">
@@ -30,7 +35,6 @@
       </div>
     </div>
   </div>
-
   <div class="col-md-6" style="background:#ebebeb;padding-left: 40px">
     <div>
       <h4 style="color:#676767; margin-top: 15%;font-size: 30px">
@@ -40,7 +44,7 @@
         It is a long established fact that a reader will be <br />
         distracted by the readable content of a page when
       </h6>
-      <form>
+      <form #loginForm="ngForm" (ngSubmit)="login()">
         <div class="form-group">
           <label
             style="color:#676767;margin-top:40px; font-size: 14px"
@@ -54,8 +58,21 @@
             class="form-control textbox"
             id="exampleInputEmail1"
             placeholder="Email"
+            required
+            #user_email="ngModel"
           />
+          <div
+            *ngIf="
+              user_email.invalid && (user_email.dirty || user_email.touched)
+            "
+            style="color: red;"
+          >
+            <div *ngIf="user_email.errors.required">
+              * Email is required.
+            </div>
+          </div>
         </div>
+
         <div class="form-group">
           <label
             style="color:#676767;font-size: 14px"
@@ -69,19 +86,28 @@
             id="exampleInputPassword1"
             [(ngModel)]="password"
             placeholder="Password"
+            required
+            #pass_word="ngModel"
           />
+          <div
+            *ngIf="pass_word.invalid && (pass_word.dirty || pass_word.touched)"
+            style="color: red;"
+          >
+            <div *ngIf="pass_word.errors.required">
+              * Password is required.
+            </div>
+          </div>
+          <div *ngIf="loginError.isError" style="color: red;margin-top: 10px;">
+            {{ loginError.message }}
+          </div>
         </div>
         <div class="form-group" style="text-align: right; width: 50%">
           <a style="color:#676767; font-size: 14px" href="#" class="ForgetPwd"
-            >Forget Password?</a
+            >Forgot Password?</a
           >
         </div>
         <div class="form-group">
-          <button
-            type="button"
-            class="btn btn-default loginbtn"
-            (click)="login()"
-          >
+          <button type="submit" class="btn btn-default loginbtn">
             Login
           </button>
         </div>

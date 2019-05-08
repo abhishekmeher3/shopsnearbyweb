@@ -1,73 +1,149 @@
-<mat-progress-bar mode="indeterminate" color="accent" [hidden]="!loading" class="loadingBar"></mat-progress-bar>
+<mat-progress-bar
+  mode="indeterminate"
+  color="accent"
+  [hidden]="!loading"
+  class="loadingBar"
+></mat-progress-bar>
 <div class="row">
-    <div class="col-md-6" style="height:100vh;padding-right: 0px">
-
-        <div style="position:relative; height: 100%; width: 100%">
-            <div style="height:100%; width:100%;background-image: linear-gradient( #39278b,#15184d);position:absolute;">
-
-            </div>
-            <div style="position:absolute;height: 70%; width:100%; margin-top: 20%; overflow: hidden;white-space: nowrap;direction: rtl">
-                <img src="./assets/img/map-bg.png">
-            </div>
-            <div style="position:absolute;height: 80%;margin-top: 15%;margin-left: 10%">
-                <img style="width: 95%;" src="./assets/img/logo.svg">
-                <p style="color:white;margin-top: 20px;font-size: 30px">Explore. Discover. Share.</p>
-            </div>
-
-            <div style="position:absolute;display:flex; justify-content: flex-end; flex-direction: column;height: 100%;width: 100%">
-                <h3 style="font-size:14px;color: white; margin-bottom: 40px; text-align: center">Copyright &copy; Shops
-                    Nearby Me. All
-                    Rights reserved.</h3>
-
-            </div>
-
-        </div>
-
-
+  <div class="col-md-6" style="height:100vh;padding: 0px;">
+    <div
+      style="height:100%; width:100%;background-image: linear-gradient( #39278b,#15184d);position:absolute;"
+    ></div>
+    <div
+      style="position:absolute;height: 70%; width:100%; margin-top: 20%;direction: rtl"
+    >
+      <img src="./assets/img/map-bg.png" />
+    </div>
+    <div style="position:absolute;height: 80%;margin-top: 15%;margin-left: 10%">
+      <img style="width: 95%;" src="./assets/img/logo.svg" />
+      <p style="color:white;margin-top: 20px;font-size: 30px">
+        Explore. Discover. Share.
+      </p>
     </div>
 
-    <div class="col-md-6" style="background:#ebebeb;padding-left: 40px">
+    <div
+      style="position:absolute;display:flex; justify-content: flex-end; flex-direction: column;height: 100%;width: 100%"
+    >
+      <h3
+        style="font-size:14px;color: white; margin-bottom: 40px; text-align: center"
+      >
+        Copyright &copy; Shops Nearby Me. All Rights reserved.
+      </h3>
+    </div>
+  </div>
+
+  <div class="col-md-6" style="background:#ebebeb;padding-left: 40px">
+    <div>
+      <h4 style="color:#676767; margin-top: 15%;font-size: 30px">Hello !</h4>
+      <h6 style="color: #676767; font-size: 14px">
+        It is a long established fact that a reader will be <br />
+        distracted by the readable content of a page when
+      </h6>
+      <form>
+        <div class="form-group">
+          <label style="color:#676767;margin-top:20px; font-size: 14px"
+            >Name</label
+          >
+          <input
+            [(ngModel)]="firstName"
+            name="firstName"
+            class="form-control textbox"
+            placeholder="First Name"
+            required
+            #first_name="ngModel"
+          />
+          <div
+            *ngIf="
+              first_name.invalid && (first_name.dirty || first_name.touched)
+            "
+            style="color: red;"
+          >
+            <div *ngIf="first_name.errors.required">
+              * First name is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input
+            [(ngModel)]="lastName"
+            name="lastName"
+            class="form-control textbox"
+            placeholder="Last Name"
+            required
+            #last_name="ngModel"
+          />
+          <div
+            *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)"
+            style="color: red;"
+          >
+            <div *ngIf="last_name.errors.required">
+              * Last name is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label style="color:#676767; font-size: 14px">Email address</label>
+          <input
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            class="form-control textbox"
+            placeholder="Email"
+            required
+            #email_id="ngModel"
+          />
+          <div
+            *ngIf="email_id.invalid && (email_id.dirty || email_id.touched)"
+            style="color: red;"
+          >
+            <div *ngIf="email_id.errors.required">
+              * Email id is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label style="color:#676767;font-size: 14px">Phone Number</label>
+          <input
+            type="number"
+            name="phonenum"
+            class="form-control textbox"
+            [(ngModel)]="phonenum"
+            placeholder="Phone Number"
+            required
+            #phone_num="ngModel"
+          />
+          <div
+            *ngIf="phone_num.invalid && (phone_num.dirty || phone_num.touched)"
+            style="color: red;"
+          >
+            <div *ngIf="phone_num.errors.required">
+              * Phone number is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label style="color:#676767;font-size: 14px" for="iam">I Am</label>
+          <br />
+          <select name="selectedUserType" [(ngModel)]="selectedUserType">
+            <option *ngFor="let c of userTypes" value="{{ c.data }}">{{
+              c.display
+            }}</option>
+          </select>
+        </div>
         <div>
-            <h4 style="color:#676767; margin-top: 15%;font-size: 30px">Hello !</h4>
-            <h6 style="color: #676767; font-size: 14px">It is a long established fact that a reader will be <br>
-                distracted by the readable content of a page when</h6>
-            <form>
-                <div class="form-group">
-                    <label style="color:#676767;margin-top:20px; font-size: 14px">Name</label>
-                    <input [(ngModel)]="firstName" name="firstName" class="form-control textbox" placeholder="First Name">
-                </div>
-                <div class="form-group">
-                    <input [(ngModel)]="lastName" name="lastName" class="form-control textbox" placeholder="Last Name">
-                </div>
-                <div class="form-group">
-                    <label style="color:#676767; font-size: 14px">Email address</label>
-                    <input type="email" [(ngModel)]="email" name="email" class="form-control textbox" placeholder="Email">
-                </div>
-                <div class="form-group">
-                    <label style="color:#676767;font-size: 14px">Phone Number</label>
-                    <input type="number" name="phonenum" class="form-control textbox" [(ngModel)]="phonenum"
-                        placeholder="Phone Number">
-                </div>
-
-                <div class="form-group">
-                    <label style="color:#676767;font-size: 14px" for="iam">I Am</label>
-                    <br/>
-                    <!-- <select id="iam" [compareWith]="compareUserType" name="userType" [(ngModel)]="selectedUserType" >
-                        <option *ngFor="let x of userTypes" >{{x.display}}</option>
-                    </select> -->
-                    <select name="selectedUserType" [(ngModel)]="selectedUserType">
-                            <option *ngFor="let c of userTypes" value={{c.data}}>{{c.display}}</option>
-                      </select>
-                </div>
-
-                <div class="form-group">
-                    <button type="button" [disabled] = "loading" class="btn btn-default loginbtn" (click)="signup()">Signup</button>
-                </div>
-
-                <div style="margin-top:50px">
-                    <h6 style="color:#676767; font-size: 14px">Have an account?<a style="color: #1d2463 " href="login">Log in</a></h6>
-                </div>
-
-            </form>
+          <div>Have an account? <a href="login">Log in</a></div>
+          <button
+            type="button"
+            [disabled]="loading"
+            class="btn btn-default loginbtn"
+            style="margin-top: 20px;"
+            (click)="signup()"
+          >
+            Signup
+          </button>
         </div>
+      </form>
     </div>
+  </div>
+</div>

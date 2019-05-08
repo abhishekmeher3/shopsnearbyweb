@@ -3,6 +3,7 @@ import {ShopsService} from '../../core/services/shops.service';
 import {GeocodeService} from 'src/core/services/geocode.service';
 import {LatLng} from '../../core/models/Models';
 import {UserService} from 'src/core/services/user.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-addshop',
@@ -24,9 +25,11 @@ export class AddShop implements OnInit {
   constructor(
     private shopService: ShopsService,
     private geoCodeService: GeocodeService,
-    private userService: UserService
+    private userService: UserService,
+    private titleService: Title
   ) {}
   ngOnInit() {
+    this.titleService.setTitle('ADD SHOP');
     this.setDefaultAddress();
     this.updateResolvedAddress();
   }

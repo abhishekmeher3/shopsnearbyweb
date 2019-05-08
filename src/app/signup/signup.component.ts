@@ -58,11 +58,13 @@ export class SignupComponent implements OnInit {
   //21.4976558 lat
   // long 83.8867855
   signup() {
-    this.loading = true;
-    if (!this.currentResolvedAddress) {
-      this.getLocation();
-      setTimeout(this.checkLocationStuffDone.bind(this), 5000);
-    } else this.signup0();
+    if (this.firstName && this.lastName && this.email && this.phonenum) {
+      this.loading = true;
+      if (!this.currentResolvedAddress) {
+        this.getLocation();
+        setTimeout(this.checkLocationStuffDone.bind(this), 5000);
+      } else this.signup0();
+    }
   }
 
   checkLocationStuffDone() {

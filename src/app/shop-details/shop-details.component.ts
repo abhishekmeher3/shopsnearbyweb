@@ -4,6 +4,7 @@ import {UserService} from 'src/core/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {ShopDetailsService} from './shop-details.service';
 import {GeocodeService} from 'src/core/services/geocode.service';
+import {Title} from '@angular/platform-browser';
 
 declare var jQuery: any;
 
@@ -55,9 +56,11 @@ export class ShopDetailsComponent implements OnInit {
     public userService: UserService,
     private route: ActivatedRoute,
     private shopsDetailsServ: ShopDetailsService,
-    private geoCodeServ: GeocodeService
+    private geoCodeServ: GeocodeService,
+    private titleService: Title
   ) {}
   ngOnInit() {
+    this.titleService.setTitle('SHOP DETAILS');
     this.sub = this.route.params.subscribe(params => {
       this.loading = true;
       this.getShopByIdAndNearbyRestaurantsByBranchId(+params['id']);
